@@ -16,6 +16,10 @@ except:
 
 logger = logging.getLogger(__name__)
 
+tmp_data_dir = ""
+if "TMPDIR" in os.environ.keys():
+    tmp_data_dir = os.path.join(os.environ["TMPDIR"], "GTR/datasets", '')
+
 def register_lvis_v1_instances(name, metadata, json_file, image_root):
     """
     Register a dataset in LVIS's json annotation format for instance detection and segmentation.
@@ -112,8 +116,8 @@ def get_lvis_v1_instances_meta():
     return meta
 
 _PREDEFINED_SPLITS_LVIS_V1 = {
-    "lvis_v1_train+coco_box": ("coco/", "lvis/lvis_v1_train+coco_box.json"),
-    "lvis_v1_train+coco_mask": ("coco/", "lvis/lvis_v1_train+coco_mask.json"),
+    "lvis_v1_train+coco_box": (tmp_data_dir+"coco/", tmp_data_dir+"lvis/lvis_v1_train+coco_box.json"),
+    "lvis_v1_train+coco_mask": (tmp_data_dir+"coco/", tmp_data_dir+"lvis/lvis_v1_train+coco_mask.json"),
 
 }
 

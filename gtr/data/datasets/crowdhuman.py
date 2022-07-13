@@ -5,6 +5,10 @@ categories = [
     {'id': 1, 'name': 'person'},
 ]
 
+tmp_data_dir = ""
+if "TMPDIR" in os.environ.keys():
+    tmp_data_dir = os.path.join(os.environ["TMPDIR"], "GTR/datasets", '')
+
 def _get_builtin_metadata():
     thing_dataset_id_to_contiguous_id = {
         x['id']: i for i, x in enumerate(sorted(categories, key=lambda x: x['id']))}
@@ -14,8 +18,8 @@ def _get_builtin_metadata():
         "thing_classes": thing_classes}
 
 _PREDEFINED_SPLITS_CROWDHUMAN = {
-    "crowdhuman_train": ("crowdhuman/CrowdHuman_train/Images/", "crowdhuman/annotations/train_amodal.json"),
-    "crowdhuman_val": ("crowdhuman/CrowdHuman_val/Images/", "crowdhuman/annotations/val_amodal.json"),
+    "crowdhuman_train": (tmp_data_dir+"crowdhuman/CrowdHuman_train/Images/", tmp_data_dir+"crowdhuman/annotations/train_amodal.json"),
+    "crowdhuman_val": (tmp_data_dir+"crowdhuman/CrowdHuman_val/Images/", tmp_data_dir+"crowdhuman/annotations/val_amodal.json"),
 }
 
 for key, (image_root, json_file) in _PREDEFINED_SPLITS_CROWDHUMAN.items():

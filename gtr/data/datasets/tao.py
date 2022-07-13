@@ -16,6 +16,9 @@ logger = logging.getLogger(__name__)
 
 __all__ = ["load_tao_json", "register_tao_instances", "get_tao_instances_meta"]
 
+tmp_data_dir = ""
+if "TMPDIR" in os.environ.keys():
+    tmp_data_dir = os.path.join(os.environ["TMPDIR"], "GTR/datasets", '')
 
 def register_tao_instances(name, metadata, json_file, image_root):
     """
@@ -165,9 +168,9 @@ def get_tao_v1_instances_meta():
 
 
 _PREDEFINED_SPLITS_TAO = {
-    "tao_train": ("tao/keyframes/", "tao/annotations/train.json"),
-    "tao_val": ("tao/keyframes/", "tao/annotations/validation.json"),
-    "tao_test": ("tao/frames/", "tao/annotations/test_without_annotations.json"),
+    "tao_train": (tmp_data_dir+"tao/keyframes/", tmp_data_dir+"tao/annotations/train.json"),
+    "tao_val": (tmp_data_dir+"tao/keyframes/", tmp_data_dir+"tao/annotations/validation.json"),
+    "tao_test": (tmp_data_dir+"tao/frames/", tmp_data_dir+"tao/annotations/test_without_annotations.json"),
 }
 
 for key, (image_root, json_file) in _PREDEFINED_SPLITS_TAO.items():
@@ -180,9 +183,9 @@ for key, (image_root, json_file) in _PREDEFINED_SPLITS_TAO.items():
 
 
 _PREDEFINED_SPLITS_TAOV1 = {
-    "tao_train_v1": ("tao/keyframes/", "tao/annotations/train_v1.json"),
-    "tao_val_v1": ("tao/keyframes/", "tao/annotations/validation_v1.json"),
-    "tao_val_v1_mini": ("tao/keyframes/", "tao/annotations/validation_v1_mini.json"),
+    "tao_train_v1": (tmp_data_dir+"tao/keyframes/", tmp_data_dir+"tao/annotations/train_v1.json"),
+    "tao_val_v1": (tmp_data_dir+"tao/keyframes/", tmp_data_dir+"tao/annotations/validation_v1.json"),
+    "tao_val_v1_mini": (tmp_data_dir+"tao/keyframes/", tmp_data_dir+"tao/annotations/validation_v1_mini.json"),
 }
 
 for key, (image_root, json_file) in _PREDEFINED_SPLITS_TAOV1.items():

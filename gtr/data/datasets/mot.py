@@ -11,6 +11,10 @@ from detectron2.structures import BoxMode
 
 logger = logging.getLogger(__name__)
 
+tmp_data_dir = ""
+if "TMPDIR" in os.environ.keys():
+    tmp_data_dir = os.path.join(os.environ["TMPDIR"], "GTR/datasets", '')
+
 def load_video_json(
     json_file, image_root, dataset_name=None, extra_annotation_keys=None,
     map_inst_id=False):
@@ -148,14 +152,14 @@ def _get_builtin_metadata():
         "thing_classes": thing_classes}
 
 _PREDEFINED_SPLITS = {
-    "mot17_halfval": ("mot/MOT17/trainval/", 
-        "mot/MOT17/annotations/val_half_conf0.json"),
-    "mot17_halftrain": ("mot/MOT17/trainval/", 
-        "mot/MOT17/annotations/train_half_conf0.json"),
-    "mot17_fulltrain": ("mot/MOT17/trainval/", 
-        "mot/MOT17/annotations/fulltrain_conf0.json"),
-    "mot17_test": ("mot/MOT17/test/", 
-        "mot/MOT17/annotations/test_conf0.json"),
+    "mot17_halfval": (tmp_data_dir+"mot/MOT17/trainval/",
+        tmp_data_dir+"mot/MOT17/annotations/val_half_conf0.json"),
+    "mot17_halftrain": (tmp_data_dir+"mot/MOT17/trainval/",
+        tmp_data_dir+"mot/MOT17/annotations/train_half_conf0.json"),
+    "mot17_fulltrain": (tmp_data_dir+"mot/MOT17/trainval/",
+        tmp_data_dir+"mot/MOT17/annotations/fulltrain_conf0.json"),
+    "mot17_test": (tmp_data_dir+"mot/MOT17/test/",
+        tmp_data_dir+"mot/MOT17/annotations/test_conf0.json"),
 }
 
 for key, (image_root, json_file) in _PREDEFINED_SPLITS.items():
