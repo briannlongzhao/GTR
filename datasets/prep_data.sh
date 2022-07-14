@@ -1,5 +1,8 @@
 GTR_DIR=~/GTR
 
+pip install gdown
+pip install opencv-python
+
 MOT17 () {
 	DATASETS_DIR=$1/datasets
 	cd $DATASETS_DIR
@@ -15,7 +18,6 @@ MOT17 () {
 	    rm $DATASETS_DIR/*.zip
     fi
 }
-
 
 CrowdHuman () {
 	DATASETS_DIR=$1/datasets
