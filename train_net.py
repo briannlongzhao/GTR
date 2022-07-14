@@ -68,6 +68,7 @@ def do_test(cfg, model):
     for dataset_name in cfg.DATASETS.TEST:
         output_folder = os.path.join(
             cfg.OUTPUT_DIR, "inference_{}".format(dataset_name))
+        print(output_folder)
         evaluator_type = MetadataCatalog.get(dataset_name).evaluator_type
 
         if evaluator_type == "lvis":
