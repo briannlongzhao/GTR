@@ -58,7 +58,7 @@ def build_gtr_train_loader(cfg, mapper):
         raise ValueError("Unknown training sampler: {}".format(sampler_name))
     world_size = get_world_size()
     batch_size = cfg.SOLVER.IMS_PER_BATCH // world_size
-    assert batch_size == 1
+    assert batch_size == 1, f'batch_size should be 1, but {cfg.SOLVER.IMS_PER_BATCH}//{world_size}={batch_size}'
     batch_sampler = torch.utils.data.sampler.BatchSampler(
         sampler, batch_size, drop_last=True
     )
