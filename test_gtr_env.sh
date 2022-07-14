@@ -23,4 +23,4 @@ cd $GTR_PATH
 $ENV_PATH $GTR_PATH/demo.py \
 --config-file $GTR_PATH/configs/GTR_TAO_DR2101.yaml \
 --video-input $GTR_PATH/docs/yfcc_v_acef1cb6d38c2beab6e69e266e234f.mp4 \
---output $GTR_PATH/output/demo_yfcc.mp4 --opts MODEL.WEIGHTS models/GTR_TAO_DR2101.pth
+--output $GTR_PATH/output_demo/demo_yfcc.mp4 --opts MODEL.WEIGHTS models/GTR_TAO_DR2101.pth
