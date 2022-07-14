@@ -225,10 +225,12 @@ def setup(args):
     add_gtr_config(cfg)
     cfg.merge_from_file(args.config_file)
     cfg.merge_from_list(args.opts)
+    if 'TMPDIR' in os.environ.keys():
+        cfg.OUTPUT_DIR = (cfg.OUTPUT_DIR).replace('.', os.path.join(os.environ['TMPDIR'], 'GTR'))
     if '/auto' in cfg.OUTPUT_DIR:
         file_name = os.path.basename(args.config_file)[:-5]
         cfg.OUTPUT_DIR = cfg.OUTPUT_DIR.replace('/auto', '/{}'.format(file_name))
-        logger.info('OUTPUT_DIR: {}'.format(cfg.OUTPUT_DIR))
+    logger.info('OUTPUT_DIR: {}'.format(cfg.OUTPUT_DIR))
     cfg.freeze()
     default_setup(cfg, args)
     setup_logger(output=cfg.OUTPUT_DIR, \
