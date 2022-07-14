@@ -32,10 +32,11 @@ CrowdHuman () {
 	fi
 }
 
+# Download to home directory
+#MOT17 $GTR_DIR
+#CrowdHuman $GTR_DIR
 
-MOT17 $GTR_DIR
-CrowdHuman $GTR_DIR
-
+# Download to data directory specified by $TMPDIR if set
 if [ -v TMPDIR ]
 then 
 	echo "TMPDIR is set to '$TMPDIR'"
