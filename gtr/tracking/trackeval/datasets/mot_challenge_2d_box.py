@@ -30,7 +30,7 @@ class MotChallenge2DBox(_BaseDataset):
             'TRACKER_SUB_FOLDER': 'data',  # Tracker files are in TRACKER_FOLDER/tracker_name/TRACKER_SUB_FOLDER
             'OUTPUT_SUB_FOLDER': '',  # Output files are saved in OUTPUT_FOLDER/tracker_name/OUTPUT_SUB_FOLDER
             'TRACKER_DISPLAY_NAMES': None,  # Names of trackers to display, if None: TRACKERS_TO_EVAL
-            'SEQMAP_FOLDER': os.path.join(code_path, 'tracking/seqmaps/'),  # Where seqmaps are found (if None, GT_FOLDER/seqmaps)
+            'SEQMAP_FOLDER': os.path.join(code_path, 'seqmaps/'),  # Where seqmaps are found (if None, GT_FOLDER/seqmaps)
             'SEQMAP_FILE': None,  # Directly specify seqmap file (if none use seqmap_folder/benchmark-split_to_eval)
             'SEQ_INFO': None,  # If not None, directly specify sequences to eval and their number of timesteps
             'GT_LOC_FORMAT': '{gt_folder}/{seq}/gt/gt{split_mark}.txt',  # '{gt_folder}/{seq}/gt/gt.txt'
