@@ -43,7 +43,7 @@ def save_cocojson_as_mottxt(out_dir, videos, video2images, per_image_preds):
     if os.path.exists(out_dir):
         print('removing', out_dir)
         os.system('rm -rf {}'.format(out_dir))
-    os.makedirs(out_dir)
+    os.makedirs(out_dir, exist_ok=True)
     for video in videos:
         video_id = video['id']
         file_name = video['file_name']
