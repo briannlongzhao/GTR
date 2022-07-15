@@ -7,6 +7,7 @@ import time
 import datetime
 import sys
 import re
+import platform
 
 from fvcore.common.timer import Timer
 import detectron2.utils.comm as comm
@@ -268,7 +269,7 @@ if __name__ == "__main__":
         torch.randint(11111, 60000, (1,))[0].item())
     print("Command Line Args:", args)
 
-    hostname = os.environ["HOSTNAME"]
+    hostname = platform.node()
     hostname = "a03-11"
     if "iGpu" in hostname or "iLab" in hostname:
         os.environ["TMPDIR"] = "/lab/tmpig8e/u/brian-data"
