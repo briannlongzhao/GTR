@@ -2,6 +2,8 @@ import itertools
 import json
 import numpy as np
 import os
+import platform
+import re
 from collections import defaultdict
 from multiprocessing import freeze_support
 import pycocotools.mask as mask_util
@@ -10,6 +12,17 @@ from fvcore.common.file_io import PathManager
 from detectron2.evaluation.coco_evaluation import COCOEvaluator, _evaluate_predictions_on_coco
 from ..tracking.naive_tracker import track
 from ..tracking import trackeval
+
+tmp_dir = ''
+hostname = platform.node()
+if "iGpu" in hostname or "iLab" in hostname:
+    os.environ["TMPDIR"] = "/lab/tmpig8e/u/brian-data"
+elif re.search("[a-z]\d\d-\d\d", hostname):
+    os.environ["TMPDIR"] = "/scratch1/briannlz"
+if "TMPDIR" in os.environ.keys():
+    tmp_dir = os.path.join(os.environ["TMPDIR"], "GTR/", '')
+print(f"mot_evaluation.py: HOSTNAME={hostname}")
+print(f"mot_evaluation.py: TMPDIR={os.environ['TMPDIR']}")
 
 def eval_track(out_dir, year):
     freeze_support()
@@ -22,7 +35,7 @@ def eval_track(out_dir, year):
     default_metrics_config = {'METRICS': ['HOTA', 'CLEAR', 'Identity']}
     config = {
         **default_eval_config, **default_dataset_config, **default_metrics_config}  # Merge default configs
-    config['GT_FOLDER'] = 'datasets/mot/MOT{}/'.format(year)
+    config['GT_FOLDER'] = os.path.join(tmp_dir, 'datasets/mot/MOT{}/'.format(year))
     config['SPLIT_TO_EVAL'] = 'half_val'
     config['TRACKERS_FOLDER'] = out_dir
     eval_config = {k: v for k, v in config.items() if k in default_eval_config.keys()}
