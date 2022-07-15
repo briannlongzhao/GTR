@@ -274,8 +274,8 @@ if __name__ == "__main__":
         os.environ["TMPDIR"] = "/lab/tmpig8e/u/brian-data"
     elif re.search("[a-z]\d\d-\d\d", hostname):
         os.environ["TMPDIR"] = "/scratch1/briannlz"
-    print(f"HOSTNAME: {hostname}")
-    print(f"TMPDIR: {os.environ['TMPDIR']}")
+    print(f"train_net.py: HOSTNAME={hostname}")
+    print(f"train_net.py: TMPDIR={os.environ['TMPDIR']}")
 
     launch(
         main,
