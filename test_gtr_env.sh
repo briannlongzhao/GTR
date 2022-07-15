@@ -1,15 +1,15 @@
 ENV_PATH=~/anaconda3/envs/gtr/bin/python
 
-# Test CUDA and Pytorch
+echo Test CUDA and Pytorch
 $ENV_PATH -c "
 import torch
 print('Pytorch version:', torch.__version__)
-print('CUDA availabel:', torch.cuda.is_available())
+print('CUDA available:', torch.cuda.is_available())
 print('CUDA version:', torch.version.cuda)
 print(torch.randn(5).cuda())
 "
 
-# Test Detectron2
+echo Test Detectron2
 D2_PATH=~/detectron2
 $ENV_PATH $D2_PATH/demo/demo.py \
 --input $D2_PATH/demo/input/*.jpg \
@@ -17,7 +17,7 @@ $ENV_PATH $D2_PATH/demo/demo.py \
 --config-file $D2_PATH/configs/COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml \
 --opts MODEL.WEIGHTS detectron2://COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x/137849600/model_final_f10217.pkl
 
-# Test GTR
+echo Test GTR
 GTR_PATH=~/GTR
 cd $GTR_PATH
 $ENV_PATH $GTR_PATH/demo.py \
