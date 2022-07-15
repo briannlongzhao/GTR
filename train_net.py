@@ -270,7 +270,6 @@ if __name__ == "__main__":
     print("Command Line Args:", args)
 
     hostname = platform.node()
-    hostname = "a03-11"
     if "iGpu" in hostname or "iLab" in hostname:
         os.environ["TMPDIR"] = "/lab/tmpig8e/u/brian-data"
     elif re.search("[a-z]\d\d-\d\d", hostname):
