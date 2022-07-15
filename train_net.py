@@ -6,6 +6,7 @@ from torch.nn.parallel import DistributedDataParallel
 import time
 import datetime
 import sys
+import re
 
 from fvcore.common.timer import Timer
 import detectron2.utils.comm as comm
@@ -265,8 +266,17 @@ if __name__ == "__main__":
     args = args.parse_args()
     args.dist_url = 'tcp://127.0.0.1:{}'.format(
         torch.randint(11111, 60000, (1,))[0].item())
-
     print("Command Line Args:", args)
+
+    hostname = os.environ["HOSTNAME"]
+    hostname = "a03-11"
+    if "iGpu" in hostname or "iLab" in hostname:
+        os.environ["TMPDIR"] = "/lab/tmpig8e/u/brian-data"
+    elif re.search("[a-z]\d\d-\d\d", hostname):
+        os.environ["TMPDIR"] = "/scratch1/briannlz"
+    print(f"$HOSTNAME={os.environ['HOSTNAME']}")
+    print(f"$TMPDIR={os.environ['TMPDIR']}")
+
     launch(
         main,
         args.num_gpus,
