@@ -229,6 +229,7 @@ def setup(args):
     cfg.merge_from_list(args.opts)
     if 'TMPDIR' in os.environ.keys():
         cfg.OUTPUT_DIR = (cfg.OUTPUT_DIR).replace('.', os.path.join(os.environ['TMPDIR'], 'GTR'))
+        cfg.MODEL.WEIGHTS = os.path.join(os.environ['TMPDIR'], 'GTR' ,cfg.MODEL.WEIGHTS)
     if '/auto' in cfg.OUTPUT_DIR:
         file_name = os.path.basename(args.config_file)[:-5]
         cfg.OUTPUT_DIR = cfg.OUTPUT_DIR.replace('/auto', '/{}'.format(file_name))
@@ -274,8 +275,8 @@ if __name__ == "__main__":
         os.environ["TMPDIR"] = "/lab/tmpig8e/u/brian-data"
     elif re.search("[a-z]\d\d-\d\d", hostname):
         os.environ["TMPDIR"] = "/scratch1/briannlz"
-    print(f"$HOSTNAME={hostname}")
-    print(f"$TMPDIR={os.environ['TMPDIR']}")
+    print(f"HOSTNAME: {hostname}")
+    print(f"TMPDIR: {os.environ['TMPDIR']}")
 
     launch(
         main,
