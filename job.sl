@@ -12,16 +12,20 @@
 
 ulimit -s unlimited
 nvidia-smi
+conda init
+source ~/.bashrc
 conda activate gtr
 
 # Set $TMPDIR if on Discovery
-if [[ $HOSTNAME =~ "discovery" ]]
+echo HOSTNAME=$HOSTNAME
+if [[ $HOSTNAME =~ "discovery" ]] || [[ $HOSTNAME == [a-z][0-9][0-9]-[0-9][0-9] ]]
 then
 	export TMPDIR=/scratch1/briannlz
 fi
 
 # Prepare datasets in $TMPDIR
-./prep_data.sh
+echo TMPDIR=$TMPDIR
+./datasets/prep_data.sh
 
 # Train
 python train_net.py --num-gpus 2 --config-file configs/GTR_MOT_FPN.yaml
