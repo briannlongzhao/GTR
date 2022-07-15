@@ -36,3 +36,7 @@ python train_net.py --num-gpus 2 --config-file configs/GTR_MOT_FPN.yaml
 #python train_net.py --config-file configs/GTR_MOT_FPN.yaml --eval-only MODEL.WEIGHTS models/GTR_MOT_FPN.pth
 
 # Copy output from $TMPDIR back to home directory
+if [ -v TMPDIR ]
+then
+  #rm -r output
+  cp -r $TMPDIR/GTR/output ./output
