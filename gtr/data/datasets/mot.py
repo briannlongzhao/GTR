@@ -4,6 +4,8 @@ from detectron2.utils.file_io import PathManager
 import io
 import pycocotools.mask as mask_util
 import logging
+import platform
+import re
 
 from fvcore.common.timer import Timer
 from detectron2.data import DatasetCatalog, MetadataCatalog
@@ -11,9 +13,16 @@ from detectron2.structures import BoxMode
 
 logger = logging.getLogger(__name__)
 
-tmp_data_dir = ""
+tmp_data_dir = ''
+hostname = platform.node()
+if "iGpu" in hostname or "iLab" in hostname:
+    os.environ["TMPDIR"] = "/lab/tmpig8e/u/brian-data"
+elif re.search("[a-z]\d\d-\d\d", hostname):
+    os.environ["TMPDIR"] = "/scratch1/briannlz"
 if "TMPDIR" in os.environ.keys():
     tmp_data_dir = os.path.join(os.environ["TMPDIR"], "GTR/datasets", '')
+print(f"mot.py: HOSTNAME={hostname}")
+print(f"mot.py: TMPDIR={os.environ['TMPDIR']}")
 
 def load_video_json(
     json_file, image_root, dataset_name=None, extra_annotation_keys=None,
@@ -152,14 +161,18 @@ def _get_builtin_metadata():
         "thing_classes": thing_classes}
 
 _PREDEFINED_SPLITS = {
-    "mot17_halfval": (tmp_data_dir+"mot/MOT17/trainval/",
-        tmp_data_dir+"mot/MOT17/annotations/val_half_conf0.json"),
-    "mot17_halftrain": (tmp_data_dir+"mot/MOT17/trainval/",
-        tmp_data_dir+"mot/MOT17/annotations/train_half_conf0.json"),
-    "mot17_fulltrain": (tmp_data_dir+"mot/MOT17/trainval/",
-        tmp_data_dir+"mot/MOT17/annotations/fulltrain_conf0.json"),
-    "mot17_test": (tmp_data_dir+"mot/MOT17/test/",
-        tmp_data_dir+"mot/MOT17/annotations/test_conf0.json"),
+    "mot17_halfval":
+        (os.path.join(tmp_data_dir, "mot/MOT17/trainval/"),
+         os.path.join(tmp_data_dir, "mot/MOT17/annotations/val_half_conf0.json")),
+    "mot17_halftrain":
+        (os.path.join(tmp_data_dir, "mot/MOT17/trainval/"),
+        os.path.join(tmp_data_dir, "mot/MOT17/annotations/train_half_conf0.json")),
+    "mot17_fulltrain":
+        (os.path.join(tmp_data_dir, "mot/MOT17/trainval/"),
+        os.path.join(tmp_data_dir, "mot/MOT17/annotations/fulltrain_conf0.json")),
+    "mot17_test":
+        (os.path.join(tmp_data_dir, "mot/MOT17/test/"),
+        os.path.join(tmp_data_dir, "mot/MOT17/annotations/test_conf0.json")),
 }
 
 for key, (image_root, json_file) in _PREDEFINED_SPLITS.items():

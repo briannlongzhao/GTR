@@ -1,6 +1,8 @@
 from collections import defaultdict
 import logging
 import os
+import platform
+import re
 
 from fvcore.common.timer import Timer
 from detectron2.structures import BoxMode
@@ -16,9 +18,16 @@ logger = logging.getLogger(__name__)
 
 __all__ = ["load_tao_json", "register_tao_instances", "get_tao_instances_meta"]
 
-tmp_data_dir = ""
+tmp_data_dir = ''
+hostname = platform.node()
+if "iGpu" in hostname or "iLab" in hostname:
+    os.environ["TMPDIR"] = "/lab/tmpig8e/u/brian-data"
+elif re.search("[a-z]\d\d-\d\d", hostname):
+    os.environ["TMPDIR"] = "/scratch1/briannlz"
 if "TMPDIR" in os.environ.keys():
     tmp_data_dir = os.path.join(os.environ["TMPDIR"], "GTR/datasets", '')
+print(f"mot.py: HOSTNAME={hostname}")
+print(f"mot.py: TMPDIR={os.environ['TMPDIR']}")
 
 def register_tao_instances(name, metadata, json_file, image_root):
     """
@@ -168,9 +177,15 @@ def get_tao_v1_instances_meta():
 
 
 _PREDEFINED_SPLITS_TAO = {
-    "tao_train": (tmp_data_dir+"tao/keyframes/", tmp_data_dir+"tao/annotations/train.json"),
-    "tao_val": (tmp_data_dir+"tao/keyframes/", tmp_data_dir+"tao/annotations/validation.json"),
-    "tao_test": (tmp_data_dir+"tao/frames/", tmp_data_dir+"tao/annotations/test_without_annotations.json"),
+    "tao_train":
+        (os.path.join(tmp_data_dir, "tao/keyframes/"),
+         os.path.join(tmp_data_dir, "tao/annotations/train.json")),
+    "tao_val":
+        (os.path.join(tmp_data_dir, "tao/keyframes/"),
+         os.path.join(tmp_data_dir, "tao/annotations/validation.json")),
+    "tao_test":
+        (os.path.join(tmp_data_dir, "tao/frames/"),
+         os.path.join(tmp_data_dir, "tao/annotations/test_without_annotations.json")),
 }
 
 for key, (image_root, json_file) in _PREDEFINED_SPLITS_TAO.items():
@@ -183,9 +198,15 @@ for key, (image_root, json_file) in _PREDEFINED_SPLITS_TAO.items():
 
 
 _PREDEFINED_SPLITS_TAOV1 = {
-    "tao_train_v1": (tmp_data_dir+"tao/keyframes/", tmp_data_dir+"tao/annotations/train_v1.json"),
-    "tao_val_v1": (tmp_data_dir+"tao/keyframes/", tmp_data_dir+"tao/annotations/validation_v1.json"),
-    "tao_val_v1_mini": (tmp_data_dir+"tao/keyframes/", tmp_data_dir+"tao/annotations/validation_v1_mini.json"),
+    "tao_train_v1":
+        (os.path.join(tmp_data_dir, "tao/keyframes/"),
+         os.path.join(tmp_data_dir, "tao/annotations/train_v1.json")),
+    "tao_val_v1":
+        (os.path.join(tmp_data_dir, "tao/keyframes/"),
+         os.path.join(tmp_data_dir, "tao/annotations/validation_v1.json")),
+    "tao_val_v1_mini":
+        (os.path.join(tmp_data_dir, "tao/keyframes/"),
+         os.path.join(tmp_data_dir, "tao/annotations/validation_v1_mini.json")),
 }
 
 for key, (image_root, json_file) in _PREDEFINED_SPLITS_TAOV1.items():

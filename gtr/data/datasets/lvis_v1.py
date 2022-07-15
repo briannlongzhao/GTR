@@ -2,6 +2,8 @@
 # Modified by Xingyi Zhou: handle neg_category_ids
 import logging
 import os
+import platform
+import re
 
 from fvcore.common.timer import Timer
 from detectron2.structures import BoxMode
@@ -16,9 +18,16 @@ except:
 
 logger = logging.getLogger(__name__)
 
-tmp_data_dir = ""
+tmp_data_dir = ''
+hostname = platform.node()
+if "iGpu" in hostname or "iLab" in hostname:
+    os.environ["TMPDIR"] = "/lab/tmpig8e/u/brian-data"
+elif re.search("[a-z]\d\d-\d\d", hostname):
+    os.environ["TMPDIR"] = "/scratch1/briannlz"
 if "TMPDIR" in os.environ.keys():
     tmp_data_dir = os.path.join(os.environ["TMPDIR"], "GTR/datasets", '')
+print(f"lvis_v1.py: HOSTNAME={hostname}")
+print(f"lvis_v1.py: TMPDIR={os.environ['TMPDIR']}")
 
 def register_lvis_v1_instances(name, metadata, json_file, image_root):
     """
@@ -116,9 +125,12 @@ def get_lvis_v1_instances_meta():
     return meta
 
 _PREDEFINED_SPLITS_LVIS_V1 = {
-    "lvis_v1_train+coco_box": (tmp_data_dir+"coco/", tmp_data_dir+"lvis/lvis_v1_train+coco_box.json"),
-    "lvis_v1_train+coco_mask": (tmp_data_dir+"coco/", tmp_data_dir+"lvis/lvis_v1_train+coco_mask.json"),
-
+    "lvis_v1_train+coco_box":
+        (os.path.join(tmp_data_dir,"coco/"),
+         os.path.join(tmp_data_dir, "lvis/lvis_v1_train+coco_box.json")),
+    "lvis_v1_train+coco_mask":
+        (os.path.join(tmp_data_dir, "coco/"),
+         os.path.join(tmp_data_dir, "lvis/lvis_v1_train+coco_mask.json")),
 }
 
 
