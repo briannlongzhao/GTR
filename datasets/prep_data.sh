@@ -38,6 +38,12 @@ CrowdHuman () {
 #MOT17 $GTR_DIR
 #CrowdHuman $GTR_DIR
 
+# Set TMPDIR if on ilab
+if [[ $HOSTNAME =~ iGpu || $HOSTNAME =~ iLab ]]
+then
+	export TMPDIR=/lab/tmpig8e/u/brian-data
+fi
+
 # Download to data directory specified by $TMPDIR if set
 if [ -v TMPDIR ]
 then 
@@ -51,6 +57,10 @@ then
 	if ! [ -d $GTR_DIR_TMP/tools ]
 	then
 		cp -r $GTR_DIR/tools $GTR_DIR_TMP/tools
+	fi
+	if ! [ -d $GTR_DIR_TMP/models ]
+	then
+		cp -r $GTR_DIR/models $GTR_DIR_TMP/models
 	fi
 	MOT17 $GTR_DIR_TMP
 	CrowdHuman $GTR_DIR_TMP
