@@ -16,11 +16,13 @@ conda init
 source ~/.bashrc
 conda activate gtr
 
-# Set $TMPDIR if on Discovery
-echo HOSTNAME=$HOSTNAME
-if [[ $HOSTNAME =~ "discovery" ]] || [[ $HOSTNAME == [a-z][0-9][0-9]-[0-9][0-9] ]]
+# Set TMPDIR if on iLab or Discovery
+if [[ $HOSTNAME =~ iGpu || $HOSTNAME =~ iLab ]]
 then
-	export TMPDIR=/scratch1/briannlz
+	export TMPDIR=/lab/tmpig8e/u/brian-data
+elif [[ $HOSTNAME =~ "discovery" || $HOSTNAME == [a-z][0-9][0-9]-[0-9][0-9] ]]
+then
+  export TMPDIR=/scratch1/briannlz
 fi
 
 # Prepare datasets in $TMPDIR
@@ -32,3 +34,5 @@ python train_net.py --num-gpus 2 --config-file configs/GTR_MOT_FPN.yaml
 
 # Evaluate
 #python train_net.py --config-file configs/GTR_MOT_FPN.yaml --eval-only MODEL.WEIGHTS models/GTR_MOT_FPN.pth
+
+# Copy output from $TMPDIR back to home directory
