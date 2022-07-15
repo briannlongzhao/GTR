@@ -154,6 +154,7 @@ def custom_instances_to_coco_json(instances, img_id):
 class MOTEvaluator(COCOEvaluator):
     def __init__(self, dataset_name, cfg, distributed, output_dir=None, *, use_fast_impl=True):
         print(f"INIT: {distributed} {use_fast_impl}")
+        print(f"TMPDIR:{os.environ['TMPDIR']}")
         super().__init__(dataset_name, cfg, distributed, output_dir=output_dir, use_fast_impl=use_fast_impl)
         self.dataset_name = dataset_name
 
