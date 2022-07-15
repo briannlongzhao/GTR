@@ -68,18 +68,17 @@ def get_total_grad_norm(parameters, norm_type=2):
 def do_test(cfg, model):
     results = OrderedDict()
     for dataset_name in cfg.DATASETS.TEST:
-        output_folder = os.path.join(
-            cfg.OUTPUT_DIR, "inference_{}".format(dataset_name))
-        print(output_folder)
+        output_folder = os.path.join(cfg.OUTPUT_DIR, "inference_{}".format(dataset_name))
+        print(f"output_folder for{dataset_name}: {output_folder}")
         evaluator_type = MetadataCatalog.get(dataset_name).evaluator_type
 
+        print(f"evaluator_type: {evaluator_type}")
         if evaluator_type == "lvis":
             evaluator = CustomLVISEvaluator(dataset_name, cfg, True, output_folder)
         elif evaluator_type == 'coco':
             evaluator = COCOEvaluator(dataset_name, cfg, True, output_folder)
         elif evaluator_type == 'mot':
-            evaluator = MOTEvaluator(dataset_name, cfg, \
-                    False, output_folder)
+            evaluator = MOTEvaluator(dataset_name, cfg, False, output_folder)
         else:
             assert 0, evaluator_type
 
