@@ -42,7 +42,7 @@ CrowdHuman () {
 if [[ $HOSTNAME =~ iGpu || $HOSTNAME =~ iLab ]]
 then
 	export TMPDIR=/lab/tmpig8e/u/brian-data
-elif [[ $HOSTNAME =~ "discovery" || $HOSTNAME == [a-z][0-9][0-9]-[0-9][0-9] ]]
+elif [[ $HOSTNAME =~ "discovery" || $HOSTNAME =~ "hpc" || $HOSTNAME =~ [a-z][0-9][0-9]-[0-9][0-9] ]]
 then
   export TMPDIR=/scratch1/briannlz
 fi
