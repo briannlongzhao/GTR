@@ -1,6 +1,6 @@
 Identity added: /home1/briannlz/.ssh/id_ed25519 (briannlz@usc.edu)
-[07/14 20:06:55] detectron2.config.compat WARNING: Config 'configs/GTR_MOT_FPN.yaml' has no VERSION. Assuming it to be compatible with latest v2.
-[07/14 20:06:55] detectron2.config.compat WARNING: Config 'configs/GTR_MOT_FPN.yaml' has no VERSION. Assuming it to be compatible with latest v2.
+[07/15 16:51:02] detectron2.config.compat WARNING: Config 'configs/GTR_MOT_FPN.yaml' has no VERSION. Assuming it to be compatible with latest v2.
+[07/15 16:51:02] detectron2.config.compat WARNING: Config 'configs/GTR_MOT_FPN.yaml' has no VERSION. Assuming it to be compatible with latest v2.
 /home1/briannlz/anaconda3/envs/gtr/lib/python3.9/site-packages/detectron2/structures/boxes.py:148: UserWarning: Creating a tensor from a list of numpy.ndarrays is extremely slow. Please consider converting the list to a single numpy.ndarray with numpy.array() before converting to a tensor. (Triggered internally at  /opt/conda/conda-bld/pytorch_1634272204863/work/torch/csrc/utils/tensor_new.cpp:201.)
   tensor = torch.as_tensor(tensor, dtype=torch.float32, device=device)
 /home1/briannlz/anaconda3/envs/gtr/lib/python3.9/site-packages/detectron2/structures/boxes.py:148: UserWarning: Creating a tensor from a list of numpy.ndarrays is extremely slow. Please consider converting the list to a single numpy.ndarray with numpy.array() before converting to a tensor. (Triggered internally at  /opt/conda/conda-bld/pytorch_1634272204863/work/torch/csrc/utils/tensor_new.cpp:201.)
@@ -27,42 +27,4 @@ Identity added: /home1/briannlz/.ssh/id_ed25519 (briannlz@usc.edu)
   return _VF.meshgrid(tensors, **kwargs)  # type: ignore[attr-defined]
 [W reducer.cpp:1303] Warning: find_unused_parameters=True was specified in DDP constructor, but did not find any unused parameters in the forward pass. This flag results in an extra traversal of the autograd graph every iteration,  which can adversely affect performance. If your model indeed never has any unused parameters in the forward pass, consider turning this flag off. Note that this warning may be a false positive if your model has flow control causing later iterations to have unused parameters. (function operator())
 [W reducer.cpp:1303] Warning: find_unused_parameters=True was specified in DDP constructor, but did not find any unused parameters in the forward pass. This flag results in an extra traversal of the autograd graph every iteration,  which can adversely affect performance. If your model indeed never has any unused parameters in the forward pass, consider turning this flag off. Note that this warning may be a false positive if your model has flow control causing later iterations to have unused parameters. (function operator())
-Traceback (most recent call last):
-  File "/home1/briannlz/GTR/train_net.py", line 270, in <module>
-    launch(
-  File "/home1/briannlz/anaconda3/envs/gtr/lib/python3.9/site-packages/detectron2/engine/launch.py", line 67, in launch
-    mp.spawn(
-  File "/home1/briannlz/anaconda3/envs/gtr/lib/python3.9/site-packages/torch/multiprocessing/spawn.py", line 230, in spawn
-    return start_processes(fn, args, nprocs, join, daemon, start_method='spawn')
-  File "/home1/briannlz/anaconda3/envs/gtr/lib/python3.9/site-packages/torch/multiprocessing/spawn.py", line 188, in start_processes
-    while not context.join():
-  File "/home1/briannlz/anaconda3/envs/gtr/lib/python3.9/site-packages/torch/multiprocessing/spawn.py", line 150, in join
-    raise ProcessRaisedException(msg, error_index, failed_process.pid)
-torch.multiprocessing.spawn.ProcessRaisedException: 
-
--- Process 0 terminated with the following error:
-Traceback (most recent call last):
-  File "/home1/briannlz/anaconda3/envs/gtr/lib/python3.9/site-packages/torch/multiprocessing/spawn.py", line 59, in _wrap
-    fn(i, *args)
-  File "/home1/briannlz/anaconda3/envs/gtr/lib/python3.9/site-packages/detectron2/engine/launch.py", line 126, in _distributed_worker
-    main_func(*args)
-  File "/home1/briannlz/GTR/train_net.py", line 260, in main
-    return do_test(cfg, model)
-  File "/home1/briannlz/GTR/train_net.py", line 104, in do_test
-    results[dataset_name] = inference_on_dataset(
-  File "/home1/briannlz/anaconda3/envs/gtr/lib/python3.9/site-packages/detectron2/evaluation/evaluator.py", line 204, in inference_on_dataset
-    results = evaluator.evaluate()
-  File "/home1/briannlz/anaconda3/envs/gtr/lib/python3.9/site-packages/detectron2/evaluation/coco_evaluation.py", line 194, in evaluate
-    self._eval_predictions(predictions, img_ids=img_ids)
-  File "/home1/briannlz/GTR/gtr/evaluation/mot_evaluation.py", line 230, in _eval_predictions
-    track_and_eval_mot(
-  File "/home1/briannlz/GTR/gtr/evaluation/mot_evaluation.py", line 101, in track_and_eval_mot
-    eval_track(out_dir + '/moteval', year)
-  File "/home1/briannlz/GTR/gtr/evaluation/mot_evaluation.py", line 34, in eval_track
-    dataset_list = [trackeval.datasets.MotChallenge2DBox(dataset_config)]
-  File "/home1/briannlz/GTR/gtr/tracking/trackeval/datasets/mot_challenge_2d_box.py", line 93, in __init__
-    self.seq_list, self.seq_lengths = self._get_seq_info()
-  File "/home1/briannlz/GTR/gtr/tracking/trackeval/datasets/mot_challenge_2d_box.py", line 180, in _get_seq_info
-    raise TrackEvalException('ini file does not exist: ' + seq + '/' + ini_file)
-gtr.tracking.trackeval.utils.TrackEvalException: ini file does not exist: MOT17-02-FRCNN/datasets/mot/MOT17/trainval/MOT17-02-FRCNN/seqinfo.ini
-
+/var/spool/slurm/d/job10112283/slurm_script: line 43: syntax error: unexpected end of file
