@@ -22,7 +22,7 @@ then
 	export TMPDIR=/lab/tmpig8e/u/brian-data
 elif [[ $HOSTNAME =~ "discovery" || $HOSTNAME == [a-z][0-9][0-9]-[0-9][0-9] ]]
 then
-  export TMPDIR=/scratch1/briannlz
+	export TMPDIR=/scratch1/briannlz
 fi
 
 # Prepare datasets in $TMPDIR
@@ -30,7 +30,7 @@ echo TMPDIR=$TMPDIR
 ./datasets/prep_data.sh
 
 # Train
-python train_net.py --num-gpus 2 --config-file configs/GTR_MOT_FPN.yaml
+#python train_net.py --num-gpus 2 --config-file configs/GTR_MOT_FPN.yaml
 
 # Evaluate
 #python train_net.py --config-file configs/GTR_MOT_FPN.yaml --eval-only MODEL.WEIGHTS models/GTR_MOT_FPN.pth
