@@ -9,7 +9,9 @@ MOT17 () {
 	if ! [ -d "mot/" ]
 	then
 		mkdir mot
+        echo "Downloading MOT17 dataset..."
 		wget https://motchallenge.net/data/MOT17.zip
+        echo "Unzipping MOT17 dataset..."
 		unzip -q MOT17.zip -d mot
 	    cd mot/MOT17 || exit
 	    ln -s train trainval
@@ -23,9 +25,11 @@ CrowdHuman () {
 	DATASETS_DIR=$1/datasets
     cd $DATASETS_DIR || exit
 	if ! [ -d "crowdhuman/" ]
-	then 
+	then
+        echo "Downloading CrowdHuman dataset..."
 		gdown --folder 1-N59uI5plTXEepaIasH3kpFW6SPKSVkQ
 		cd crowdhuman || exit
+        echo "Unzipping Crowdhuman dataset..."
 		unzip -q CrowdHuman_train\* -d CrowdHuman_train
 		unzip -q CrowdHuman_val\* -d CrowdHuman_val
 		cd $1 || exit
@@ -38,13 +42,17 @@ CrowdHuman () {
 #MOT17 $GTR_DIR
 #CrowdHuman $GTR_DIR
 
-# Set TMPDIR if on iLab or Discovery
+# Set TMPDIR if on iLab or Discovery, or set it same as $HOME otherwise
 if [[ $HOSTNAME =~ iGpu || $HOSTNAME =~ iLab ]]
 then
 	export TMPDIR=/lab/tmpig8e/u/brian-data
 elif [[ $HOSTNAME =~ "discovery" || $HOSTNAME =~ "hpc" || $HOSTNAME =~ [a-z][0-9][0-9]-[0-9][0-9] ]]
 then
-  export TMPDIR=/scratch1/briannlz
+    export TMPDIR=/scratch1/briannlz
+    module load gcc
+    module load unzip
+else
+    export TMPDIR=$HOME
 fi
 
 # Download to data directory specified by $TMPDIR if set
