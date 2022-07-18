@@ -8,6 +8,7 @@ import datetime
 import sys
 import re
 import platform
+import wandb
 
 from fvcore.common.timer import Timer
 import detectron2.utils.comm as comm
@@ -37,7 +38,7 @@ from detectron2.data.dataset_mapper import DatasetMapper
 from detectron2.solver import build_optimizer
 from detectron2.utils.logger import setup_logger
 
-sys.path.insert(0, 'third_party/CenterNet2/')
+sys.path.insert(0, "third_party/CenterNet2/")
 from centernet.config import add_centernet_config
 
 from gtr.config import add_gtr_config
@@ -51,7 +52,6 @@ from gtr.costom_solver import build_custom_optimizer
 from gtr.evaluation.custom_lvis_evaluation import CustomLVISEvaluator
 from gtr.evaluation.mot_evaluation import MOTEvaluator
 from gtr.modeling.freeze_layers import check_if_freeze_model
-
 
 logger = logging.getLogger("detectron2")
 
@@ -69,21 +69,20 @@ def do_test(cfg, model):
     results = OrderedDict()
     for dataset_name in cfg.DATASETS.TEST:
         output_folder = os.path.join(cfg.OUTPUT_DIR, "inference_{}".format(dataset_name))
-        print(f"output_folder for{dataset_name}: {output_folder}")
+        print(f"output_folder for {dataset_name}: {output_folder}")
         evaluator_type = MetadataCatalog.get(dataset_name).evaluator_type
-
         print(f"evaluator_type: {evaluator_type}")
         if evaluator_type == "lvis":
             evaluator = CustomLVISEvaluator(dataset_name, cfg, True, output_folder)
-        elif evaluator_type == 'coco':
+        elif evaluator_type == "coco":
             evaluator = COCOEvaluator(dataset_name, cfg, True, output_folder)
-        elif evaluator_type == 'mot':
+        elif evaluator_type == "mot":
             evaluator = MOTEvaluator(dataset_name, cfg, False, output_folder)
         else:
             assert 0, evaluator_type
 
         if not cfg.VIDEO_INPUT:
-            mapper = None if cfg.INPUT.TEST_INPUT_TYPE == 'default' else \
+            mapper = None if cfg.INPUT.TEST_INPUT_TYPE == "default" else \
                 DatasetMapper(
                     cfg, False, augmentations=build_custom_augmentation(cfg, False))
             data_loader = build_detection_test_loader(cfg, dataset_name, mapper=mapper)
@@ -94,8 +93,8 @@ def do_test(cfg, model):
                 continue
             # TODO (Xingyi): currently holistic test only works on 1 gpus 
             #   due to unknown system issue. Try to fix.
-            torch.multiprocessing.set_sharing_strategy('file_system')
-            if cfg.INPUT.TEST_INPUT_TYPE == 'default':
+            torch.multiprocessing.set_sharing_strategy("file_system")
+            if cfg.INPUT.TEST_INPUT_TYPE == "default":
                 mapper = GTRDatasetMapper(cfg, False)
             else:
                 mapper = GTRDatasetMapper(
@@ -107,8 +106,7 @@ def do_test(cfg, model):
             )
         
         if comm.is_main_process():
-            logger.info("Evaluation results for {} in csv format:".format(
-                dataset_name))
+            logger.info("Evaluation results for {} in csv format:".format(dataset_name))
             print_csv_format(results[dataset_name])
     if len(results) == 1:
         results = list(results.values())[0]
@@ -120,8 +118,8 @@ def do_train(cfg, model, resume=False):
     if cfg.SOLVER.USE_CUSTOM_SOLVER:
         optimizer = build_custom_optimizer(cfg, model)
     else:
-        assert cfg.SOLVER.OPTIMIZER == 'SGD'
-        assert cfg.SOLVER.CLIP_GRADIENTS.CLIP_TYPE != 'full_model'
+        assert cfg.SOLVER.OPTIMIZER == "SGD"
+        assert cfg.SOLVER.CLIP_GRADIENTS.CLIP_TYPE != "full_model"
         assert cfg.SOLVER.BACKBONE_MULTIPLIER == 1.
         optimizer = build_optimizer(cfg, model)
     scheduler = build_lr_scheduler(cfg, optimizer)
@@ -153,8 +151,7 @@ def do_train(cfg, model, resume=False):
         else []
     )
 
-    DatasetMapperClass = GTRDatasetMapper if cfg.VIDEO_INPUT else \
-        CustomDatasetMapper
+    DatasetMapperClass = GTRDatasetMapper if cfg.VIDEO_INPUT else CustomDatasetMapper
     mapper = DatasetMapperClass(
         cfg, True, augmentations=build_custom_augmentation(cfg, True))
     if cfg.VIDEO_INPUT:
@@ -170,31 +167,30 @@ def do_train(cfg, model, resume=False):
         for data, iteration in zip(data_loader, range(start_iter, max_iter)):
             data_time = data_timer.seconds()
             storage.put_scalars(data_time=data_time)
+            wandb.log({"data_time": data_time}, step=iteration)
             step_timer.reset()
             iteration = iteration + 1
             storage.step()
             loss_dict = model(data)
             
-            losses = sum(
-                loss for k, loss in loss_dict.items() if 'loss' in k)
+            losses = sum(loss for k, loss in loss_dict.items() if "loss" in k)
             assert torch.isfinite(losses).all(), loss_dict
 
-            loss_dict_reduced = {k: v.item() \
-                for k, v in comm.reduce_dict(loss_dict).items()}
-            losses_reduced = sum(loss for k, loss in loss_dict_reduced.items() \
-                if 'loss' in k)
+            loss_dict_reduced = {k: v.item() for k, v in comm.reduce_dict(loss_dict).items()}
+            losses_reduced = sum(loss for k, loss in loss_dict_reduced.items() if "loss" in k)
             if comm.is_main_process():
-                storage.put_scalars(
-                    total_loss=losses_reduced, **loss_dict_reduced)
+                storage.put_scalars(total_loss=losses_reduced, **loss_dict_reduced)
+                wandb.log(loss_dict_reduced.update({"total_loss": losses_reduced}), step=iteration)
 
             optimizer.zero_grad()
             losses.backward()
             optimizer.step()
             
-            storage.put_scalar(
-                "lr", optimizer.param_groups[0]["lr"], smoothing_hint=False)
+            storage.put_scalar("lr", optimizer.param_groups[0]["lr"], smoothing_hint=False)
+            wandb.log({"lr": optimizer.param_groups[0]["lr"]}, step=iteration)
             step_time = step_timer.seconds()
             storage.put_scalars(time=step_time)
+            wandb.log({"time": step_time}, step=iteration)
             data_timer.reset()
             scheduler.step()
 
@@ -226,17 +222,16 @@ def setup(args):
     add_gtr_config(cfg)
     cfg.merge_from_file(args.config_file)
     cfg.merge_from_list(args.opts)
-    if 'TMPDIR' in os.environ.keys():
-        cfg.OUTPUT_DIR = (cfg.OUTPUT_DIR).replace('.', os.path.join(os.environ['TMPDIR'], 'GTR'))
-        cfg.MODEL.WEIGHTS = os.path.join(os.environ['TMPDIR'], 'GTR' ,cfg.MODEL.WEIGHTS)
-    if '/auto' in cfg.OUTPUT_DIR:
+    if "TMPDIR" in os.environ.keys():
+        cfg.OUTPUT_DIR = (cfg.OUTPUT_DIR).replace('.', os.path.join(os.environ["TMPDIR"], "GTR"))
+        cfg.MODEL.WEIGHTS = os.path.join(os.environ["TMPDIR"], "GTR" ,cfg.MODEL.WEIGHTS)
+    if "/auto" in cfg.OUTPUT_DIR:
         file_name = os.path.basename(args.config_file)[:-5]
-        cfg.OUTPUT_DIR = cfg.OUTPUT_DIR.replace('/auto', '/{}'.format(file_name))
-    logger.info('OUTPUT_DIR: {}'.format(cfg.OUTPUT_DIR))
+        cfg.OUTPUT_DIR = cfg.OUTPUT_DIR.replace("/auto", "/{}".format(file_name))
+    logger.info("OUTPUT_DIR: {}".format(cfg.OUTPUT_DIR))
     cfg.freeze()
     default_setup(cfg, args)
-    setup_logger(output=cfg.OUTPUT_DIR, \
-        distributed_rank=comm.get_rank(), name="centernet")
+    setup_logger(output=cfg.OUTPUT_DIR, distributed_rank=comm.get_rank(), name="centernet")
     return cfg
 
 
@@ -265,17 +260,20 @@ def main(args):
 if __name__ == "__main__":
     args = default_argument_parser()
     args = args.parse_args()
-    args.dist_url = 'tcp://127.0.0.1:{}'.format(
+    args.dist_url = "tcp://127.0.0.1:{}".format(
         torch.randint(11111, 60000, (1,))[0].item())
     print("Command Line Args:", args)
 
     hostname = platform.node()
     if "iGpu" in hostname or "iLab" in hostname:
         os.environ["TMPDIR"] = "/lab/tmpig8e/u/brian-data"
-    elif re.search("[a-z]\d\d-\d\d", hostname):
+    elif "discovery" in hostname or re.search("[a-z]\d\d-\d\d", hostname):
         os.environ["TMPDIR"] = "/scratch1/briannlz"
     print(f"train_net.py: HOSTNAME={hostname}")
     print(f"train_net.py: TMPDIR={os.environ['TMPDIR']}")
+
+    wandb.init(project="GTR", config=args.config_file)
+    wandb.config.update({"HOST": hostname, "TMPDIR": os.environ["TMPDIR"]})
 
     launch(
         main,
