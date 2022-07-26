@@ -166,7 +166,6 @@ def do_train(cfg, model, resume=False):
         for data, iteration in zip(data_loader, range(start_iter, max_iter)):
             data_time = data_timer.seconds()
             storage.put_scalars(data_time=data_time)
-            #wandb.log({"data_time": data_time}, step=iteration)
             step_timer.reset()
             iteration = iteration + 1
             storage.step()
@@ -179,17 +178,14 @@ def do_train(cfg, model, resume=False):
             losses_reduced = sum(loss for k, loss in loss_dict_reduced.items() if "loss" in k)
             if comm.is_main_process():
                 storage.put_scalars(total_loss=losses_reduced, **loss_dict_reduced)
-                #wandb.log(loss_dict_reduced.update({"total_loss": losses_reduced}), step=iteration)
 
             optimizer.zero_grad()
             losses.backward()
             optimizer.step()
             
             storage.put_scalar("lr", optimizer.param_groups[0]["lr"], smoothing_hint=False)
-            #wandb.log({"lr": optimizer.param_groups[0]["lr"]}, step=iteration)
             step_time = step_timer.seconds()
             storage.put_scalars(time=step_time)
-            #wandb.log({"time": step_time}, step=iteration)
             data_timer.reset()
             scheduler.step()
 
