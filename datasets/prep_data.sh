@@ -1,8 +1,5 @@
 GTR_DIR=~/GTR
 
-pip install gdown
-pip install opencv-python
-
 MOT17 () {
 	DATASETS_DIR=$1/datasets
 	cd $DATASETS_DIR || exit
@@ -51,6 +48,9 @@ then
     export TMPDIR=/scratch1/briannlz
     module load gcc
     module load unzip
+elif [[ $HOSTNAME =~ "turing" || $HOSTNAME =~ "vista" ]]
+then
+    :
 else
     export TMPDIR=$HOME
 fi
@@ -58,7 +58,7 @@ fi
 # Download to data directory specified by $TMPDIR if set
 if [ -v TMPDIR ]
 then 
-	echo "TMPDIR is set to '$TMPDIR'"
+	echo "Downloading data to TMPDIR=$TMPDIR"
 	GTR_DIR_TMP=$TMPDIR/GTR
 
 	# Copy datasets metadata to $TMPDIR
