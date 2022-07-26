@@ -63,10 +63,8 @@ class GTRRCNN(CustomRCNN):
         images = self.preprocess_image(batched_inputs)
         features = self.backbone(images.tensor)
         gt_instances = [x["instances"].to(self.device) for x in batched_inputs]
-        proposals, proposal_losses = self.proposal_generator(
-            images, features, gt_instances)
-        _, detector_losses = self.roi_heads(
-            images, features, proposals, gt_instances)
+        proposals, proposal_losses = self.proposal_generator(images, features, gt_instances)
+        _, detector_losses = self.roi_heads(images, features, proposals, gt_instances)
         losses = {}
         losses.update(detector_losses)
         losses.update(proposal_losses)

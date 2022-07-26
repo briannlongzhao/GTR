@@ -124,17 +124,14 @@ class GTRROIHeads(CascadeROIHeads):
         """
         if not self.asso_on:
             return {} if self.training else instances
-        asso_thresh = self.asso_thresh_train if self.training \
-            else self.asso_thresh_test
-        fg_inds = [
-            x.objectness_logits > asso_thresh for x in instances]
+        asso_thresh = self.asso_thresh_train if self.training else self.asso_thresh_test
+        fg_inds = [x.objectness_logits > asso_thresh for x in instances]
         proposals = [x[inds] for (x, inds) in zip(instances, fg_inds)]
         features = [features[f] for f in self.asso_in_features]
         proposal_boxes = [x.proposal_boxes for x in proposals] # 
         pool_features = self.asso_pooler(features, proposal_boxes)
         reid_features = self.asso_head(pool_features)
-        reid_features = reid_features.view(
-            1, -1, self.feature_dim) # 1 x N x F
+        reid_features = reid_features.view(1, -1, self.feature_dim) # 1 x N x F
         n_t = [len(x) for x in proposals]
         if not self.training: # delay transformer
             instances = [inst[inds] for inst, inds in zip(instances, fg_inds)]
