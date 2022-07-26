@@ -6,10 +6,10 @@ GTR_models_TAO
 slurm-*.out
 slurm-output
 # output dir
-output
+output/
 instant_test_output
 inference_test_output
-datasets/*.zip
+wandb/
 
 *.png
 # *.json
