@@ -8,8 +8,7 @@ import datetime
 import sys
 import re
 import platform
-import yaml
-import wandb
+from wandb_writer import WandbWriter
 
 from fvcore.common.timer import Timer
 import detectron2.utils.comm as comm
@@ -102,9 +101,7 @@ def do_test(cfg, model):
                     cfg, False, augmentations=build_custom_augmentation(cfg, False))
             data_loader = build_gtr_test_loader(cfg, dataset_name, mapper)
             # TODO (Xingyi): create a new video inference pipeline
-            results[dataset_name] = inference_on_dataset(
-                model, data_loader, evaluator, 
-            )
+            results[dataset_name] = inference_on_dataset(model, data_loader, evaluator, )
         
         if comm.is_main_process():
             logger.info("Evaluation results for {} in csv format:".format(dataset_name))
@@ -147,6 +144,7 @@ def do_train(cfg, model, resume=False):
             CommonMetricPrinter(max_iter),
             JSONWriter(os.path.join(cfg.OUTPUT_DIR, "metrics.json")),
             TensorboardXWriter(cfg.OUTPUT_DIR),
+            WandbWriter(project="GTR", config=cfg)
         ]
         if comm.is_main_process()
         else []
@@ -203,16 +201,13 @@ def do_train(cfg, model, resume=False):
                 do_test(cfg, model)
                 comm.synchronize()
 
-            if iteration - start_iter > 5 and \
-                (iteration % 20 == 0 or iteration == max_iter):
+            if iteration - start_iter > 5 and (iteration % 20 == 0 or iteration == max_iter):
                 for writer in writers:
-                    writer.write()
+                    writer.write(step=iteration) if type(writer) is WandbWriter else writer.write()
             periodic_checkpointer.step(iteration)
 
         total_time = time.perf_counter() - start_time
-        logger.info(
-            "Total training time: {}".format(
-                str(datetime.timedelta(seconds=int(total_time)))))
+        logger.info("Total training time: {}".format(str(datetime.timedelta(seconds=int(total_time)))))
 
 def setup(args):
     """
@@ -267,14 +262,10 @@ if __name__ == "__main__":
     hostname = platform.node()
     if "iGpu" in hostname or "iLab" in hostname:
         os.environ["TMPDIR"] = "/lab/tmpig8e/u/brian-data"
-    elif "discovery" in hostname or re.search("[a-z]\d\d-\d\d", hostname):
+    elif "discovery" in hostname or "hpc" in hostname or re.search("[a-z]\d\d-\d\d", hostname):
         os.environ["TMPDIR"] = "/scratch1/briannlz"
     print(f"train_net.py: HOSTNAME={hostname}")
     print(f"train_net.py: TMPDIR={os.environ['TMPDIR']}")
-
-    with open(args.config_file) as f:
-        config_dict = yaml.load(f, yaml.CLoader)
-    #wandb.init(project="GTR", entity="briannlongzhao", config=config_dict)
 
     launch(
         main,
