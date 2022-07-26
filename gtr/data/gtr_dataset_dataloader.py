@@ -74,9 +74,7 @@ def build_gtr_train_loader(cfg, mapper):
 def build_gtr_test_loader(cfg, dataset_name, mapper):
     """
     """
-    dataset = get_video_dataset_dicts(
-        [dataset_name],
-    )
+    dataset = get_video_dataset_dicts([dataset_name], )
     dataset = DatasetFromList(dataset, copy=False)
     dataset = MapDataset(dataset, mapper)
 

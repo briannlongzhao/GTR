@@ -56,8 +56,7 @@ class Transformer(nn.Module):
             if p.dim() > 1:
                 nn.init.xavier_uniform_(p)
 
-    def forward(self, src, pos_embed=None, mask=None, \
-        query_embed=None, query_inds=None):
+    def forward(self, src, pos_embed=None, mask=None, query_embed=None, query_inds=None):
         '''
         change HW to F
         Inputs:
