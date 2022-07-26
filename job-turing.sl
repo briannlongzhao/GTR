@@ -18,14 +18,18 @@ source ~/.bashrc
 conda activate gtr
 
 # Assert running on Turing
+echo "HOSTNAME=$HOSTNAME"
 if ! [[ $HOSTNAME =~ "turing" || $HOSTNAME =~ "vista" ]]
 then
     echo "Host not Turing, exit"
     exit
+elif ! [[ -v TMPDIR ]]
+then
+    echo "TMPDIR not set, exit"
+    exit
 fi
 
 # Prepare datasets in $TMPDIR
-echo TMPDIR=$TMPDIR
 ./datasets/prep_data.sh
 
 # Train

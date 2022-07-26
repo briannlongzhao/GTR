@@ -26,7 +26,6 @@ else
 fi
 
 # Prepare datasets in $TMPDIR
-echo TMPDIR=$TMPDIR
 ./datasets/prep_data.sh
 
 # Train
