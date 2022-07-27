@@ -13,7 +13,8 @@ MOT17 () {
 	    cd mot/MOT17 || exit
 	    ln -s train trainval
 	    cd $1 || exit
-	    python tools/convert_mot2coco.py
+	    python tools/convert_mot2coco.py val
+	    python tools/convert_mot2coco.py test
 	    rm $DATASETS_DIR/*.zip
     fi
 }

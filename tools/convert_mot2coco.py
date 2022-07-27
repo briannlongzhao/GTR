@@ -2,18 +2,24 @@ import os
 import numpy as np
 import json
 import cv2
-
+import sys
 
 DATA_PATH = 'datasets/mot/MOT17/'
 OUT_PATH = DATA_PATH + 'annotations/'
 #SPLITS = ['train_half', 'val_half']
 SPLITS = ['train', 'test']
-HALF_VIDEO = False
+HALF_VIDEO = True
 CREATE_SPLITTED_ANN = True
 CREATE_SPLITTED_DET = True
 SAVE_JSON = True
 
 if __name__ == '__main__':
+  if sys.argv[1] == "val":
+    SPLITS  = ['train_half', 'val_half']
+  elif sys.argv[1] == "test":
+    SPLITS = ['train', 'test']
+  else:
+    print("arg should be {'val','test'}")
 
   if not os.path.exists(OUT_PATH):
     os.mkdir(OUT_PATH)
