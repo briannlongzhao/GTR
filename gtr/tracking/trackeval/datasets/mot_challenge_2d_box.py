@@ -63,8 +63,8 @@ class MotChallenge2DBox(_BaseDataset):
         #self.config['SKIP_SPLIT_FOL'] = True if self.config["SPLIT_TO_EVAL"] == "test" else False
         if not self.config['SKIP_SPLIT_FOL']:
             split_fol = gt_set
-            if "test" in split_fol:
-                split_fol = "test"
+            #if "test" in split_fol:
+            #    split_fol = "test"
         else:
             split_fol = ''
         self.gt_fol = os.path.join(self.config['GT_FOLDER'], split_fol)
