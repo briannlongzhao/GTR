@@ -178,10 +178,7 @@ class MotChallenge2DBox(_BaseDataset):
                         continue
                     seq = row[0]
                     seq_list.append(seq)
-                    if self.config["SPLIT_TO_EVAL"] == "test":
-                        ini_file = os.path.join(self.gt_fol, "test", seq, 'seqinfo.ini')
-                    else:
-                        ini_file = os.path.join(self.gt_fol, seq, 'seqinfo.ini')
+                    ini_file = os.path.join(self.gt_fol, seq, 'seqinfo.ini')
                     if not os.path.isfile(ini_file):
                         raise TrackEvalException('ini file does not exist: ' + seq + '/' + ini_file)
                     ini_data = configparser.ConfigParser()

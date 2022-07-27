@@ -236,33 +236,61 @@ class GTRROIHeads(CascadeROIHeads):
             ret: K x N or K x T
             match_cues: K x 3 or N
         '''
-        ious = pairwise_iou(Boxes(pred_box), Boxes(target_box)) # N x G (num proposal * num gt)
+        # pairwise IoU of proposals and gt bboxes (num proposal * num gt)
+        ious = pairwise_iou(Boxes(pred_box), Boxes(target_box)) # N x G
+        # assign -1 to match of bboxes not in same frame
         ious[pred_time[:, None] != target_time[None, :]] = -1.
+        # list of unique gt instance ids
         inst_ids = torch.unique(target_inst_id[target_inst_id > 0])
+        # K = num instances, N = num proposals
         K, N = len(inst_ids), len(pred_box)
+        # initialize -1 tensor of len = num proposals
         match_cues = pred_box.new_full((N,), -1, dtype=torch.long)
+        # num frames (TRAIN_LEN in config)
         T = len(n_t)
+        # initialize zero tensor of (num instances)*(num frame)
         ret = pred_box.new_zeros((K, T), dtype=torch.long)
+        # split pairwise IoU tensor into frames, each is a frame
         ious_per_frame = ious.split(n_t, dim=0) # T x [n_t x G]
+
         for k, inst_id in enumerate(inst_ids):
+
             target_inds = target_inst_id == inst_id # G
+
             base_ind = 0
+
             for t in range(T):
+
                 iou_t = ious_per_frame[t][:, target_inds] # n_t x gk
+
                 if iou_t.numel() == 0:
+
                     ret[k, t] = n_t[t]
+
                 else:
+
                     val, inds = iou_t.max(dim=0) # n_t x gk --> gk
+
                     ind = inds[val > 0.0]
+
                     assert (len(ind) <= 1), '{} {}'.format(
+
                         target_inst_id, n_t)
+
                     if len(ind) == 1:
+
                         obj_ind = ind[0].item()
+
                         ret[k, t] = obj_ind
+
                         match_cues[base_ind + obj_ind] = k
+
                     else:
+
                         ret[k, t] = n_t[t]
+
                 base_ind += n_t[t]
+
         return ret, match_cues
 
 
