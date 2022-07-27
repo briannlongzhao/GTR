@@ -60,8 +60,11 @@ class MotChallenge2DBox(_BaseDataset):
             gt_set = self.config['BENCHMARK'] + '-' + self.config['SPLIT_TO_EVAL']
         print('gt_set', gt_set, )
         self.gt_set = gt_set
+        #self.config['SKIP_SPLIT_FOL'] = True if self.config["SPLIT_TO_EVAL"] == "test" else False
         if not self.config['SKIP_SPLIT_FOL']:
             split_fol = gt_set
+            if "test" in split_fol:
+                split_fol = "test"
         else:
             split_fol = ''
         self.gt_fol = os.path.join(self.config['GT_FOLDER'], split_fol)
@@ -175,7 +178,10 @@ class MotChallenge2DBox(_BaseDataset):
                         continue
                     seq = row[0]
                     seq_list.append(seq)
-                    ini_file = os.path.join(self.gt_fol, seq, 'seqinfo.ini')
+                    if self.config["SPLIT_TO_EVAL"] == "test":
+                        ini_file = os.path.join(self.gt_fol, "test", seq, 'seqinfo.ini')
+                    else:
+                        ini_file = os.path.join(self.gt_fol, seq, 'seqinfo.ini')
                     if not os.path.isfile(ini_file):
                         raise TrackEvalException('ini file does not exist: ' + seq + '/' + ini_file)
                     ini_data = configparser.ConfigParser()

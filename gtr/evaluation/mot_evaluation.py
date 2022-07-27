@@ -24,7 +24,7 @@ if "TMPDIR" in os.environ.keys():
 print(f"mot_evaluation.py: HOSTNAME={hostname}")
 print(f"mot_evaluation.py: TMPDIR={os.environ['TMPDIR']}")
 
-def eval_track(out_dir, year):
+def eval_track(out_dir, year, dataset_name):
     freeze_support()
 
     default_eval_config = trackeval.Evaluator.get_default_eval_config()
@@ -36,7 +36,8 @@ def eval_track(out_dir, year):
     config = {
         **default_eval_config, **default_dataset_config, **default_metrics_config}  # Merge default configs
     config['GT_FOLDER'] = os.path.join(tmp_dir, 'datasets/mot/MOT{}/'.format(year))
-    config['SPLIT_TO_EVAL'] = 'half_val'
+    #config['SPLIT_TO_EVAL'] = 'half_val'
+    config['SPLIT_TO_EVAL'] = "test" if "test" in dataset_name else "half_val"
     config['TRACKERS_FOLDER'] = out_dir
     eval_config = {k: v for k, v in config.items() if k in default_eval_config.keys()}
     dataset_config = {k: v for k, v in config.items() if k in default_dataset_config.keys()}
@@ -109,9 +110,8 @@ def track_and_eval_mot(out_dir, data, preds, dataset_name):
             print('Runing tracking ...', video['file_name'], len(images))
             preds = [per_image_preds[x['id']] for x in images]
             preds = track(preds)
-    save_cocojson_as_mottxt(
-        mot_out_dir, videos, video2images, per_image_preds)
-    eval_track(out_dir + '/moteval', year)
+    save_cocojson_as_mottxt(mot_out_dir, videos, video2images, per_image_preds)
+    eval_track(out_dir + '/moteval', year, dataset_name)
 
 
 def custom_instances_to_coco_json(instances, img_id):
