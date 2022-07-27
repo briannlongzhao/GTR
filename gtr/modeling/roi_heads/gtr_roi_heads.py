@@ -121,18 +121,33 @@ class GTRROIHeads(CascadeROIHeads):
 
     def _forward_asso(self, features, instances, targets=None):
         """
+        l_asso association loss
+        Args:
+            features: p3-p7 feature extracted from FPN
+            instances: region proposals given by detector
+            target: gt instances
         """
         if not self.asso_on:
             return {} if self.training else instances
+        # fg threshold from config
         asso_thresh = self.asso_thresh_train if self.training else self.asso_thresh_test
+        # boolean fg indicators for all instances
         fg_inds = [x.objectness_logits > asso_thresh for x in instances]
+        # fg proposals according to fg indicators
         proposals = [x[inds] for (x, inds) in zip(instances, fg_inds)]
+        # specific set of features from FPN accordign to config
         features = [features[f] for f in self.asso_in_features]
-        proposal_boxes = [x.proposal_boxes for x in proposals] # 
+        # bboxes from fg proposals
+        proposal_boxes = [x.proposal_boxes for x in proposals] #
+        # features after ROI pooling
         pool_features = self.asso_pooler(features, proposal_boxes)
+        # re-identified feature after FC layers
         reid_features = self.asso_head(pool_features)
+        # 1 * N(num proposal) * F(feature dim) features
         reid_features = reid_features.view(1, -1, self.feature_dim) # 1 x N x F
+        # N_t(number of proposals) for each frame
         n_t = [len(x) for x in proposals]
+
         if not self.training: # delay transformer
             instances = [inst[inds] for inst, inds in zip(instances, fg_inds)]
             features = reid_features.view(-1, self.feature_dim).split(n_t, dim=0)
@@ -140,21 +155,28 @@ class GTRROIHeads(CascadeROIHeads):
                 inst.reid_features = feat
             return instances
         else:
-            asso_outputs, pred_box, pred_time, query_inds = \
-                self._forward_transformer(proposals, reid_features)
+            # input fg proposals and all features, transformer output N*N (num proposals * num proposals) attention score, bboxes, time step for each proposal
+            asso_outputs, pred_box, pred_time, query_inds = self._forward_transformer(proposals, reid_features)
+            # assert same number of frames for proposals and gt
             assert len(proposals) == len(targets)
+            # gt bboxes (G*4) and there time steps (G)
             target_box, target_time = self._get_boxes_time(targets) # G x 4
-            if sum(len(x) for x in targets) == 0 or \
-                max(x.gt_instance_ids.max().item() for x in targets if len(x) > 0) == 0:
+            # if no gt target
+            if sum(len(x) for x in targets) == 0 or max(x.gt_instance_ids.max().item() for x in targets if len(x) > 0) == 0:
+
                 asso_loss = features[0].new_zeros((1,), dtype=torch.float32)[0]
+
                 return {'loss_asso': asso_loss}
-            target_inst_id = torch.cat(
-                [x.gt_instance_ids for x in targets if len(x) > 0])
-            asso_gt, match_cues = self._get_asso_gt(
-                pred_box, pred_time, target_box, target_time, 
-                target_inst_id, n_t) # K x N, 
+            # gt object ids matched with bboxes and time step list
+            target_inst_id = torch.cat([x.gt_instance_ids for x in targets if len(x) > 0])
+            # gt association indicator  (len unique id)*(num frames) or (len unique id)*(num proposal bboxes)
+            # match_cues for all proposals (-1 for no association)
+            asso_gt, match_cues = self._get_asso_gt(pred_box, pred_time, target_box, target_time, target_inst_id, n_t) # K x N,
+
             asso_loss = 0
+
             for x in asso_outputs:
+                # input attention of one query, association gt,
                 asso_loss += self.detr_asso_loss(x, asso_gt, match_cues, n_t)
             return {'loss_asso': self.asso_weight * asso_loss}
 
@@ -182,12 +204,9 @@ class GTRROIHeads(CascadeROIHeads):
             query_inds = [x for x in range(sum(n_t[:c]), sum(n_t[:c + 1]))]
             M = len(query_inds)
 
-        feats, memory = self.transformer(
-            reid_features, pos_embed=pos_emb, query_embed=query,
-            query_inds=query_inds)
+        feats, memory = self.transformer(reid_features, pos_embed=pos_emb, query_embed=query, query_inds=query_inds)
         # feats: L x [1 x M x F], memory: 1 x N x F
-        asso_outputs = [self.asso_predictor(x, memory).view(M, N) \
-            for x in feats] # L x [M x N]
+        asso_outputs = [self.asso_predictor(x, memory).view(M, N) for x in feats] # L x [M x N]
         return asso_outputs, pred_box, pred_time, query_inds
 
     
@@ -202,28 +221,27 @@ class GTRROIHeads(CascadeROIHeads):
         return asso_active
     
 
-    def _get_asso_gt(self, pred_box, pred_time, \
-        target_box, target_time, target_inst_id, n_t):
+    def _get_asso_gt(self, pred_box, pred_time, target_box, target_time, target_inst_id, n_t):
         '''
+        Association assignment rule for $\hat{\alpha}_k^t$
+        Equation (2) in paper
         Inputs:
             pred_box: N x 4
             pred_time: N
-            targer_box: G x 4
-            targer_time: G
+            target_box: G x 4
+            target_time: G
             target_inst_id: G
             K: len(unique(target_inst_id))
         Return:
             ret: K x N or K x T
             match_cues: K x 3 or N
         '''
-        ious = pairwise_iou(Boxes(pred_box), Boxes(target_box)) # N x G
+        ious = pairwise_iou(Boxes(pred_box), Boxes(target_box)) # N x G (num proposal * num gt)
         ious[pred_time[:, None] != target_time[None, :]] = -1.
         inst_ids = torch.unique(target_inst_id[target_inst_id > 0])
         K, N = len(inst_ids), len(pred_box)
         match_cues = pred_box.new_full((N,), -1, dtype=torch.long)
-
         T = len(n_t)
-
         ret = pred_box.new_zeros((K, T), dtype=torch.long)
         ious_per_frame = ious.split(n_t, dim=0) # T x [n_t x G]
         for k, inst_id in enumerate(inst_ids):
@@ -245,7 +263,6 @@ class GTRROIHeads(CascadeROIHeads):
                     else:
                         ret[k, t] = n_t[t]
                 base_ind += n_t[t]
-
         return ret, match_cues
 
 
@@ -258,26 +275,22 @@ class GTRROIHeads(CascadeROIHeads):
         Return:
             float
         '''
-        src_inds, target_inds = self._match(
-            asso_pred, asso_gt, match_cues, n_t)
+        src_inds, target_inds = self._match(asso_pred, asso_gt, match_cues, n_t)
 
         loss = 0
         num_objs = 0
         zero = asso_pred.new_zeros((asso_pred.shape[0], 1)) # M x 1
         asso_pred_image = asso_pred.split(n_t, dim=1) # T x [M x n_t]
         for t in range(len(n_t)):
-            asso_pred_with_bg = torch.cat(
-                [asso_pred_image[t], zero], dim=1) # M x (n_t + 1)
+            asso_pred_with_bg = torch.cat([asso_pred_image[t], zero], dim=1) # M x (n_t + 1)
             if self.neg_unmatched:
-                asso_gt_t = asso_gt.new_full(
-                    (asso_pred.shape[0],), n_t[t]) # M
+                asso_gt_t = asso_gt.new_full((asso_pred.shape[0],), n_t[t]) # M
                 asso_gt_t[src_inds] = asso_gt[target_inds, t] # M
             else:
                 asso_pred_with_bg = asso_pred_with_bg[src_inds] # K x (n_t + 1)
                 asso_gt_t = asso_gt[target_inds, t] # K
             num_objs += (asso_gt_t != n_t[t]).float().sum()
-            loss += F.cross_entropy(
-                asso_pred_with_bg, asso_gt_t, reduction='none')
+            loss += F.cross_entropy(asso_pred_with_bg, asso_gt_t, reduction='none')
         return loss.sum() / (num_objs + 1e-4)
 
 
@@ -309,8 +322,7 @@ class GTRROIHeads(CascadeROIHeads):
             p_boxes[:, [0, 2]] /= w
             p_boxes[:, [1, 3]] /= h
             boxes.append(p_boxes) # ni x 4
-            times.append(p_boxes.new_full(
-                (p_boxes.shape[0],), t, dtype=torch.long))
+            times.append(p_boxes.new_full((p_boxes.shape[0],), t, dtype=torch.long))
         boxes = torch.cat(boxes, dim=0) # N x 4
         times = torch.cat(times, dim=0) # N
         return boxes.detach(), times.detach()
