@@ -10,6 +10,7 @@
 #SBATCH --time=10:00:00
 #SBATCH --output=output.txt
 #SBATCH --error=error.txt
+#SBATCH --open-mode=truncate
 #SBATCH --gres=gpu:4
 
 nvidia-smi
@@ -33,10 +34,10 @@ fi
 ./datasets/prep_data.sh
 
 # Train
-python train_net.py --num-gpus 4 --config-file configs/GTR_MOTFull_FPN.yaml
+#python train_net.py --num-gpus 4 --config-file configs/GTR_MOTFull_FPN.yaml
 
 # Evaluate only
-#python train_net.py --config-file configs/GTR_MOT_FPN.yaml --eval-only MODEL.WEIGHTS models/GTR_MOT_FPN.pth
+python train_net.py --config-file configs/GTR_MOTFull_FPN.yaml --eval-only MODEL.WEIGHTS models/GTR_MOTFull_FPN.pth
 
 # Copy output from $TMPDIR back to home directory
 if [[ -v TMPDIR ]]
