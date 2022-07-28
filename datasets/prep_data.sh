@@ -7,7 +7,7 @@ MOT17 () {
 	then
 		mkdir mot
         echo "Downloading MOT17 dataset..."
-		wget https://motchallenge.net/data/MOT17.zip
+		wget -q https://motchallenge.net/data/MOT17.zip
         echo "Unzipping MOT17 dataset..."
 		unzip -q MOT17.zip -d mot
 	    cd mot/MOT17 || exit
@@ -15,7 +15,6 @@ MOT17 () {
 	    cd $1 || exit
 	    python tools/convert_mot2coco.py val
 	    python tools/convert_mot2coco.py test
-	    rm $DATASETS_DIR/*.zip
     fi
 }
 
@@ -27,12 +26,27 @@ CrowdHuman () {
         echo "Downloading CrowdHuman dataset..."
 		gdown --folder 1-N59uI5plTXEepaIasH3kpFW6SPKSVkQ
 		cd crowdhuman || exit
+        if ! [ -f "CrowdHuman_train01.zip" ]
+        then
+             cp $GTR_DIR/datasets/crowdhuman/CrowdHuman_train01.zip $DATASETS_DIR/crowdhuman/
+        fi
+        if ! [ -f "CrowdHuman_train02.zip" ]
+        then
+             cp $GTR_DIR/datasets/crowdhuman/CrowdHuman_train02.zip $DATASETS_DIR/crowdhuman/
+        fi
+        if ! [ -f "CrowdHuman_train03.zip" ]
+        then
+             cp $GTR_DIR/datasets/crowdhuman/CrowdHuman_train03.zip $DATASETS_DIR/crowdhuman/
+        fi
+        if ! [ -f "CrowdHuman_val.zip" ]
+        then
+             cp $GTR_DIR/datasets/crowdhuman/CrowdHuman_val.zip $DATASETS_DIR/crowdhuman/
+        fi
         echo "Unzipping Crowdhuman dataset..."
 		unzip -q CrowdHuman_train\* -d CrowdHuman_train
 		unzip -q CrowdHuman_val\* -d CrowdHuman_val
 		cd $1 || exit
 		python tools/convert_crowdhuman_amodal.py
-		rm $DATASETS_DIR/crowdhuman/*.zip
 	fi
 }
 

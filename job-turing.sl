@@ -8,8 +8,8 @@
 #SBATCH --qos=premium_memory
 #SBATCH --mem=128GB
 #SBATCH --time=10:00:00
-#SBATCH --output=output.txt
-#SBATCH --error=error.txt
+#SBATCH --output=output_train.txt
+#SBATCH --error=error_train.txt
 #SBATCH --open-mode=truncate
 #SBATCH --gres=gpu:4
 
@@ -33,11 +33,14 @@ fi
 # Prepare datasets in $TMPDIR
 ./datasets/prep_data.sh
 
+# Login wandb
+wandb login --relogin da75e98d29ae627bc5e000d68b033fda0155fc79
+
 # Train
-#python train_net.py --num-gpus 4 --config-file configs/GTR_MOTFull_FPN.yaml
+python train_net.py --num-gpus 4 --config-file configs/GTR_MOT_FPN.yaml
 
 # Evaluate only
-python train_net.py --config-file configs/GTR_MOTFull_FPN.yaml --eval-only MODEL.WEIGHTS models/GTR_MOTFull_FPN.pth
+#python train_net.py --config-file configs/GTR_MOT_FPN.yaml --eval-only MODEL.WEIGHTS models/GTR_MOT_FPN.pth
 
 # Copy output from $TMPDIR back to home directory
 if [[ -v TMPDIR ]]
