@@ -10,11 +10,11 @@ MOT17 () {
 		wget -q https://motchallenge.net/data/MOT17.zip
         echo "Unzipping MOT17 dataset..."
 		unzip -q MOT17.zip -d mot
-	    cd mot/MOT17 || exit
-	    ln -s train trainval
-	    cd $1 || exit
-	    python tools/convert_mot2coco.py val
-	    python tools/convert_mot2coco.py test
+        cd mot/MOT17 || exit
+        ln -s train trainval
+        cd $1 || exit
+        python tools/convert_mot2coco.py val
+        python tools/convert_mot2coco.py test
     fi
 }
 
@@ -24,23 +24,23 @@ CrowdHuman () {
 	if ! [ -d "crowdhuman/" ]
 	then
         echo "Downloading CrowdHuman dataset..."
-		gdown --folder 1-N59uI5plTXEepaIasH3kpFW6SPKSVkQ
+		gdown -q --folder 1-N59uI5plTXEepaIasH3kpFW6SPKSVkQ
 		cd crowdhuman || exit
         if ! [ -f "CrowdHuman_train01.zip" ]
         then
-             cp $GTR_DIR/datasets/crowdhuman/CrowdHuman_train01.zip $DATASETS_DIR/crowdhuman/
+            cp $GTR_DIR/datasets/crowdhuman/CrowdHuman_train01.zip $DATASETS_DIR/crowdhuman/
         fi
         if ! [ -f "CrowdHuman_train02.zip" ]
         then
-             cp $GTR_DIR/datasets/crowdhuman/CrowdHuman_train02.zip $DATASETS_DIR/crowdhuman/
+            cp $GTR_DIR/datasets/crowdhuman/CrowdHuman_train02.zip $DATASETS_DIR/crowdhuman/
         fi
         if ! [ -f "CrowdHuman_train03.zip" ]
         then
-             cp $GTR_DIR/datasets/crowdhuman/CrowdHuman_train03.zip $DATASETS_DIR/crowdhuman/
+            cp $GTR_DIR/datasets/crowdhuman/CrowdHuman_train03.zip $DATASETS_DIR/crowdhuman/
         fi
         if ! [ -f "CrowdHuman_val.zip" ]
         then
-             cp $GTR_DIR/datasets/crowdhuman/CrowdHuman_val.zip $DATASETS_DIR/crowdhuman/
+            cp $GTR_DIR/datasets/crowdhuman/CrowdHuman_val.zip $DATASETS_DIR/crowdhuman/
         fi
         echo "Unzipping Crowdhuman dataset..."
 		unzip -q CrowdHuman_train\* -d CrowdHuman_train
@@ -50,11 +50,30 @@ CrowdHuman () {
 	fi
 }
 
+BDD100K () {
+	DATASETS_DIR=$1/datasets
+	cd $DATASETS_DIR || exit
+	if ! [ -d "bdd100k/" ]
+	then
+		mkdir bdd100k
+        echo "Downloading BDD100K dataset..."
+		gdown -q 1rPJj_OJ-QOMeDyYYBE00V1m-Z0DMfaP5
+		gdown -q 1dYeF9b2MSHZiTLtBgszHrzHj3ZjnaTvE
+        echo "Unzipping BDD100K dataset..."
+		unzip -q bdd100k_images_100k.zip bdd100k_labels_release.zip
+
+        cd bdd100k/MOT17 || exit
+        ln -s train trainval
+        cd $1 || exit
+
+    fi
+}
+
 # Download to home directory
 #MOT17 $GTR_DIR
 #CrowdHuman $GTR_DIR
 
-# Set TMPDIR if on iLab or Discovery, or set it same as $HOME otherwise
+# Set TMPDIR if on iLab or Discovery
 if [[ $HOSTNAME =~ iGpu || $HOSTNAME =~ iLab ]]
 then
 	export TMPDIR=/lab/tmpig8e/u/brian-data
@@ -67,7 +86,7 @@ elif [[ $HOSTNAME =~ "turing" || $HOSTNAME =~ "vista" ]]
 then
     :
 else
-    export TMPDIR=$HOME
+    echo "Unknown host: $HOSTNAME"
 fi
 
 # Download to data directory specified by $TMPDIR if set
@@ -97,4 +116,6 @@ then
 
 	MOT17 $GTR_DIR_TMP
 	CrowdHuman $GTR_DIR_TMP
+else
+    echo "TMPDIR not set"
 fi
