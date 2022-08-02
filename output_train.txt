@@ -1,0 +1,2257 @@
+TMPDIR is set to /lfs_ssd/slurm_tmp/briannlz/260362
+Thu Jul 28 11:44:52 2022       
++-----------------------------------------------------------------------------+
+| NVIDIA-SMI 515.43.04    Driver Version: 515.43.04    CUDA Version: 11.7     |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|                               |                      |               MIG M. |
+|===============================+======================+======================|
+|   0  Quadro RTX 8000     Off  | 00000000:3B:00.0 Off |                  Off |
+| 33%   35C    P0    63W / 260W |      0MiB / 49152MiB |      0%      Default |
+|                               |                      |                  N/A |
++-------------------------------+----------------------+----------------------+
+|   1  Quadro RTX 8000     Off  | 00000000:5E:00.0 Off |                  Off |
+| 33%   32C    P0    61W / 260W |      0MiB / 49152MiB |      0%      Default |
+|                               |                      |                  N/A |
++-------------------------------+----------------------+----------------------+
+|   2  Quadro RTX 8000     Off  | 00000000:86:00.0 Off |                  Off |
+| 32%   28C    P0    58W / 260W |      0MiB / 49152MiB |      0%      Default |
+|                               |                      |                  N/A |
++-------------------------------+----------------------+----------------------+
+|   3  Quadro RTX 8000     Off  | 00000000:AF:00.0 Off |                  Off |
+| 32%   27C    P0    42W / 260W |      0MiB / 49152MiB |      5%      Default |
+|                               |                      |                  N/A |
++-------------------------------+----------------------+----------------------+
+                                                                               
++-----------------------------------------------------------------------------+
+| Processes:                                                                  |
+|  GPU   GI   CI        PID   Type   Process name                  GPU Memory |
+|        ID   ID                                                   Usage      |
+|=============================================================================|
+|  No running processes found                                                 |
++-----------------------------------------------------------------------------+
+no change     /nas/home/briannlz/anaconda3/condabin/conda
+no change     /nas/home/briannlz/anaconda3/bin/conda
+no change     /nas/home/briannlz/anaconda3/bin/conda-env
+no change     /nas/home/briannlz/anaconda3/bin/activate
+no change     /nas/home/briannlz/anaconda3/bin/deactivate
+no change     /nas/home/briannlz/anaconda3/etc/profile.d/conda.sh
+no change     /nas/home/briannlz/anaconda3/etc/fish/conf.d/conda.fish
+no change     /nas/home/briannlz/anaconda3/shell/condabin/Conda.psm1
+no change     /nas/home/briannlz/anaconda3/shell/condabin/conda-hook.ps1
+no change     /nas/home/briannlz/anaconda3/lib/python3.9/site-packages/xontrib/conda.xsh
+no change     /nas/home/briannlz/anaconda3/etc/profile.d/conda.csh
+no change     /nas/home/briannlz/.bashrc
+No action taken.
+HOSTNAME=vista15
+Downloading data to TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+Downloading MOT17 dataset...
+Unzipping MOT17 dataset...
+data_path datasets/mot/MOT17/trainval
+MOT17-02-FRCNN: 600 images
+ 600 ann images
+MOT17-04-FRCNN: 1050 images
+ 1050 ann images
+MOT17-05-FRCNN: 837 images
+ 837 ann images
+MOT17-09-FRCNN: 525 images
+ 525 ann images
+MOT17-10-FRCNN: 654 images
+ 654 ann images
+MOT17-11-FRCNN: 900 images
+ 900 ann images
+MOT17-13-FRCNN: 750 images
+ 750 ann images
+loaded train_half for 2664 images and 53813 samples
+data_path datasets/mot/MOT17/trainval
+MOT17-02-FRCNN: 600 images
+ 600 ann images
+MOT17-04-FRCNN: 1050 images
+ 1050 ann images
+MOT17-05-FRCNN: 837 images
+ 837 ann images
+MOT17-09-FRCNN: 525 images
+ 525 ann images
+MOT17-10-FRCNN: 654 images
+ 654 ann images
+MOT17-11-FRCNN: 900 images
+ 900 ann images
+MOT17-13-FRCNN: 750 images
+ 750 ann images
+loaded val_half for 2652 images and 47999 samples
+data_path datasets/mot/MOT17/trainval
+MOT17-02-FRCNN: 600 images
+ 600 ann images
+MOT17-04-FRCNN: 1050 images
+ 1050 ann images
+MOT17-05-FRCNN: 837 images
+ 837 ann images
+MOT17-09-FRCNN: 525 images
+ 525 ann images
+MOT17-10-FRCNN: 654 images
+ 654 ann images
+MOT17-11-FRCNN: 900 images
+ 900 ann images
+MOT17-13-FRCNN: 750 images
+ 750 ann images
+loaded train for 5316 images and 101812 samples
+data_path datasets/mot/MOT17/trainval
+MOT17-02-DPM: 600 images
+MOT17-02-FRCNN: 600 images
+MOT17-02-SDP: 600 images
+MOT17-04-DPM: 1050 images
+MOT17-04-FRCNN: 1050 images
+MOT17-04-SDP: 1050 images
+MOT17-05-DPM: 837 images
+MOT17-05-FRCNN: 837 images
+MOT17-05-SDP: 837 images
+MOT17-09-DPM: 525 images
+MOT17-09-FRCNN: 525 images
+MOT17-09-SDP: 525 images
+MOT17-10-DPM: 654 images
+MOT17-10-FRCNN: 654 images
+MOT17-10-SDP: 654 images
+MOT17-11-DPM: 900 images
+MOT17-11-FRCNN: 900 images
+MOT17-11-SDP: 900 images
+MOT17-13-DPM: 750 images
+MOT17-13-FRCNN: 750 images
+MOT17-13-SDP: 750 images
+loaded test for 15948 images and 0 samples
+Downloading CrowdHuman dataset...
+Unzipping Crowdhuman dataset...
+fpath datasets/crowdhuman//annotation_val.odgt
+0 of 4370
+1000 of 4370
+2000 of 4370
+3000 of 4370
+4000 of 4370
+loaded val for 4370 images and 127716 samples
+fpath datasets/crowdhuman//annotation_train.odgt
+0 of 15000
+1000 of 15000
+2000 of 15000
+3000 of 15000
+4000 of 15000
+5000 of 15000
+6000 of 15000
+7000 of 15000
+8000 of 15000
+9000 of 15000
+10000 of 15000
+11000 of 15000
+12000 of 15000
+13000 of 15000
+14000 of 15000
+loaded train for 15000 images and 438792 samples
+lvis_v1.py: HOSTNAME=vista15
+lvis_v1.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+mot.py: HOSTNAME=vista15
+mot.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+crowdhuman.py: HOSTNAME=vista15
+crowdhuman.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+mot.py: HOSTNAME=vista15
+mot.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+mot_evaluation.py: HOSTNAME=vista15
+mot_evaluation.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+Command Line Args: Namespace(config_file='configs/GTR_MOT_FPN.yaml', resume=False, eval_only=False, num_gpus=4, num_machines=1, machine_rank=0, dist_url='tcp://127.0.0.1:35946', opts=[])
+train_net.py: HOSTNAME=vista15
+train_net.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+lvis_v1.py: HOSTNAME=vista15
+lvis_v1.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+mot.py: HOSTNAME=vista15
+mot.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+crowdhuman.py: HOSTNAME=vista15
+crowdhuman.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+mot.py: HOSTNAME=vista15
+mot.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+mot_evaluation.py: HOSTNAME=vista15
+mot_evaluation.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+[32m[07/28 12:12:10 detectron2]: [0mRank of current process: 0. World size: 4
+[32m[07/28 12:12:13 detectron2]: [0mEnvironment info:
+----------------------  -------------------------------------------------------------------------------------
+sys.platform            linux
+Python                  3.9.13 | packaged by conda-forge | (main, May 27 2022, 16:58:50) [GCC 10.3.0]
+numpy                   1.22.3
+detectron2              0.6 @/nas/home/briannlz/anaconda3/envs/gtr/lib/python3.9/site-packages/detectron2
+Compiler                GCC 7.3
+CUDA compiler           CUDA 11.3
+detectron2 arch flags   3.7, 5.0, 5.2, 6.0, 6.1, 7.0, 7.5, 8.0, 8.6
+DETECTRON2_ENV_MODULE   <not set>
+PyTorch                 1.10.0 @/nas/home/briannlz/anaconda3/envs/gtr/lib/python3.9/site-packages/torch
+PyTorch debug build     False
+GPU available           Yes
+GPU 0,1,2,3             Quadro RTX 8000 (arch=7.5)
+Driver version          515.43.04
+CUDA_HOME               /usr/local/cuda
+Pillow                  9.2.0
+torchvision             0.11.0 @/nas/home/briannlz/anaconda3/envs/gtr/lib/python3.9/site-packages/torchvision
+torchvision arch flags  3.5, 5.0, 6.0, 7.0, 7.5, 8.0, 8.6
+fvcore                  0.1.5.post20220512
+iopath                  0.1.9
+cv2                     4.6.0
+----------------------  -------------------------------------------------------------------------------------
+PyTorch built with:
+  - GCC 7.3
+  - C++ Version: 201402
+  - Intel(R) oneAPI Math Kernel Library Version 2021.4-Product Build 20210904 for Intel(R) 64 architecture applications
+  - Intel(R) MKL-DNN v2.2.3 (Git Hash 7336ca9f055cf1bfa13efb658fe15dc9b41f0740)
+  - OpenMP 201511 (a.k.a. OpenMP 4.5)
+  - LAPACK is enabled (usually provided by MKL)
+  - NNPACK is enabled
+  - CPU capability usage: AVX512
+  - CUDA Runtime 11.3
+  - NVCC architecture flags: -gencode;arch=compute_37,code=sm_37;-gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_61,code=sm_61;-gencode;arch=compute_70,code=sm_70;-gencode;arch=compute_75,code=sm_75;-gencode;arch=compute_80,code=sm_80;-gencode;arch=compute_86,code=sm_86;-gencode;arch=compute_37,code=compute_37
+  - CuDNN 8.2
+  - Magma 2.5.2
+  - Build settings: BLAS_INFO=mkl, BUILD_TYPE=Release, CUDA_VERSION=11.3, CUDNN_VERSION=8.2.0, CXX_COMPILER=/opt/rh/devtoolset-7/root/usr/bin/c++, CXX_FLAGS= -Wno-deprecated -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -fopenmp -DNDEBUG -DUSE_KINETO -DUSE_FBGEMM -DUSE_QNNPACK -DUSE_PYTORCH_QNNPACK -DUSE_XNNPACK -DSYMBOLICATE_MOBILE_DEBUG_HANDLE -DEDGE_PROFILER_USE_KINETO -O2 -fPIC -Wno-narrowing -Wall -Wextra -Werror=return-type -Wno-missing-field-initializers -Wno-type-limits -Wno-array-bounds -Wno-unknown-pragmas -Wno-sign-compare -Wno-unused-parameter -Wno-unused-variable -Wno-unused-function -Wno-unused-result -Wno-unused-local-typedefs -Wno-strict-overflow -Wno-strict-aliasing -Wno-error=deprecated-declarations -Wno-stringop-overflow -Wno-psabi -Wno-error=pedantic -Wno-error=redundant-decls -Wno-error=old-style-cast -fdiagnostics-color=always -faligned-new -Wno-unused-but-set-variable -Wno-maybe-uninitialized -fno-math-errno -fno-trapping-math -Werror=format -Wno-stringop-overflow, LAPACK_INFO=mkl, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, PERF_WITH_AVX512=1, TORCH_VERSION=1.10.0, USE_CUDA=ON, USE_CUDNN=ON, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_MKL=ON, USE_MKLDNN=ON, USE_MPI=OFF, USE_NCCL=ON, USE_NNPACK=ON, USE_OPENMP=ON, 
+
+[32m[07/28 12:12:13 detectron2]: [0mCommand line arguments: Namespace(config_file='configs/GTR_MOT_FPN.yaml', resume=False, eval_only=False, num_gpus=4, num_machines=1, machine_rank=0, dist_url='tcp://127.0.0.1:35946', opts=[])
+[32m[07/28 12:12:13 detectron2]: [0mContents of args.config_file=configs/GTR_MOT_FPN.yaml:
+_BASE_: "Base-CenterNet.yaml"
+MODEL:
+  META_ARCHITECTURE: "GTRRCNN"
+  CENTERNET:
+    USE_DEFORMABLE: True
+    NMS_TH_TEST: 0.6
+  ROI_HEADS:
+    NAME: GTRROIHeads
+    PROPOSAL_APPEND_GT: False
+    NO_BOX_HEAD: True
+  WEIGHTS: 'models/CH_FPN_1x.pth'
+  ASSO_ON: True
+  ASSO_HEAD:
+    NEG_UNMATCHED: True
+    ASSO_THRESH: 0.3
+    ASSO_THRESH_TEST: 0.55
+    ASSO_WEIGHT: 1.0
+    NUM_WEIGHT_LAYERS: 0
+    NO_POS_EMB: True
+SOLVER:
+  USE_CUSTOM_SOLVER: True
+  MAX_ITER: 8000
+  LR_SCHEDULER_NAME: "WarmupCosineLR"
+  BASE_LR: 0.00005
+  OPTIMIZER: ADAMW
+  IMS_PER_BATCH: 4
+  CLIP_GRADIENTS:
+    ENABLED: True
+    CLIP_TYPE: "full_model"
+    CLIP_VALUE: 0.1
+    NORM_TYPE: 2.0
+  BACKBONE_MULTIPLIER: 0.1
+INPUT:
+  FORMAT: RGB
+  CUSTOM_AUG: EfficientDetResizeCrop
+  TRAIN_SIZE: 1280
+  NOT_CLAMP_BOX: True
+  TEST_INPUT_TYPE: square
+  TEST_SIZE: 1560
+  VIDEO:
+    TRAIN_LEN: 8
+    TEST_LEN: 32
+VIDEO_INPUT: True
+VIDEO_TEST:
+  MAX_CENTER_DIST: 1.0
+  OVERLAP_THRESH: 0.2
+  DECAY_TIME: 0.9
+  WITH_IOU: True
+  NOT_MULT_THRESH: True
+DATASETS:
+  TRAIN: ("mot17_halftrain","crowdhuman_train")
+  TEST: ("mot17_halfval",)
+FIND_UNUSED_PARAM: True
+DATALOADER:
+  SAMPLER_TRAIN: "MultiDatasetSampler"
+  SOURCE_AWARE: True
+  DATASET_RATIO: [1, 1]
+
+[32m[07/28 12:12:13 detectron2]: [0mRunning with full config:
+CUDNN_BENCHMARK: false
+DATALOADER:
+  ASPECT_RATIO_GROUPING: true
+  DATASET_RATIO:
+  - 1
+  - 1
+  FILTER_EMPTY_ANNOTATIONS: true
+  NUM_WORKERS: 4
+  REPEAT_THRESHOLD: 0.0
+  SAMPLER_TRAIN: MultiDatasetSampler
+  SOURCE_AWARE: true
+DATASETS:
+  PRECOMPUTED_PROPOSAL_TOPK_TEST: 1000
+  PRECOMPUTED_PROPOSAL_TOPK_TRAIN: 2000
+  PROPOSAL_FILES_TEST: []
+  PROPOSAL_FILES_TRAIN: []
+  TEST:
+  - mot17_halfval
+  TRAIN:
+  - mot17_halftrain
+  - crowdhuman_train
+DEBUG: false
+DEBUG_SHOW_NAME: false
+FIND_UNUSED_PARAM: true
+GLOBAL:
+  HACK: 1.0
+INPUT:
+  CROP:
+    ENABLED: false
+    SIZE:
+    - 0.9
+    - 0.9
+    TYPE: relative_range
+  CUSTOM_AUG: EfficientDetResizeCrop
+  FORMAT: RGB
+  MASK_FORMAT: polygon
+  MAX_SIZE_TEST: 1333
+  MAX_SIZE_TRAIN: 1333
+  MIN_SIZE_TEST: 800
+  MIN_SIZE_TRAIN:
+  - 800
+  MIN_SIZE_TRAIN_SAMPLING: choice
+  NOT_CLAMP_BOX: true
+  RANDOM_FLIP: horizontal
+  SCALE_RANGE:
+  - 0.1
+  - 2.0
+  TEST_H: -1
+  TEST_INPUT_TYPE: square
+  TEST_SIZE: 1560
+  TEST_W: -1
+  TRAIN_H: -1
+  TRAIN_SIZE: 1280
+  TRAIN_W: -1
+  VIDEO:
+    DYNAMIC_SCALE: true
+    GEN_IMAGE_MOTION: true
+    SAMPLE_RANGE: 2.0
+    TEST_LEN: 32
+    TRAIN_LEN: 8
+MODEL:
+  ANCHOR_GENERATOR:
+    ANGLES:
+    - - -90
+      - 0
+      - 90
+    ASPECT_RATIOS:
+    - - 0.5
+      - 1.0
+      - 2.0
+    NAME: DefaultAnchorGenerator
+    OFFSET: 0.0
+    SIZES:
+    - - 32
+      - 64
+      - 128
+      - 256
+      - 512
+  ASSO_HEAD:
+    ASSO_THRESH: 0.3
+    ASSO_THRESH_TEST: 0.55
+    ASSO_WEIGHT: 1.0
+    DROPOUT: 0.1
+    FC_DIM: 1024
+    NEG_UNMATCHED: true
+    NORM: false
+    NO_DECODER_SELF_ATT: true
+    NO_ENCODER_SELF_ATT: false
+    NO_POS_EMB: true
+    NUM_DECODER_LAYERS: 1
+    NUM_ENCODER_LAYERS: 1
+    NUM_FC: 2
+    NUM_HEADS: 8
+    NUM_WEIGHT_LAYERS: 0
+    WITH_TEMP_EMB: false
+  ASSO_ON: true
+  BACKBONE:
+    FREEZE_AT: 2
+    NAME: build_p37_dla_bifpn_backbone
+  BIFPN:
+    NORM: GN
+    NUM_BIFPN: 3
+    NUM_LEVELS: 5
+    OUT_CHANNELS: 160
+    SEPARABLE_CONV: false
+  CENTERNET:
+    AS_PROPOSAL: false
+    CENTER_NMS: false
+    FPN_STRIDES:
+    - 8
+    - 16
+    - 32
+    - 64
+    - 128
+    HM_FOCAL_ALPHA: 0.25
+    HM_FOCAL_BETA: 4
+    HM_MIN_OVERLAP: 0.8
+    IGNORE_HIGH_FP: -1.0
+    INFERENCE_TH: 0.0001
+    IN_FEATURES:
+    - p3
+    - p4
+    - p5
+    - p6
+    - p7
+    LOC_LOSS_TYPE: giou
+    LOSS_GAMMA: 2.0
+    MIN_RADIUS: 4
+    MORE_POS: false
+    MORE_POS_THRESH: 0.2
+    MORE_POS_TOPK: 9
+    NEG_WEIGHT: 0.5
+    NMS_TH_TEST: 0.6
+    NMS_TH_TRAIN: 0.7
+    NORM: GN
+    NOT_NMS: false
+    NOT_NORM_REG: true
+    NO_REDUCE: false
+    NUM_BOX_CONVS: 4
+    NUM_CLASSES: 1
+    NUM_CLS_CONVS: 4
+    NUM_SHARE_CONVS: 0
+    ONLY_PROPOSAL: true
+    POST_NMS_TOPK_TEST: 128
+    POST_NMS_TOPK_TRAIN: 2000
+    POS_WEIGHT: 0.5
+    PRE_NMS_TOPK_TEST: 1000
+    PRE_NMS_TOPK_TRAIN: 4000
+    PRIOR_PROB: 0.01
+    REG_WEIGHT: 1.0
+    SIGMOID_CLAMP: 0.0001
+    SOI:
+    - - 0
+      - 80
+    - - 64
+      - 160
+    - - 128
+      - 320
+    - - 256
+      - 640
+    - - 512
+      - 10000000
+    USE_DEFORMABLE: true
+    WITH_AGN_HM: true
+  DEVICE: cuda
+  DLA:
+    DLAUP_IN_FEATURES:
+    - dla3
+    - dla4
+    - dla5
+    DLAUP_NODE: conv
+    MS_OUTPUT: false
+    NORM: BN
+    NUM_LAYERS: 34
+    OUT_FEATURES:
+    - dla2
+    USE_DLA_UP: true
+  FPN:
+    FUSE_TYPE: sum
+    IN_FEATURES:
+    - dla3
+    - dla4
+    - dla5
+    NORM: ''
+    OUT_CHANNELS: 256
+  FREEZE_TYPE: ''
+  KEYPOINT_ON: false
+  LOAD_PROPOSALS: false
+  MASK_ON: false
+  META_ARCHITECTURE: GTRRCNN
+  PANOPTIC_FPN:
+    COMBINE:
+      ENABLED: true
+      INSTANCES_CONFIDENCE_THRESH: 0.5
+      OVERLAP_THRESH: 0.5
+      STUFF_AREA_LIMIT: 4096
+    INSTANCE_LOSS_WEIGHT: 1.0
+  PIXEL_MEAN:
+  - 123.675
+  - 116.28
+  - 103.53
+  PIXEL_STD:
+  - 58.395
+  - 57.12
+  - 57.375
+  PROPOSAL_GENERATOR:
+    MIN_SIZE: 0
+    NAME: CenterNet
+  RESNETS:
+    DEFORM_MODULATED: false
+    DEFORM_NUM_GROUPS: 1
+    DEFORM_ON_PER_STAGE:
+    - false
+    - false
+    - false
+    - false
+    DEPTH: 50
+    NORM: FrozenBN
+    NUM_GROUPS: 1
+    OUT_FEATURES:
+    - res4
+    RES2_OUT_CHANNELS: 256
+    RES5_DILATION: 1
+    STEM_OUT_CHANNELS: 64
+    STRIDE_IN_1X1: true
+    WIDTH_PER_GROUP: 64
+  RETINANET:
+    BBOX_REG_LOSS_TYPE: smooth_l1
+    BBOX_REG_WEIGHTS: &id002
+    - 1.0
+    - 1.0
+    - 1.0
+    - 1.0
+    FOCAL_LOSS_ALPHA: 0.25
+    FOCAL_LOSS_GAMMA: 2.0
+    IN_FEATURES:
+    - p3
+    - p4
+    - p5
+    - p6
+    - p7
+    IOU_LABELS:
+    - 0
+    - -1
+    - 1
+    IOU_THRESHOLDS:
+    - 0.4
+    - 0.5
+    NMS_THRESH_TEST: 0.5
+    NORM: ''
+    NUM_CLASSES: 80
+    NUM_CONVS: 4
+    PRIOR_PROB: 0.01
+    SCORE_THRESH_TEST: 0.05
+    SMOOTH_L1_LOSS_BETA: 0.1
+    TOPK_CANDIDATES_TEST: 1000
+  ROI_BOX_CASCADE_HEAD:
+    BBOX_REG_WEIGHTS:
+    - &id001
+      - 10.0
+      - 10.0
+      - 5.0
+      - 5.0
+    - - 20.0
+      - 20.0
+      - 10.0
+      - 10.0
+    - - 30.0
+      - 30.0
+      - 15.0
+      - 15.0
+    IOUS:
+    - 0.6
+    - 0.7
+    - 0.8
+  ROI_BOX_HEAD:
+    BBOX_REG_LOSS_TYPE: smooth_l1
+    BBOX_REG_LOSS_WEIGHT: 1.0
+    BBOX_REG_WEIGHTS: *id001
+    CAT_FREQ_PATH: datasets/metadata/lvis_v1_train_cat_info.json
+    CLS_AGNOSTIC_BBOX_REG: true
+    CONV_DIM: 256
+    DELAY_CLS: false
+    EQL_FREQ_CAT: 200
+    FC_DIM: 1024
+    FED_LOSS_FREQ_WEIGHT: 0.5
+    FED_LOSS_NUM_CAT: 50
+    MULT_PROPOSAL_SCORE: true
+    NAME: FastRCNNConvFCHead
+    NORM: ''
+    NUM_CONV: 0
+    NUM_FC: 2
+    POOLER_RESOLUTION: 7
+    POOLER_SAMPLING_RATIO: 0
+    POOLER_TYPE: ROIAlignV2
+    PRIOR_PROB: 0.01
+    SMOOTH_L1_BETA: 0.0
+    TRAIN_ON_PRED_BOXES: false
+    USE_EQL_LOSS: false
+    USE_FED_LOSS: false
+    USE_SIGMOID_CE: false
+  ROI_HEADS:
+    BATCH_SIZE_PER_IMAGE: 512
+    IN_FEATURES:
+    - p3
+    IOU_LABELS:
+    - 0
+    - 1
+    IOU_THRESHOLDS:
+    - 0.6
+    NAME: GTRROIHeads
+    NMS_THRESH_TEST: 0.7
+    NO_BOX_HEAD: true
+    NUM_CLASSES: 1
+    POSITIVE_FRACTION: 0.25
+    PROPOSAL_APPEND_GT: false
+    SCORE_THRESH_TEST: 0.01
+  ROI_KEYPOINT_HEAD:
+    CONV_DIMS:
+    - 512
+    - 512
+    - 512
+    - 512
+    - 512
+    - 512
+    - 512
+    - 512
+    LOSS_WEIGHT: 1.0
+    MIN_KEYPOINTS_PER_IMAGE: 1
+    NAME: KRCNNConvDeconvUpsampleHead
+    NORMALIZE_LOSS_BY_VISIBLE_KEYPOINTS: true
+    NUM_KEYPOINTS: 17
+    POOLER_RESOLUTION: 14
+    POOLER_SAMPLING_RATIO: 0
+    POOLER_TYPE: ROIAlignV2
+  ROI_MASK_HEAD:
+    CLS_AGNOSTIC_MASK: false
+    CONV_DIM: 256
+    NAME: MaskRCNNConvUpsampleHead
+    NORM: ''
+    NUM_CONV: 0
+    POOLER_RESOLUTION: 14
+    POOLER_SAMPLING_RATIO: 0
+    POOLER_TYPE: ROIAlignV2
+  RPN:
+    BATCH_SIZE_PER_IMAGE: 256
+    BBOX_REG_LOSS_TYPE: smooth_l1
+    BBOX_REG_LOSS_WEIGHT: 1.0
+    BBOX_REG_WEIGHTS: *id002
+    BOUNDARY_THRESH: -1
+    CONV_DIMS:
+    - -1
+    HEAD_NAME: StandardRPNHead
+    IN_FEATURES:
+    - res4
+    IOU_LABELS:
+    - 0
+    - -1
+    - 1
+    IOU_THRESHOLDS:
+    - 0.3
+    - 0.7
+    LOSS_WEIGHT: 1.0
+    NMS_THRESH: 0.7
+    POSITIVE_FRACTION: 0.5
+    POST_NMS_TOPK_TEST: 1000
+    POST_NMS_TOPK_TRAIN: 2000
+    PRE_NMS_TOPK_TEST: 6000
+    PRE_NMS_TOPK_TRAIN: 12000
+    SMOOTH_L1_BETA: 0.0
+  SEM_SEG_HEAD:
+    COMMON_STRIDE: 4
+    CONVS_DIM: 128
+    IGNORE_VALUE: 255
+    IN_FEATURES:
+    - p2
+    - p3
+    - p4
+    - p5
+    LOSS_WEIGHT: 1.0
+    NAME: SemSegFPNHead
+    NORM: GN
+    NUM_CLASSES: 54
+  SWIN:
+    OUT_FEATURES:
+    - 1
+    - 2
+    - 3
+    SIZE: B
+    USE_CHECKPOINT: false
+  WEIGHTS: /lfs_ssd/slurm_tmp/briannlz/260362/GTR/models/CH_FPN_1x.pth
+NOT_EVAL: false
+OUTPUT_DIR: /lfs_ssd/slurm_tmp/briannlz/260362/GTR/output/GTR_MOT/GTR_MOT_FPN
+SAVE_DEBUG: false
+SAVE_PTH: false
+SEED: -1
+SOLVER:
+  AMP:
+    ENABLED: false
+  BACKBONE_MULTIPLIER: 0.1
+  BASE_LR: 5.0e-05
+  BIAS_LR_FACTOR: 1.0
+  CHECKPOINT_PERIOD: 5000
+  CLIP_GRADIENTS:
+    CLIP_TYPE: full_model
+    CLIP_VALUE: 0.1
+    ENABLED: true
+    NORM_TYPE: 2.0
+  CUSTOM_MULTIPLIER: 1.0
+  CUSTOM_MULTIPLIER_NAME: []
+  GAMMA: 0.1
+  IMS_PER_BATCH: 4
+  LR_SCHEDULER_NAME: WarmupCosineLR
+  MAX_ITER: 8000
+  MOMENTUM: 0.9
+  NESTEROV: false
+  OPTIMIZER: ADAMW
+  REFERENCE_WORLD_SIZE: 0
+  RESET_ITER: false
+  STEPS:
+  - 30000
+  TRAIN_ITER: -1
+  USE_CUSTOM_SOLVER: true
+  WARMUP_FACTOR: 0.001
+  WARMUP_ITERS: 1000
+  WARMUP_METHOD: linear
+  WEIGHT_DECAY: 0.0001
+  WEIGHT_DECAY_BIAS: null
+  WEIGHT_DECAY_NORM: 0.0
+TEST:
+  AUG:
+    ENABLED: false
+    FLIP: true
+    MAX_SIZE: 4000
+    MIN_SIZES:
+    - 400
+    - 500
+    - 600
+    - 700
+    - 800
+    - 900
+    - 1000
+    - 1100
+    - 1200
+  DETECTIONS_PER_IMAGE: 100
+  EVAL_PERIOD: 10000000
+  EXPECTED_RESULTS: []
+  KEYPOINT_OKS_SIGMAS: []
+  PRECISE_BN:
+    ENABLED: false
+    NUM_ITER: 200
+VERSION: 2
+VIDEO_INPUT: true
+VIDEO_TEST:
+  DECAY_TIME: 0.9
+  LOCAL_IOU_ONLY: false
+  LOCAL_NO_IOU: false
+  LOCAL_TRACK: false
+  MAX_CENTER_DIST: 1.0
+  MIN_TRACK_LEN: 5
+  NOT_MULT_THRESH: true
+  OVERLAP_THRESH: 0.2
+  WITH_IOU: true
+VIS_PERIOD: 0
+VIS_THRESH: 0.3
+
+[32m[07/28 12:12:13 detectron2]: [0mFull config saved to /lfs_ssd/slurm_tmp/briannlz/260362/GTR/output/GTR_MOT/GTR_MOT_FPN/config.yaml
+[32m[07/28 12:12:13 d2.utils.env]: [0mUsing a generated random seed 13754197
+Loading pretrained DLA!
+[32m[07/28 12:12:15 detectron2]: [0mModel:
+GTRRCNN(
+  (backbone): BiFPN(
+    (bottom_up): DLA(
+      (base_layer): Sequential(
+        (0): Conv2d(3, 16, kernel_size=(7, 7), stride=(1, 1), padding=(3, 3), bias=False)
+        (1): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): ReLU(inplace=True)
+      )
+      (level0): Sequential(
+        (0): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (1): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): ReLU(inplace=True)
+      )
+      (level1): Sequential(
+        (0): Conv2d(16, 32, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+        (1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): ReLU(inplace=True)
+      )
+      (level2): Tree(
+        (tree1): BasicBlock(
+          (conv1): Conv2d(32, 64, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+          (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+          (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+        (tree2): BasicBlock(
+          (conv1): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+          (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+        (root): Root(
+          (conv): Conv2d(128, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+        )
+        (downsample): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+        (project): Sequential(
+          (0): Conv2d(32, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+      )
+      (level3): Tree(
+        (tree1): Tree(
+          (tree1): BasicBlock(
+            (conv1): Conv2d(64, 128, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+            (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu): ReLU(inplace=True)
+            (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+          (tree2): BasicBlock(
+            (conv1): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu): ReLU(inplace=True)
+            (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+          (root): Root(
+            (conv): Conv2d(256, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (bn): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu): ReLU(inplace=True)
+          )
+          (downsample): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+          (project): Sequential(
+            (0): Conv2d(64, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+        )
+        (tree2): Tree(
+          (tree1): BasicBlock(
+            (conv1): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu): ReLU(inplace=True)
+            (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+          (tree2): BasicBlock(
+            (conv1): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu): ReLU(inplace=True)
+            (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+          (root): Root(
+            (conv): Conv2d(448, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (bn): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu): ReLU(inplace=True)
+          )
+        )
+        (downsample): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+        (project): Sequential(
+          (0): Conv2d(64, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+      )
+      (level4): Tree(
+        (tree1): Tree(
+          (tree1): BasicBlock(
+            (conv1): Conv2d(128, 256, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+            (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu): ReLU(inplace=True)
+            (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+          (tree2): BasicBlock(
+            (conv1): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu): ReLU(inplace=True)
+            (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+          (root): Root(
+            (conv): Conv2d(512, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (bn): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu): ReLU(inplace=True)
+          )
+          (downsample): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+          (project): Sequential(
+            (0): Conv2d(128, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+        )
+        (tree2): Tree(
+          (tree1): BasicBlock(
+            (conv1): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu): ReLU(inplace=True)
+            (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+          (tree2): BasicBlock(
+            (conv1): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu): ReLU(inplace=True)
+            (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+          (root): Root(
+            (conv): Conv2d(896, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (bn): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu): ReLU(inplace=True)
+          )
+        )
+        (downsample): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+        (project): Sequential(
+          (0): Conv2d(128, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+      )
+      (level5): Tree(
+        (tree1): BasicBlock(
+          (conv1): Conv2d(256, 512, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+          (bn1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+          (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+        (tree2): BasicBlock(
+          (conv1): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+          (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+        (root): Root(
+          (conv): Conv2d(1280, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+        )
+        (downsample): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+        (project): Sequential(
+          (0): Conv2d(256, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+      )
+    )
+    (resample): SequentialAppendLast(
+      (3): ResampleFeatureMap(
+        (conv): ConvBnAct2d(
+          (conv): Conv2d(512, 160, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn): GroupNorm(32, 160, eps=1e-05, affine=True)
+        )
+        (downsample): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+      )
+      (4): ResampleFeatureMap(
+        (downsample): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+      )
+    )
+    (cell): Sequential(
+      (0): BiFpnLayer(
+        (fnode): SequentialAppend(
+          (0): Sequential(
+            (combine): FpnCombine(
+              (resample): ModuleDict(
+                (3): ResampleFeatureMap()
+                (4): ResampleFeatureMap(
+                  (upsample): UpsamplingNearest2d(scale_factor=2.0, mode=nearest)
+                )
+              )
+            )
+            (after_combine): Sequential(
+              (act): Swish()
+              (conv): ConvBnAct2d(
+                (conv): Conv2d(160, 160, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                (bn): GroupNorm(32, 160, eps=1e-05, affine=True)
+              )
+            )
+          )
+          (1): Sequential(
+            (combine): FpnCombine(
+              (resample): ModuleDict(
+                (2): ResampleFeatureMap(
+                  (conv): ConvBnAct2d(
+                    (conv): Conv2d(512, 160, kernel_size=(1, 1), stride=(1, 1), bias=False)
+                    (bn): GroupNorm(32, 160, eps=1e-05, affine=True)
+                  )
+                )
+                (5): ResampleFeatureMap(
+                  (upsample): UpsamplingNearest2d(scale_factor=2.0, mode=nearest)
+                )
+              )
+            )
+            (after_combine): Sequential(
+              (act): Swish()
+              (conv): ConvBnAct2d(
+                (conv): Conv2d(160, 160, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                (bn): GroupNorm(32, 160, eps=1e-05, affine=True)
+              )
+            )
+          )
+          (2): Sequential(
+            (combine): FpnCombine(
+              (resample): ModuleDict(
+                (1): ResampleFeatureMap(
+                  (conv): ConvBnAct2d(
+                    (conv): Conv2d(256, 160, kernel_size=(1, 1), stride=(1, 1), bias=False)
+                    (bn): GroupNorm(32, 160, eps=1e-05, affine=True)
+                  )
+                )
+                (6): ResampleFeatureMap(
+                  (upsample): UpsamplingNearest2d(scale_factor=2.0, mode=nearest)
+                )
+              )
+            )
+            (after_combine): Sequential(
+              (act): Swish()
+              (conv): ConvBnAct2d(
+                (conv): Conv2d(160, 160, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                (bn): GroupNorm(32, 160, eps=1e-05, affine=True)
+              )
+            )
+          )
+          (3): Sequential(
+            (combine): FpnCombine(
+              (resample): ModuleDict(
+                (0): ResampleFeatureMap(
+                  (conv): ConvBnAct2d(
+                    (conv): Conv2d(128, 160, kernel_size=(1, 1), stride=(1, 1), bias=False)
+                    (bn): GroupNorm(32, 160, eps=1e-05, affine=True)
+                  )
+                )
+                (7): ResampleFeatureMap(
+                  (upsample): UpsamplingNearest2d(scale_factor=2.0, mode=nearest)
+                )
+              )
+            )
+            (after_combine): Sequential(
+              (act): Swish()
+              (conv): ConvBnAct2d(
+                (conv): Conv2d(160, 160, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                (bn): GroupNorm(32, 160, eps=1e-05, affine=True)
+              )
+            )
+          )
+          (4): Sequential(
+            (combine): FpnCombine(
+              (resample): ModuleDict(
+                (1): ResampleFeatureMap(
+                  (conv): ConvBnAct2d(
+                    (conv): Conv2d(256, 160, kernel_size=(1, 1), stride=(1, 1), bias=False)
+                    (bn): GroupNorm(32, 160, eps=1e-05, affine=True)
+                  )
+                )
+                (7): ResampleFeatureMap()
+                (8): ResampleFeatureMap(
+                  (downsample): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+                )
+              )
+            )
+            (after_combine): Sequential(
+              (act): Swish()
+              (conv): ConvBnAct2d(
+                (conv): Conv2d(160, 160, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                (bn): GroupNorm(32, 160, eps=1e-05, affine=True)
+              )
+            )
+          )
+          (5): Sequential(
+            (combine): FpnCombine(
+              (resample): ModuleDict(
+                (2): ResampleFeatureMap(
+                  (conv): ConvBnAct2d(
+                    (conv): Conv2d(512, 160, kernel_size=(1, 1), stride=(1, 1), bias=False)
+                    (bn): GroupNorm(32, 160, eps=1e-05, affine=True)
+                  )
+                )
+                (6): ResampleFeatureMap()
+                (9): ResampleFeatureMap(
+                  (downsample): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+                )
+              )
+            )
+            (after_combine): Sequential(
+              (act): Swish()
+              (conv): ConvBnAct2d(
+                (conv): Conv2d(160, 160, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                (bn): GroupNorm(32, 160, eps=1e-05, affine=True)
+              )
+            )
+          )
+          (6): Sequential(
+            (combine): FpnCombine(
+              (resample): ModuleDict(
+                (3): ResampleFeatureMap()
+                (5): ResampleFeatureMap()
+                (10): ResampleFeatureMap(
+                  (downsample): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+                )
+              )
+            )
+            (after_combine): Sequential(
+              (act): Swish()
+              (conv): ConvBnAct2d(
+                (conv): Conv2d(160, 160, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                (bn): GroupNorm(32, 160, eps=1e-05, affine=True)
+              )
+            )
+          )
+          (7): Sequential(
+            (combine): FpnCombine(
+              (resample): ModuleDict(
+                (4): ResampleFeatureMap()
+                (11): ResampleFeatureMap(
+                  (downsample): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+                )
+              )
+            )
+            (after_combine): Sequential(
+              (act): Swish()
+              (conv): ConvBnAct2d(
+                (conv): Conv2d(160, 160, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                (bn): GroupNorm(32, 160, eps=1e-05, affine=True)
+              )
+            )
+          )
+        )
+      )
+      (1): BiFpnLayer(
+        (fnode): SequentialAppend(
+          (0): Sequential(
+            (combine): FpnCombine(
+              (resample): ModuleDict(
+                (3): ResampleFeatureMap()
+                (4): ResampleFeatureMap(
+                  (upsample): UpsamplingNearest2d(scale_factor=2.0, mode=nearest)
+                )
+              )
+            )
+            (after_combine): Sequential(
+              (act): Swish()
+              (conv): ConvBnAct2d(
+                (conv): Conv2d(160, 160, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                (bn): GroupNorm(32, 160, eps=1e-05, affine=True)
+              )
+            )
+          )
+          (1): Sequential(
+            (combine): FpnCombine(
+              (resample): ModuleDict(
+                (2): ResampleFeatureMap()
+                (5): ResampleFeatureMap(
+                  (upsample): UpsamplingNearest2d(scale_factor=2.0, mode=nearest)
+                )
+              )
+            )
+            (after_combine): Sequential(
+              (act): Swish()
+              (conv): ConvBnAct2d(
+                (conv): Conv2d(160, 160, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                (bn): GroupNorm(32, 160, eps=1e-05, affine=True)
+              )
+            )
+          )
+          (2): Sequential(
+            (combine): FpnCombine(
+              (resample): ModuleDict(
+                (1): ResampleFeatureMap()
+                (6): ResampleFeatureMap(
+                  (upsample): UpsamplingNearest2d(scale_factor=2.0, mode=nearest)
+                )
+              )
+            )
+            (after_combine): Sequential(
+              (act): Swish()
+              (conv): ConvBnAct2d(
+                (conv): Conv2d(160, 160, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                (bn): GroupNorm(32, 160, eps=1e-05, affine=True)
+              )
+            )
+          )
+          (3): Sequential(
+            (combine): FpnCombine(
+              (resample): ModuleDict(
+                (0): ResampleFeatureMap()
+                (7): ResampleFeatureMap(
+                  (upsample): UpsamplingNearest2d(scale_factor=2.0, mode=nearest)
+                )
+              )
+            )
+            (after_combine): Sequential(
+              (act): Swish()
+              (conv): ConvBnAct2d(
+                (conv): Conv2d(160, 160, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                (bn): GroupNorm(32, 160, eps=1e-05, affine=True)
+              )
+            )
+          )
+          (4): Sequential(
+            (combine): FpnCombine(
+              (resample): ModuleDict(
+                (1): ResampleFeatureMap()
+                (7): ResampleFeatureMap()
+                (8): ResampleFeatureMap(
+                  (downsample): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+                )
+              )
+            )
+            (after_combine): Sequential(
+              (act): Swish()
+              (conv): ConvBnAct2d(
+                (conv): Conv2d(160, 160, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                (bn): GroupNorm(32, 160, eps=1e-05, affine=True)
+              )
+            )
+          )
+          (5): Sequential(
+            (combine): FpnCombine(
+              (resample): ModuleDict(
+                (2): ResampleFeatureMap()
+                (6): ResampleFeatureMap()
+                (9): ResampleFeatureMap(
+                  (downsample): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+                )
+              )
+            )
+            (after_combine): Sequential(
+              (act): Swish()
+              (conv): ConvBnAct2d(
+                (conv): Conv2d(160, 160, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                (bn): GroupNorm(32, 160, eps=1e-05, affine=True)
+              )
+            )
+          )
+          (6): Sequential(
+            (combine): FpnCombine(
+              (resample): ModuleDict(
+                (3): ResampleFeatureMap()
+                (5): ResampleFeatureMap()
+                (10): ResampleFeatureMap(
+                  (downsample): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+                )
+              )
+            )
+            (after_combine): Sequential(
+              (act): Swish()
+              (conv): ConvBnAct2d(
+                (conv): Conv2d(160, 160, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                (bn): GroupNorm(32, 160, eps=1e-05, affine=True)
+              )
+            )
+          )
+          (7): Sequential(
+            (combine): FpnCombine(
+              (resample): ModuleDict(
+                (4): ResampleFeatureMap()
+                (11): ResampleFeatureMap(
+                  (downsample): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+                )
+              )
+            )
+            (after_combine): Sequential(
+              (act): Swish()
+              (conv): ConvBnAct2d(
+                (conv): Conv2d(160, 160, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                (bn): GroupNorm(32, 160, eps=1e-05, affine=True)
+              )
+            )
+          )
+        )
+      )
+      (2): BiFpnLayer(
+        (fnode): SequentialAppend(
+          (0): Sequential(
+            (combine): FpnCombine(
+              (resample): ModuleDict(
+                (3): ResampleFeatureMap()
+                (4): ResampleFeatureMap(
+                  (upsample): UpsamplingNearest2d(scale_factor=2.0, mode=nearest)
+                )
+              )
+            )
+            (after_combine): Sequential(
+              (act): Swish()
+              (conv): ConvBnAct2d(
+                (conv): Conv2d(160, 160, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                (bn): GroupNorm(32, 160, eps=1e-05, affine=True)
+              )
+            )
+          )
+          (1): Sequential(
+            (combine): FpnCombine(
+              (resample): ModuleDict(
+                (2): ResampleFeatureMap()
+                (5): ResampleFeatureMap(
+                  (upsample): UpsamplingNearest2d(scale_factor=2.0, mode=nearest)
+                )
+              )
+            )
+            (after_combine): Sequential(
+              (act): Swish()
+              (conv): ConvBnAct2d(
+                (conv): Conv2d(160, 160, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                (bn): GroupNorm(32, 160, eps=1e-05, affine=True)
+              )
+            )
+          )
+          (2): Sequential(
+            (combine): FpnCombine(
+              (resample): ModuleDict(
+                (1): ResampleFeatureMap()
+                (6): ResampleFeatureMap(
+                  (upsample): UpsamplingNearest2d(scale_factor=2.0, mode=nearest)
+                )
+              )
+            )
+            (after_combine): Sequential(
+              (act): Swish()
+              (conv): ConvBnAct2d(
+                (conv): Conv2d(160, 160, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                (bn): GroupNorm(32, 160, eps=1e-05, affine=True)
+              )
+            )
+          )
+          (3): Sequential(
+            (combine): FpnCombine(
+              (resample): ModuleDict(
+                (0): ResampleFeatureMap()
+                (7): ResampleFeatureMap(
+                  (upsample): UpsamplingNearest2d(scale_factor=2.0, mode=nearest)
+                )
+              )
+            )
+            (after_combine): Sequential(
+              (act): Swish()
+              (conv): ConvBnAct2d(
+                (conv): Conv2d(160, 160, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                (bn): GroupNorm(32, 160, eps=1e-05, affine=True)
+              )
+            )
+          )
+          (4): Sequential(
+            (combine): FpnCombine(
+              (resample): ModuleDict(
+                (1): ResampleFeatureMap()
+                (7): ResampleFeatureMap()
+                (8): ResampleFeatureMap(
+                  (downsample): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+                )
+              )
+            )
+            (after_combine): Sequential(
+              (act): Swish()
+              (conv): ConvBnAct2d(
+                (conv): Conv2d(160, 160, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                (bn): GroupNorm(32, 160, eps=1e-05, affine=True)
+              )
+            )
+          )
+          (5): Sequential(
+            (combine): FpnCombine(
+              (resample): ModuleDict(
+                (2): ResampleFeatureMap()
+                (6): ResampleFeatureMap()
+                (9): ResampleFeatureMap(
+                  (downsample): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+                )
+              )
+            )
+            (after_combine): Sequential(
+              (act): Swish()
+              (conv): ConvBnAct2d(
+                (conv): Conv2d(160, 160, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                (bn): GroupNorm(32, 160, eps=1e-05, affine=True)
+              )
+            )
+          )
+          (6): Sequential(
+            (combine): FpnCombine(
+              (resample): ModuleDict(
+                (3): ResampleFeatureMap()
+                (5): ResampleFeatureMap()
+                (10): ResampleFeatureMap(
+                  (downsample): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+                )
+              )
+            )
+            (after_combine): Sequential(
+              (act): Swish()
+              (conv): ConvBnAct2d(
+                (conv): Conv2d(160, 160, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                (bn): GroupNorm(32, 160, eps=1e-05, affine=True)
+              )
+            )
+          )
+          (7): Sequential(
+            (combine): FpnCombine(
+              (resample): ModuleDict(
+                (4): ResampleFeatureMap()
+                (11): ResampleFeatureMap(
+                  (downsample): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+                )
+              )
+            )
+            (after_combine): Sequential(
+              (act): Swish()
+              (conv): ConvBnAct2d(
+                (conv): Conv2d(160, 160, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                (bn): GroupNorm(32, 160, eps=1e-05, affine=True)
+              )
+            )
+          )
+        )
+      )
+    )
+  )
+  (proposal_generator): CenterNet(
+    (iou_loss): IOULoss()
+    (centernet_head): CenterNetHead(
+      (cls_tower): Sequential()
+      (bbox_tower): Sequential(
+        (0): Conv2d(160, 160, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (1): GroupNorm(32, 160, eps=1e-05, affine=True)
+        (2): ReLU()
+        (3): Conv2d(160, 160, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (4): GroupNorm(32, 160, eps=1e-05, affine=True)
+        (5): ReLU()
+        (6): Conv2d(160, 160, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (7): GroupNorm(32, 160, eps=1e-05, affine=True)
+        (8): ReLU()
+        (9): DFConv2d(
+          (offset): Conv2d(160, 27, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (conv): ModulatedDeformConv(in_channels=160, out_channels=160, kernel_size=(3, 3), stride=1, padding=1, dilation=1, groups=1, deformable_groups=1, bias=True)
+        )
+        (10): GroupNorm(32, 160, eps=1e-05, affine=True)
+        (11): ReLU()
+      )
+      (share_tower): Sequential()
+      (bbox_pred): Conv2d(160, 4, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (scales): ModuleList(
+        (0): Scale()
+        (1): Scale()
+        (2): Scale()
+        (3): Scale()
+        (4): Scale()
+      )
+      (agn_hm): Conv2d(160, 1, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+  )
+  (roi_heads): GTRROIHeads(
+    (asso_pooler): ROIPooler(
+      (level_poolers): ModuleList(
+        (0): ROIAlign(output_size=(7, 7), spatial_scale=0.125, sampling_ratio=0, aligned=True)
+      )
+    )
+    (asso_head): FCHead(
+      (fc1): Linear(in_features=7840, out_features=1024, bias=True)
+      (fc2): Linear(in_features=1024, out_features=1024, bias=True)
+    )
+    (asso_predictor): ATTWeightHead(
+      (q_proj): MLP()
+      (k_proj): MLP()
+    )
+    (transformer): Transformer(
+      (encoder): TransformerEncoder(
+        (layers): ModuleList(
+          (0): TransformerEncoderLayer(
+            (self_attn): MultiheadAttention(
+              (out_proj): NonDynamicallyQuantizableLinear(in_features=1024, out_features=1024, bias=True)
+            )
+            (linear1): Linear(in_features=1024, out_features=1024, bias=True)
+            (dropout): Dropout(p=0.1, inplace=False)
+            (linear2): Linear(in_features=1024, out_features=1024, bias=True)
+            (norm1): Identity()
+            (norm2): Identity()
+            (dropout1): Dropout(p=0.1, inplace=False)
+            (dropout2): Dropout(p=0.1, inplace=False)
+          )
+        )
+      )
+      (decoder): TransformerDecoder(
+        (layers): ModuleList(
+          (0): TransformerDecoderLayer(
+            (multihead_attn): MultiheadAttention(
+              (out_proj): NonDynamicallyQuantizableLinear(in_features=1024, out_features=1024, bias=True)
+            )
+            (linear1): Linear(in_features=1024, out_features=1024, bias=True)
+            (dropout): Dropout(p=0.1, inplace=False)
+            (linear2): Linear(in_features=1024, out_features=1024, bias=True)
+            (norm1): Identity()
+            (norm2): Identity()
+            (norm3): Identity()
+            (dropout1): Dropout(p=0.1, inplace=False)
+            (dropout2): Dropout(p=0.1, inplace=False)
+            (dropout3): Dropout(p=0.1, inplace=False)
+          )
+        )
+        (norm): Identity()
+      )
+    )
+  )
+)
+[32m[07/28 12:12:15 fvcore.common.checkpoint]: [0m[Checkpointer] Loading from /lfs_ssd/slurm_tmp/briannlz/260362/GTR/models/CH_FPN_1x.pth ...
+[5m[31mWARNING[0m [32m[07/28 12:12:16 fvcore.common.checkpoint]: [0mSome model parameters or buffers are not found in the checkpoint:
+[34mproposal_generator.centernet_head.bbox_tower.9.conv.{bias, weight}[0m
+[34mproposal_generator.centernet_head.bbox_tower.9.offset.{bias, weight}[0m
+[34mroi_heads.asso_head.fc1.{bias, weight}[0m
+[34mroi_heads.asso_head.fc2.{bias, weight}[0m
+[34mroi_heads.transformer.decoder.layers.0.linear1.{bias, weight}[0m
+[34mroi_heads.transformer.decoder.layers.0.linear2.{bias, weight}[0m
+[34mroi_heads.transformer.decoder.layers.0.multihead_attn.out_proj.{bias, weight}[0m
+[34mroi_heads.transformer.decoder.layers.0.multihead_attn.{in_proj_bias, in_proj_weight}[0m
+[34mroi_heads.transformer.encoder.layers.0.linear1.{bias, weight}[0m
+[34mroi_heads.transformer.encoder.layers.0.linear2.{bias, weight}[0m
+[34mroi_heads.transformer.encoder.layers.0.self_attn.out_proj.{bias, weight}[0m
+[34mroi_heads.transformer.encoder.layers.0.self_attn.{in_proj_bias, in_proj_weight}[0m
+[5m[31mWARNING[0m [32m[07/28 12:12:16 fvcore.common.checkpoint]: [0mThe checkpoint state_dict contains keys that are not used by the model:
+  [35mproposal_generator.centernet_head.bbox_tower.9.{bias, weight}[0m
+  [35mroi_heads.box_head.0.fc1.{bias, weight}[0m
+  [35mroi_heads.box_head.0.fc2.{bias, weight}[0m
+  [35mroi_heads.box_head.1.fc1.{bias, weight}[0m
+  [35mroi_heads.box_head.1.fc2.{bias, weight}[0m
+  [35mroi_heads.box_head.2.fc1.{bias, weight}[0m
+  [35mroi_heads.box_head.2.fc2.{bias, weight}[0m
+  [35mroi_heads.box_predictor.0.cls_score.{bias, weight}[0m
+  [35mroi_heads.box_predictor.0.bbox_pred.{bias, weight}[0m
+  [35mroi_heads.box_predictor.1.cls_score.{bias, weight}[0m
+  [35mroi_heads.box_predictor.1.bbox_pred.{bias, weight}[0m
+  [35mroi_heads.box_predictor.2.cls_score.{bias, weight}[0m
+  [35mroi_heads.box_predictor.2.bbox_pred.{bias, weight}[0m
+Maping instances len/ min/ max 150 1 150
+[32m[07/28 12:12:27 d2.data.datasets.coco]: [0mLoading /lfs_ssd/slurm_tmp/briannlz/260362/GTR/datasets/crowdhuman/annotations/train_amodal.json takes 2.36 seconds.
+[32m[07/28 12:12:27 d2.data.datasets.coco]: [0mLoaded 15000 images in COCO format from /lfs_ssd/slurm_tmp/briannlz/260362/GTR/datasets/crowdhuman/annotations/train_amodal.json
+[32m[07/28 12:12:28 d2.data.common]: [0mSerializing 15007 elements to byte tensors and concatenating them all ...
+[32m[07/28 12:12:29 d2.data.common]: [0mSerialized dataset takes 24.65 MiB
+lvis_v1.py: HOSTNAME=vista15
+lvis_v1.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+mot.py: HOSTNAME=vista15
+mot.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+crowdhuman.py: HOSTNAME=vista15
+crowdhuman.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+mot.py: HOSTNAME=vista15
+mot.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+mot_evaluation.py: HOSTNAME=vista15
+mot_evaluation.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+Loading pretrained DLA!
+Maping instances len/ min/ max 150 1 150
+[32m[07/28 12:12:29 detectron2]: [0mStarting training from iteration 0
+lvis_v1.py: HOSTNAME=vista15
+lvis_v1.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+mot.py: HOSTNAME=vista15
+mot.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+crowdhuman.py: HOSTNAME=vista15
+crowdhuman.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+mot.py: HOSTNAME=vista15
+mot.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+mot_evaluation.py: HOSTNAME=vista15
+mot_evaluation.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+Loading pretrained DLA!
+Maping instances len/ min/ max 150 1 150
+lvis_v1.py: HOSTNAME=vista15
+lvis_v1.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+mot.py: HOSTNAME=vista15
+mot.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+crowdhuman.py: HOSTNAME=vista15
+crowdhuman.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+mot.py: HOSTNAME=vista15
+mot.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+mot_evaluation.py: HOSTNAME=vista15
+mot_evaluation.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+Loading pretrained DLA!
+Maping instances len/ min/ max 150 1 150
+lvis_v1.py: HOSTNAME=vista15
+lvis_v1.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+mot.py: HOSTNAME=vista15
+mot.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+crowdhuman.py: HOSTNAME=vista15
+crowdhuman.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+mot.py: HOSTNAME=vista15
+mot.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+mot_evaluation.py: HOSTNAME=vista15
+mot_evaluation.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+lvis_v1.py: HOSTNAME=vista15
+lvis_v1.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+mot.py: HOSTNAME=vista15
+mot.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+crowdhuman.py: HOSTNAME=vista15
+crowdhuman.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+mot.py: HOSTNAME=vista15
+mot.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+mot_evaluation.py: HOSTNAME=vista15
+mot_evaluation.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+lvis_v1.py: HOSTNAME=vista15
+lvis_v1.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+mot.py: HOSTNAME=vista15
+mot.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+crowdhuman.py: HOSTNAME=vista15
+crowdhuman.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+mot.py: HOSTNAME=vista15
+mot.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+mot_evaluation.py: HOSTNAME=vista15
+mot_evaluation.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+lvis_v1.py: HOSTNAME=vista15
+lvis_v1.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+mot.py: HOSTNAME=vista15
+mot.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+crowdhuman.py: HOSTNAME=vista15
+crowdhuman.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+mot.py: HOSTNAME=vista15
+mot.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+mot_evaluation.py: HOSTNAME=vista15
+mot_evaluation.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+[32m[07/28 12:13:42 d2.utils.events]: [0m eta: 6:18:02  iter: 20  total_loss: 664.3  loss_asso: 663.2  loss_centernet_agn_neg: 0.003772  loss_centernet_agn_pos: 0.4355  loss_centernet_loc: 0.701  time: 2.8430  data_time: 0.7934  lr: 9.6289e-08  max_mem: 21993M
+[32m[07/28 12:14:22 d2.utils.events]: [0m eta: 5:37:42  iter: 40  total_loss: 255  loss_asso: 253.9  loss_centernet_agn_neg: 0.004741  loss_centernet_agn_pos: 0.4078  loss_centernet_loc: 0.6831  time: 2.4253  data_time: 0.0221  lr: 1.9238e-07  max_mem: 21993M
+[32m[07/28 12:15:00 d2.utils.events]: [0m eta: 4:53:14  iter: 60  total_loss: 215.8  loss_asso: 214.6  loss_centernet_agn_neg: 0.008817  loss_centernet_agn_pos: 0.3564  loss_centernet_loc: 0.6689  time: 2.2341  data_time: 0.0246  lr: 2.8848e-07  max_mem: 21993M
+[32m[07/28 12:15:35 d2.utils.events]: [0m eta: 4:26:31  iter: 80  total_loss: 112.2  loss_asso: 111.2  loss_centernet_agn_neg: 0.01837  loss_centernet_agn_pos: 0.2856  loss_centernet_loc: 0.6353  time: 2.1122  data_time: 0.0247  lr: 3.8457e-07  max_mem: 22086M
+[32m[07/28 12:16:10 d2.utils.events]: [0m eta: 4:11:32  iter: 100  total_loss: 72.65  loss_asso: 71.89  loss_centernet_agn_neg: 0.03379  loss_centernet_agn_pos: 0.1958  loss_centernet_loc: 0.5726  time: 2.0301  data_time: 0.0211  lr: 4.8067e-07  max_mem: 22086M
+[32m[07/28 12:16:43 d2.utils.events]: [0m eta: 3:47:26  iter: 120  total_loss: 47.92  loss_asso: 47.23  loss_centernet_agn_neg: 0.03588  loss_centernet_agn_pos: 0.1711  loss_centernet_loc: 0.5226  time: 1.9632  data_time: 0.0282  lr: 5.7676e-07  max_mem: 22355M
+[32m[07/28 12:17:15 d2.utils.events]: [0m eta: 3:37:23  iter: 140  total_loss: 31.17  loss_asso: 30.6  loss_centernet_agn_neg: 0.03324  loss_centernet_agn_pos: 0.102  loss_centernet_loc: 0.4404  time: 1.9085  data_time: 0.0194  lr: 6.7285e-07  max_mem: 22355M
+[32m[07/28 12:17:45 d2.utils.events]: [0m eta: 3:31:30  iter: 160  total_loss: 21.16  loss_asso: 20.55  loss_centernet_agn_neg: 0.02764  loss_centernet_agn_pos: 0.1184  loss_centernet_loc: 0.4044  time: 1.8577  data_time: 0.0216  lr: 7.6895e-07  max_mem: 22355M
+[32m[07/28 12:18:16 d2.utils.events]: [0m eta: 3:30:57  iter: 180  total_loss: 15.48  loss_asso: 14.91  loss_centernet_agn_neg: 0.02927  loss_centernet_agn_pos: 0.09018  loss_centernet_loc: 0.351  time: 1.8214  data_time: 0.0283  lr: 8.6504e-07  max_mem: 22355M
+[32m[07/28 12:18:49 d2.utils.events]: [0m eta: 3:30:34  iter: 200  total_loss: 12.13  loss_asso: 11.65  loss_centernet_agn_neg: 0.03147  loss_centernet_agn_pos: 0.0888  loss_centernet_loc: 0.3183  time: 1.7985  data_time: 0.0234  lr: 9.6114e-07  max_mem: 22355M
+[32m[07/28 12:19:20 d2.utils.events]: [0m eta: 3:27:39  iter: 220  total_loss: 7.846  loss_asso: 7.375  loss_centernet_agn_neg: 0.02357  loss_centernet_agn_pos: 0.09162  loss_centernet_loc: 0.3311  time: 1.7730  data_time: 0.0265  lr: 1.0572e-06  max_mem: 22355M
+[32m[07/28 12:19:51 d2.utils.events]: [0m eta: 3:26:31  iter: 240  total_loss: 6.331  loss_asso: 5.857  loss_centernet_agn_neg: 0.02673  loss_centernet_agn_pos: 0.0796  loss_centernet_loc: 0.296  time: 1.7527  data_time: 0.0212  lr: 1.1533e-06  max_mem: 22355M
+[32m[07/28 12:20:22 d2.utils.events]: [0m eta: 3:25:22  iter: 260  total_loss: 5.275  loss_asso: 4.873  loss_centernet_agn_neg: 0.02639  loss_centernet_agn_pos: 0.06761  loss_centernet_loc: 0.2887  time: 1.7361  data_time: 0.0231  lr: 1.2494e-06  max_mem: 22355M
+[32m[07/28 12:20:53 d2.utils.events]: [0m eta: 3:24:04  iter: 280  total_loss: 4.029  loss_asso: 3.624  loss_centernet_agn_neg: 0.02188  loss_centernet_agn_pos: 0.0893  loss_centernet_loc: 0.2891  time: 1.7219  data_time: 0.0176  lr: 1.3455e-06  max_mem: 22355M
+[32m[07/28 12:21:25 d2.utils.events]: [0m eta: 3:23:10  iter: 300  total_loss: 3.368  loss_asso: 2.997  loss_centernet_agn_neg: 0.02463  loss_centernet_agn_pos: 0.06137  loss_centernet_loc: 0.27  time: 1.7111  data_time: 0.0272  lr: 1.4416e-06  max_mem: 22355M
+[32m[07/28 12:21:56 d2.utils.events]: [0m eta: 3:22:30  iter: 320  total_loss: 3.657  loss_asso: 3.295  loss_centernet_agn_neg: 0.02955  loss_centernet_agn_pos: 0.06638  loss_centernet_loc: 0.2529  time: 1.7001  data_time: 0.0264  lr: 1.5377e-06  max_mem: 22355M
+[32m[07/28 12:22:27 d2.utils.events]: [0m eta: 3:21:37  iter: 340  total_loss: 3.032  loss_asso: 2.675  loss_centernet_agn_neg: 0.0265  loss_centernet_agn_pos: 0.07335  loss_centernet_loc: 0.2612  time: 1.6910  data_time: 0.0234  lr: 1.6338e-06  max_mem: 22355M
+[32m[07/28 12:23:00 d2.utils.events]: [0m eta: 3:21:13  iter: 360  total_loss: 2.963  loss_asso: 2.603  loss_centernet_agn_neg: 0.02974  loss_centernet_agn_pos: 0.06384  loss_centernet_loc: 0.2484  time: 1.6882  data_time: 0.0243  lr: 1.7299e-06  max_mem: 22355M
+[32m[07/28 12:23:32 d2.utils.events]: [0m eta: 3:20:41  iter: 380  total_loss: 2.971  loss_asso: 2.617  loss_centernet_agn_neg: 0.02925  loss_centernet_agn_pos: 0.06791  loss_centernet_loc: 0.2678  time: 1.6823  data_time: 0.0185  lr: 1.826e-06  max_mem: 22355M
+[32m[07/28 12:24:06 d2.utils.events]: [0m eta: 3:20:24  iter: 400  total_loss: 3.023  loss_asso: 2.635  loss_centernet_agn_neg: 0.02403  loss_centernet_agn_pos: 0.06925  loss_centernet_loc: 0.2626  time: 1.6793  data_time: 0.0460  lr: 1.9221e-06  max_mem: 22355M
+[32m[07/28 12:24:42 d2.utils.events]: [0m eta: 3:20:00  iter: 420  total_loss: 2.852  loss_asso: 2.498  loss_centernet_agn_neg: 0.02686  loss_centernet_agn_pos: 0.06274  loss_centernet_loc: 0.2469  time: 1.6755  data_time: 0.2040  lr: 2.0182e-06  max_mem: 22355M
+[32m[07/28 12:25:16 d2.utils.events]: [0m eta: 3:20:20  iter: 440  total_loss: 2.7  loss_asso: 2.338  loss_centernet_agn_neg: 0.02664  loss_centernet_agn_pos: 0.06555  loss_centernet_loc: 0.239  time: 1.6749  data_time: 0.0350  lr: 2.1143e-06  max_mem: 22355M
+[32m[07/28 12:25:47 d2.utils.events]: [0m eta: 3:19:27  iter: 460  total_loss: 2.714  loss_asso: 2.373  loss_centernet_agn_neg: 0.0253  loss_centernet_agn_pos: 0.06856  loss_centernet_loc: 0.25  time: 1.6700  data_time: 0.0175  lr: 2.2104e-06  max_mem: 22355M
+[32m[07/28 12:26:20 d2.utils.events]: [0m eta: 3:19:27  iter: 480  total_loss: 2.728  loss_asso: 2.369  loss_centernet_agn_neg: 0.02751  loss_centernet_agn_pos: 0.05641  loss_centernet_loc: 0.2449  time: 1.6671  data_time: 0.0320  lr: 2.3065e-06  max_mem: 22355M
+[32m[07/28 12:26:52 d2.utils.events]: [0m eta: 3:18:53  iter: 500  total_loss: 2.942  loss_asso: 2.61  loss_centernet_agn_neg: 0.02164  loss_centernet_agn_pos: 0.0611  loss_centernet_loc: 0.2567  time: 1.6638  data_time: 0.0273  lr: 2.4025e-06  max_mem: 22355M
+[32m[07/28 12:27:25 d2.utils.events]: [0m eta: 3:18:28  iter: 520  total_loss: 2.517  loss_asso: 2.179  loss_centernet_agn_neg: 0.02498  loss_centernet_agn_pos: 0.06366  loss_centernet_loc: 0.2401  time: 1.6609  data_time: 0.0321  lr: 2.4986e-06  max_mem: 22355M
+[32m[07/28 12:27:58 d2.utils.events]: [0m eta: 3:17:57  iter: 540  total_loss: 2.73  loss_asso: 2.398  loss_centernet_agn_neg: 0.03075  loss_centernet_agn_pos: 0.06828  loss_centernet_loc: 0.2419  time: 1.6593  data_time: 0.0285  lr: 2.5947e-06  max_mem: 22355M
+[32m[07/28 12:28:30 d2.utils.events]: [0m eta: 3:17:27  iter: 560  total_loss: 2.316  loss_asso: 1.986  loss_centernet_agn_neg: 0.02467  loss_centernet_agn_pos: 0.06289  loss_centernet_loc: 0.2249  time: 1.6565  data_time: 0.0215  lr: 2.6908e-06  max_mem: 22355M
+[32m[07/28 12:29:01 d2.utils.events]: [0m eta: 3:16:52  iter: 580  total_loss: 2.178  loss_asso: 1.845  loss_centernet_agn_neg: 0.02391  loss_centernet_agn_pos: 0.0693  loss_centernet_loc: 0.2396  time: 1.6524  data_time: 0.0156  lr: 2.7869e-06  max_mem: 22355M
+[32m[07/28 12:29:32 d2.utils.events]: [0m eta: 3:16:18  iter: 600  total_loss: 2.684  loss_asso: 2.313  loss_centernet_agn_neg: 0.02488  loss_centernet_agn_pos: 0.06553  loss_centernet_loc: 0.2375  time: 1.6485  data_time: 0.0319  lr: 2.883e-06  max_mem: 22355M
+[32m[07/28 12:30:03 d2.utils.events]: [0m eta: 3:15:22  iter: 620  total_loss: 2.543  loss_asso: 2.196  loss_centernet_agn_neg: 0.02606  loss_centernet_agn_pos: 0.06214  loss_centernet_loc: 0.2341  time: 1.6444  data_time: 0.0258  lr: 2.9791e-06  max_mem: 22355M
+[32m[07/28 12:30:36 d2.utils.events]: [0m eta: 3:15:07  iter: 640  total_loss: 2.327  loss_asso: 2.01  loss_centernet_agn_neg: 0.0248  loss_centernet_agn_pos: 0.05546  loss_centernet_loc: 0.2408  time: 1.6436  data_time: 0.0179  lr: 3.0752e-06  max_mem: 22355M
+[32m[07/28 12:31:07 d2.utils.events]: [0m eta: 3:14:35  iter: 660  total_loss: 2.166  loss_asso: 1.858  loss_centernet_agn_neg: 0.02265  loss_centernet_agn_pos: 0.05841  loss_centernet_loc: 0.2239  time: 1.6407  data_time: 0.0229  lr: 3.1713e-06  max_mem: 22355M
+[32m[07/28 12:31:38 d2.utils.events]: [0m eta: 3:14:01  iter: 680  total_loss: 2.341  loss_asso: 2.018  loss_centernet_agn_neg: 0.02316  loss_centernet_agn_pos: 0.06302  loss_centernet_loc: 0.2406  time: 1.6376  data_time: 0.0264  lr: 3.2674e-06  max_mem: 22355M
+[32m[07/28 12:32:10 d2.utils.events]: [0m eta: 3:13:15  iter: 700  total_loss: 2.336  loss_asso: 2.044  loss_centernet_agn_neg: 0.02292  loss_centernet_agn_pos: 0.0606  loss_centernet_loc: 0.2315  time: 1.6356  data_time: 0.0344  lr: 3.3635e-06  max_mem: 22355M
+[32m[07/28 12:32:41 d2.utils.events]: [0m eta: 3:12:32  iter: 720  total_loss: 2.381  loss_asso: 2.056  loss_centernet_agn_neg: 0.02584  loss_centernet_agn_pos: 0.06779  loss_centernet_loc: 0.242  time: 1.6326  data_time: 0.0255  lr: 3.4596e-06  max_mem: 22355M
+[32m[07/28 12:33:14 d2.utils.events]: [0m eta: 3:12:03  iter: 740  total_loss: 2.242  loss_asso: 1.931  loss_centernet_agn_neg: 0.0231  loss_centernet_agn_pos: 0.06001  loss_centernet_loc: 0.2264  time: 1.6315  data_time: 0.0255  lr: 3.5557e-06  max_mem: 22355M
+[32m[07/28 12:33:45 d2.utils.events]: [0m eta: 3:11:21  iter: 760  total_loss: 2.173  loss_asso: 1.834  loss_centernet_agn_neg: 0.02606  loss_centernet_agn_pos: 0.05772  loss_centernet_loc: 0.2135  time: 1.6294  data_time: 0.0222  lr: 3.6518e-06  max_mem: 22355M
+[32m[07/28 12:34:17 d2.utils.events]: [0m eta: 3:10:50  iter: 780  total_loss: 2.149  loss_asso: 1.823  loss_centernet_agn_neg: 0.02388  loss_centernet_agn_pos: 0.05334  loss_centernet_loc: 0.2313  time: 1.6281  data_time: 0.0234  lr: 3.7479e-06  max_mem: 22355M
+[32m[07/28 12:34:48 d2.utils.events]: [0m eta: 3:09:59  iter: 800  total_loss: 2.333  loss_asso: 2.017  loss_centernet_agn_neg: 0.02318  loss_centernet_agn_pos: 0.05933  loss_centernet_loc: 0.2389  time: 1.6244  data_time: 0.0294  lr: 3.844e-06  max_mem: 22355M
+[32m[07/28 12:35:17 d2.utils.events]: [0m eta: 3:09:10  iter: 820  total_loss: 1.946  loss_asso: 1.628  loss_centernet_agn_neg: 0.02228  loss_centernet_agn_pos: 0.06079  loss_centernet_loc: 0.2245  time: 1.6207  data_time: 0.0188  lr: 3.94e-06  max_mem: 22355M
+[32m[07/28 12:35:49 d2.utils.events]: [0m eta: 3:08:38  iter: 840  total_loss: 2.365  loss_asso: 2.018  loss_centernet_agn_neg: 0.02671  loss_centernet_agn_pos: 0.05063  loss_centernet_loc: 0.2359  time: 1.6193  data_time: 0.0223  lr: 4.0361e-06  max_mem: 22355M
+[32m[07/28 12:36:20 d2.utils.events]: [0m eta: 3:08:01  iter: 860  total_loss: 2.303  loss_asso: 2  loss_centernet_agn_neg: 0.0258  loss_centernet_agn_pos: 0.05545  loss_centernet_loc: 0.2281  time: 1.6166  data_time: 0.0294  lr: 4.1322e-06  max_mem: 22355M
+[32m[07/28 12:36:50 d2.utils.events]: [0m eta: 3:07:20  iter: 880  total_loss: 2.619  loss_asso: 2.277  loss_centernet_agn_neg: 0.02376  loss_centernet_agn_pos: 0.05656  loss_centernet_loc: 0.2257  time: 1.6133  data_time: 0.0286  lr: 4.2283e-06  max_mem: 22355M
+[32m[07/28 12:37:21 d2.utils.events]: [0m eta: 3:06:40  iter: 900  total_loss: 2.154  loss_asso: 1.816  loss_centernet_agn_neg: 0.0227  loss_centernet_agn_pos: 0.06284  loss_centernet_loc: 0.2176  time: 1.6114  data_time: 0.0328  lr: 4.3244e-06  max_mem: 22355M
+[32m[07/28 12:37:52 d2.utils.events]: [0m eta: 3:06:01  iter: 920  total_loss: 2.201  loss_asso: 1.877  loss_centernet_agn_neg: 0.02317  loss_centernet_agn_pos: 0.05531  loss_centernet_loc: 0.2257  time: 1.6103  data_time: 0.0163  lr: 4.4205e-06  max_mem: 22355M
+[32m[07/28 12:38:22 d2.utils.events]: [0m eta: 3:05:25  iter: 940  total_loss: 2.141  loss_asso: 1.826  loss_centernet_agn_neg: 0.02589  loss_centernet_agn_pos: 0.05233  loss_centernet_loc: 0.2214  time: 1.6074  data_time: 0.0192  lr: 4.5166e-06  max_mem: 22355M
+[32m[07/28 12:38:54 d2.utils.events]: [0m eta: 3:04:53  iter: 960  total_loss: 2.113  loss_asso: 1.78  loss_centernet_agn_neg: 0.02354  loss_centernet_agn_pos: 0.06179  loss_centernet_loc: 0.2286  time: 1.6061  data_time: 0.0209  lr: 4.6127e-06  max_mem: 22355M
+[32m[07/28 12:39:24 d2.utils.events]: [0m eta: 3:04:17  iter: 980  total_loss: 1.852  loss_asso: 1.501  loss_centernet_agn_neg: 0.02235  loss_centernet_agn_pos: 0.0616  loss_centernet_loc: 0.2118  time: 1.6040  data_time: 0.0291  lr: 4.7088e-06  max_mem: 22355M
+[32m[07/28 12:39:57 d2.utils.events]: [0m eta: 3:03:49  iter: 1000  total_loss: 2.218  loss_asso: 1.879  loss_centernet_agn_neg: 0.02468  loss_centernet_agn_pos: 0.05509  loss_centernet_loc: 0.2332  time: 1.6038  data_time: 0.0345  lr: 4.8049e-06  max_mem: 22355M
+[32m[07/28 12:40:28 d2.utils.events]: [0m eta: 3:03:03  iter: 1020  total_loss: 1.9  loss_asso: 1.607  loss_centernet_agn_neg: 0.02485  loss_centernet_agn_pos: 0.05253  loss_centernet_loc: 0.2281  time: 1.6023  data_time: 0.0272  lr: 4.8025e-06  max_mem: 22355M
+[32m[07/28 12:40:59 d2.utils.events]: [0m eta: 3:02:19  iter: 1040  total_loss: 2.002  loss_asso: 1.696  loss_centernet_agn_neg: 0.02303  loss_centernet_agn_pos: 0.04911  loss_centernet_loc: 0.2239  time: 1.6006  data_time: 0.0193  lr: 4.7948e-06  max_mem: 22355M
+[32m[07/28 12:41:29 d2.utils.events]: [0m eta: 3:01:46  iter: 1060  total_loss: 2.302  loss_asso: 1.99  loss_centernet_agn_neg: 0.0248  loss_centernet_agn_pos: 0.05185  loss_centernet_loc: 0.234  time: 1.5987  data_time: 0.0283  lr: 4.7869e-06  max_mem: 22355M
+[32m[07/28 12:42:01 d2.utils.events]: [0m eta: 3:01:13  iter: 1080  total_loss: 2.041  loss_asso: 1.727  loss_centernet_agn_neg: 0.02467  loss_centernet_agn_pos: 0.06143  loss_centernet_loc: 0.2224  time: 1.5982  data_time: 0.0311  lr: 4.7789e-06  max_mem: 22355M
+[32m[07/28 12:42:32 d2.utils.events]: [0m eta: 3:00:23  iter: 1100  total_loss: 1.79  loss_asso: 1.501  loss_centernet_agn_neg: 0.02227  loss_centernet_agn_pos: 0.05528  loss_centernet_loc: 0.2125  time: 1.5966  data_time: 0.0176  lr: 4.7708e-06  max_mem: 22355M
+[32m[07/28 12:43:03 d2.utils.events]: [0m eta: 2:59:50  iter: 1120  total_loss: 1.994  loss_asso: 1.709  loss_centernet_agn_neg: 0.02462  loss_centernet_agn_pos: 0.05025  loss_centernet_loc: 0.2148  time: 1.5955  data_time: 0.0226  lr: 4.7625e-06  max_mem: 22355M
+[32m[07/28 12:43:34 d2.utils.events]: [0m eta: 2:59:13  iter: 1140  total_loss: 2.152  loss_asso: 1.852  loss_centernet_agn_neg: 0.02267  loss_centernet_agn_pos: 0.0553  loss_centernet_loc: 0.2296  time: 1.5940  data_time: 0.0243  lr: 4.7541e-06  max_mem: 22355M
+[32m[07/28 12:44:06 d2.utils.events]: [0m eta: 2:58:41  iter: 1160  total_loss: 2.168  loss_asso: 1.827  loss_centernet_agn_neg: 0.02348  loss_centernet_agn_pos: 0.05677  loss_centernet_loc: 0.2334  time: 1.5935  data_time: 0.0390  lr: 4.7455e-06  max_mem: 22355M
+[32m[07/28 12:44:38 d2.utils.events]: [0m eta: 2:58:16  iter: 1180  total_loss: 2.044  loss_asso: 1.749  loss_centernet_agn_neg: 0.02758  loss_centernet_agn_pos: 0.05084  loss_centernet_loc: 0.2223  time: 1.5937  data_time: 0.0271  lr: 4.7368e-06  max_mem: 22355M
+[32m[07/28 12:45:13 d2.utils.events]: [0m eta: 2:57:47  iter: 1200  total_loss: 1.877  loss_asso: 1.595  loss_centernet_agn_neg: 0.02259  loss_centernet_agn_pos: 0.06208  loss_centernet_loc: 0.2185  time: 1.5959  data_time: 0.0279  lr: 4.728e-06  max_mem: 22355M
+[32m[07/28 12:45:44 d2.utils.events]: [0m eta: 2:57:23  iter: 1220  total_loss: 2.078  loss_asso: 1.785  loss_centernet_agn_neg: 0.02614  loss_centernet_agn_pos: 0.05713  loss_centernet_loc: 0.2174  time: 1.5945  data_time: 0.0223  lr: 4.719e-06  max_mem: 22355M
+[32m[07/28 12:46:15 d2.utils.events]: [0m eta: 2:56:59  iter: 1240  total_loss: 1.799  loss_asso: 1.527  loss_centernet_agn_neg: 0.02427  loss_centernet_agn_pos: 0.05744  loss_centernet_loc: 0.2229  time: 1.5933  data_time: 0.0322  lr: 4.7099e-06  max_mem: 22560M
+[32m[07/28 12:46:47 d2.utils.events]: [0m eta: 2:56:30  iter: 1260  total_loss: 1.781  loss_asso: 1.487  loss_centernet_agn_neg: 0.02189  loss_centernet_agn_pos: 0.04984  loss_centernet_loc: 0.2194  time: 1.5928  data_time: 0.0303  lr: 4.7006e-06  max_mem: 22560M
+[32m[07/28 12:47:20 d2.utils.events]: [0m eta: 2:56:03  iter: 1280  total_loss: 1.952  loss_asso: 1.654  loss_centernet_agn_neg: 0.02561  loss_centernet_agn_pos: 0.05584  loss_centernet_loc: 0.213  time: 1.5934  data_time: 0.0239  lr: 4.6912e-06  max_mem: 22560M
+[32m[07/28 12:47:52 d2.utils.events]: [0m eta: 2:55:34  iter: 1300  total_loss: 2.187  loss_asso: 1.9  loss_centernet_agn_neg: 0.02576  loss_centernet_agn_pos: 0.05162  loss_centernet_loc: 0.2247  time: 1.5927  data_time: 0.0304  lr: 4.6817e-06  max_mem: 22560M
+[32m[07/28 12:48:23 d2.utils.events]: [0m eta: 2:55:02  iter: 1320  total_loss: 1.892  loss_asso: 1.583  loss_centernet_agn_neg: 0.02416  loss_centernet_agn_pos: 0.05595  loss_centernet_loc: 0.2301  time: 1.5920  data_time: 0.0272  lr: 4.6721e-06  max_mem: 22560M
+[32m[07/28 12:48:53 d2.utils.events]: [0m eta: 2:54:28  iter: 1340  total_loss: 1.749  loss_asso: 1.443  loss_centernet_agn_neg: 0.0206  loss_centernet_agn_pos: 0.05255  loss_centernet_loc: 0.2242  time: 1.5898  data_time: 0.0293  lr: 4.6623e-06  max_mem: 22560M
+[32m[07/28 12:49:25 d2.utils.events]: [0m eta: 2:53:55  iter: 1360  total_loss: 2.259  loss_asso: 1.93  loss_centernet_agn_neg: 0.02432  loss_centernet_agn_pos: 0.05617  loss_centernet_loc: 0.2322  time: 1.5900  data_time: 0.0287  lr: 4.6524e-06  max_mem: 22560M
+[32m[07/28 12:49:57 d2.utils.events]: [0m eta: 2:53:23  iter: 1380  total_loss: 2.002  loss_asso: 1.653  loss_centernet_agn_neg: 0.02326  loss_centernet_agn_pos: 0.05934  loss_centernet_loc: 0.2405  time: 1.5896  data_time: 0.0345  lr: 4.6423e-06  max_mem: 22560M
+[32m[07/28 12:50:28 d2.utils.events]: [0m eta: 2:52:47  iter: 1400  total_loss: 1.871  loss_asso: 1.591  loss_centernet_agn_neg: 0.02229  loss_centernet_agn_pos: 0.04682  loss_centernet_loc: 0.2148  time: 1.5886  data_time: 0.0220  lr: 4.6321e-06  max_mem: 22560M
+[32m[07/28 12:50:57 d2.utils.events]: [0m eta: 2:51:43  iter: 1420  total_loss: 1.809  loss_asso: 1.461  loss_centernet_agn_neg: 0.02486  loss_centernet_agn_pos: 0.05538  loss_centernet_loc: 0.2257  time: 1.5867  data_time: 0.0147  lr: 4.6218e-06  max_mem: 22560M
+[32m[07/28 12:51:28 d2.utils.events]: [0m eta: 2:51:01  iter: 1440  total_loss: 1.781  loss_asso: 1.47  loss_centernet_agn_neg: 0.02453  loss_centernet_agn_pos: 0.04716  loss_centernet_loc: 0.2269  time: 1.5851  data_time: 0.0421  lr: 4.6113e-06  max_mem: 22560M
+[32m[07/28 12:51:59 d2.utils.events]: [0m eta: 2:50:32  iter: 1460  total_loss: 1.984  loss_asso: 1.658  loss_centernet_agn_neg: 0.02279  loss_centernet_agn_pos: 0.05881  loss_centernet_loc: 0.2286  time: 1.5843  data_time: 0.0222  lr: 4.6008e-06  max_mem: 22560M
+[32m[07/28 12:52:31 d2.utils.events]: [0m eta: 2:50:00  iter: 1480  total_loss: 1.787  loss_asso: 1.471  loss_centernet_agn_neg: 0.02323  loss_centernet_agn_pos: 0.05775  loss_centernet_loc: 0.2298  time: 1.5846  data_time: 0.0236  lr: 4.5901e-06  max_mem: 22560M
+[32m[07/28 12:53:04 d2.utils.events]: [0m eta: 2:49:28  iter: 1500  total_loss: 1.627  loss_asso: 1.343  loss_centernet_agn_neg: 0.02307  loss_centernet_agn_pos: 0.05057  loss_centernet_loc: 0.2154  time: 1.5848  data_time: 0.0186  lr: 4.5792e-06  max_mem: 22560M
+[32m[07/28 12:53:35 d2.utils.events]: [0m eta: 2:48:41  iter: 1520  total_loss: 1.597  loss_asso: 1.311  loss_centernet_agn_neg: 0.02148  loss_centernet_agn_pos: 0.04763  loss_centernet_loc: 0.198  time: 1.5840  data_time: 0.0212  lr: 4.5683e-06  max_mem: 22560M
+[32m[07/28 12:54:06 d2.utils.events]: [0m eta: 2:48:00  iter: 1540  total_loss: 2.035  loss_asso: 1.723  loss_centernet_agn_neg: 0.02365  loss_centernet_agn_pos: 0.05413  loss_centernet_loc: 0.2249  time: 1.5835  data_time: 0.0286  lr: 4.5572e-06  max_mem: 22560M
+[32m[07/28 12:54:37 d2.utils.events]: [0m eta: 2:47:28  iter: 1560  total_loss: 1.666  loss_asso: 1.386  loss_centernet_agn_neg: 0.02526  loss_centernet_agn_pos: 0.05341  loss_centernet_loc: 0.2094  time: 1.5827  data_time: 0.0150  lr: 4.5459e-06  max_mem: 22560M
+[32m[07/28 12:55:08 d2.utils.events]: [0m eta: 2:46:55  iter: 1580  total_loss: 1.662  loss_asso: 1.368  loss_centernet_agn_neg: 0.02144  loss_centernet_agn_pos: 0.04862  loss_centernet_loc: 0.2141  time: 1.5820  data_time: 0.0294  lr: 4.5346e-06  max_mem: 22560M
+[32m[07/28 12:55:39 d2.utils.events]: [0m eta: 2:46:19  iter: 1600  total_loss: 1.617  loss_asso: 1.361  loss_centernet_agn_neg: 0.02227  loss_centernet_agn_pos: 0.04731  loss_centernet_loc: 0.189  time: 1.5813  data_time: 0.0329  lr: 4.5231e-06  max_mem: 22560M
+[32m[07/28 12:56:10 d2.utils.events]: [0m eta: 2:45:42  iter: 1620  total_loss: 1.586  loss_asso: 1.317  loss_centernet_agn_neg: 0.02459  loss_centernet_agn_pos: 0.04675  loss_centernet_loc: 0.2132  time: 1.5806  data_time: 0.0207  lr: 4.5115e-06  max_mem: 22560M
+[32m[07/28 12:56:39 d2.utils.events]: [0m eta: 2:44:45  iter: 1640  total_loss: 1.542  loss_asso: 1.297  loss_centernet_agn_neg: 0.0193  loss_centernet_agn_pos: 0.04064  loss_centernet_loc: 0.2145  time: 1.5791  data_time: 0.0217  lr: 4.4998e-06  max_mem: 22560M
+[32m[07/28 12:57:11 d2.utils.events]: [0m eta: 2:44:12  iter: 1660  total_loss: 1.596  loss_asso: 1.301  loss_centernet_agn_neg: 0.02211  loss_centernet_agn_pos: 0.05159  loss_centernet_loc: 0.2106  time: 1.5787  data_time: 0.0209  lr: 4.488e-06  max_mem: 22560M
+[32m[07/28 12:57:41 d2.utils.events]: [0m eta: 2:43:26  iter: 1680  total_loss: 1.699  loss_asso: 1.403  loss_centernet_agn_neg: 0.02392  loss_centernet_agn_pos: 0.04649  loss_centernet_loc: 0.2072  time: 1.5777  data_time: 0.0235  lr: 4.476e-06  max_mem: 22560M
+[32m[07/28 12:58:14 d2.utils.events]: [0m eta: 2:43:02  iter: 1700  total_loss: 1.847  loss_asso: 1.534  loss_centernet_agn_neg: 0.02347  loss_centernet_agn_pos: 0.05319  loss_centernet_loc: 0.2211  time: 1.5781  data_time: 0.0388  lr: 4.4639e-06  max_mem: 22560M
+[32m[07/28 12:58:46 d2.utils.events]: [0m eta: 2:42:38  iter: 1720  total_loss: 1.819  loss_asso: 1.489  loss_centernet_agn_neg: 0.02292  loss_centernet_agn_pos: 0.05229  loss_centernet_loc: 0.2158  time: 1.5777  data_time: 0.0207  lr: 4.4517e-06  max_mem: 22560M
+[32m[07/28 12:59:16 d2.utils.events]: [0m eta: 2:42:01  iter: 1740  total_loss: 1.637  loss_asso: 1.35  loss_centernet_agn_neg: 0.02455  loss_centernet_agn_pos: 0.04949  loss_centernet_loc: 0.2183  time: 1.5771  data_time: 0.0192  lr: 4.4394e-06  max_mem: 22560M
+[32m[07/28 12:59:48 d2.utils.events]: [0m eta: 2:41:29  iter: 1760  total_loss: 1.84  loss_asso: 1.516  loss_centernet_agn_neg: 0.02411  loss_centernet_agn_pos: 0.05462  loss_centernet_loc: 0.2113  time: 1.5768  data_time: 0.0204  lr: 4.4269e-06  max_mem: 22560M
+[32m[07/28 13:00:19 d2.utils.events]: [0m eta: 2:40:58  iter: 1780  total_loss: 1.851  loss_asso: 1.548  loss_centernet_agn_neg: 0.02254  loss_centernet_agn_pos: 0.04929  loss_centernet_loc: 0.2182  time: 1.5765  data_time: 0.0250  lr: 4.4143e-06  max_mem: 22560M
+[32m[07/28 13:00:52 d2.utils.events]: [0m eta: 2:40:38  iter: 1800  total_loss: 1.82  loss_asso: 1.544  loss_centernet_agn_neg: 0.02164  loss_centernet_agn_pos: 0.05052  loss_centernet_loc: 0.2149  time: 1.5766  data_time: 0.0274  lr: 4.4017e-06  max_mem: 22560M
+[32m[07/28 13:01:22 d2.utils.events]: [0m eta: 2:40:10  iter: 1820  total_loss: 1.687  loss_asso: 1.403  loss_centernet_agn_neg: 0.02282  loss_centernet_agn_pos: 0.05258  loss_centernet_loc: 0.2203  time: 1.5757  data_time: 0.0175  lr: 4.3888e-06  max_mem: 22560M
+[32m[07/28 13:01:53 d2.utils.events]: [0m eta: 2:39:38  iter: 1840  total_loss: 1.634  loss_asso: 1.349  loss_centernet_agn_neg: 0.02118  loss_centernet_agn_pos: 0.05333  loss_centernet_loc: 0.2059  time: 1.5751  data_time: 0.0151  lr: 4.3759e-06  max_mem: 22560M
+[32m[07/28 13:02:24 d2.utils.events]: [0m eta: 2:39:06  iter: 1860  total_loss: 1.824  loss_asso: 1.499  loss_centernet_agn_neg: 0.02266  loss_centernet_agn_pos: 0.0483  loss_centernet_loc: 0.2138  time: 1.5748  data_time: 0.0203  lr: 4.3629e-06  max_mem: 22560M
+[32m[07/28 13:02:54 d2.utils.events]: [0m eta: 2:38:32  iter: 1880  total_loss: 1.595  loss_asso: 1.328  loss_centernet_agn_neg: 0.02391  loss_centernet_agn_pos: 0.05436  loss_centernet_loc: 0.2081  time: 1.5738  data_time: 0.0258  lr: 4.3497e-06  max_mem: 22560M
+[32m[07/28 13:03:25 d2.utils.events]: [0m eta: 2:37:53  iter: 1900  total_loss: 1.731  loss_asso: 1.436  loss_centernet_agn_neg: 0.02192  loss_centernet_agn_pos: 0.04613  loss_centernet_loc: 0.2188  time: 1.5734  data_time: 0.0289  lr: 4.3365e-06  max_mem: 22560M
+[32m[07/28 13:03:56 d2.utils.events]: [0m eta: 2:37:16  iter: 1920  total_loss: 1.641  loss_asso: 1.371  loss_centernet_agn_neg: 0.02695  loss_centernet_agn_pos: 0.04722  loss_centernet_loc: 0.2063  time: 1.5728  data_time: 0.0294  lr: 4.3231e-06  max_mem: 22560M
+[32m[07/28 13:04:28 d2.utils.events]: [0m eta: 2:36:45  iter: 1940  total_loss: 1.623  loss_asso: 1.367  loss_centernet_agn_neg: 0.0227  loss_centernet_agn_pos: 0.0605  loss_centernet_loc: 0.2085  time: 1.5725  data_time: 0.0406  lr: 4.3096e-06  max_mem: 22560M
+[32m[07/28 13:04:59 d2.utils.events]: [0m eta: 2:36:08  iter: 1960  total_loss: 1.711  loss_asso: 1.421  loss_centernet_agn_neg: 0.0233  loss_centernet_agn_pos: 0.04513  loss_centernet_loc: 0.2191  time: 1.5722  data_time: 0.0265  lr: 4.296e-06  max_mem: 22560M
+[32m[07/28 13:05:32 d2.utils.events]: [0m eta: 2:35:47  iter: 1980  total_loss: 1.561  loss_asso: 1.305  loss_centernet_agn_neg: 0.02352  loss_centernet_agn_pos: 0.05466  loss_centernet_loc: 0.2184  time: 1.5725  data_time: 0.0226  lr: 4.2823e-06  max_mem: 22560M
+[32m[07/28 13:06:04 d2.utils.events]: [0m eta: 2:35:06  iter: 2000  total_loss: 1.82  loss_asso: 1.495  loss_centernet_agn_neg: 0.01959  loss_centernet_agn_pos: 0.0462  loss_centernet_loc: 0.2065  time: 1.5723  data_time: 0.0304  lr: 4.2685e-06  max_mem: 22560M
+[32m[07/28 13:06:34 d2.utils.events]: [0m eta: 2:34:30  iter: 2020  total_loss: 1.718  loss_asso: 1.41  loss_centernet_agn_neg: 0.02284  loss_centernet_agn_pos: 0.04775  loss_centernet_loc: 0.2069  time: 1.5718  data_time: 0.0270  lr: 4.2545e-06  max_mem: 22560M
+[32m[07/28 13:07:06 d2.utils.events]: [0m eta: 2:34:01  iter: 2040  total_loss: 1.429  loss_asso: 1.124  loss_centernet_agn_neg: 0.02056  loss_centernet_agn_pos: 0.05114  loss_centernet_loc: 0.1925  time: 1.5715  data_time: 0.0290  lr: 4.2405e-06  max_mem: 22560M
+[32m[07/28 13:07:37 d2.utils.events]: [0m eta: 2:33:27  iter: 2060  total_loss: 1.657  loss_asso: 1.398  loss_centernet_agn_neg: 0.02515  loss_centernet_agn_pos: 0.04596  loss_centernet_loc: 0.1949  time: 1.5711  data_time: 0.0182  lr: 4.2263e-06  max_mem: 22560M
+[32m[07/28 13:08:10 d2.utils.events]: [0m eta: 2:32:57  iter: 2080  total_loss: 1.687  loss_asso: 1.381  loss_centernet_agn_neg: 0.02608  loss_centernet_agn_pos: 0.05731  loss_centernet_loc: 0.2133  time: 1.5714  data_time: 0.0453  lr: 4.2121e-06  max_mem: 22560M
+[32m[07/28 13:08:40 d2.utils.events]: [0m eta: 2:32:25  iter: 2100  total_loss: 1.831  loss_asso: 1.526  loss_centernet_agn_neg: 0.02416  loss_centernet_agn_pos: 0.05037  loss_centernet_loc: 0.2241  time: 1.5705  data_time: 0.0241  lr: 4.1977e-06  max_mem: 22560M
+[32m[07/28 13:09:10 d2.utils.events]: [0m eta: 2:31:44  iter: 2120  total_loss: 1.666  loss_asso: 1.368  loss_centernet_agn_neg: 0.0203  loss_centernet_agn_pos: 0.0516  loss_centernet_loc: 0.2097  time: 1.5695  data_time: 0.0248  lr: 4.1833e-06  max_mem: 22560M
+[32m[07/28 13:09:40 d2.utils.events]: [0m eta: 2:31:12  iter: 2140  total_loss: 1.559  loss_asso: 1.298  loss_centernet_agn_neg: 0.02153  loss_centernet_agn_pos: 0.04331  loss_centernet_loc: 0.1963  time: 1.5690  data_time: 0.0232  lr: 4.1687e-06  max_mem: 22560M
+[32m[07/28 13:10:14 d2.utils.events]: [0m eta: 2:30:42  iter: 2160  total_loss: 1.524  loss_asso: 1.22  loss_centernet_agn_neg: 0.02496  loss_centernet_agn_pos: 0.05096  loss_centernet_loc: 0.196  time: 1.5691  data_time: 0.1183  lr: 4.154e-06  max_mem: 22560M
+[32m[07/28 13:10:46 d2.utils.events]: [0m eta: 2:30:05  iter: 2180  total_loss: 1.65  loss_asso: 1.34  loss_centernet_agn_neg: 0.02347  loss_centernet_agn_pos: 0.0503  loss_centernet_loc: 0.223  time: 1.5688  data_time: 0.0276  lr: 4.1392e-06  max_mem: 22560M
+[32m[07/28 13:11:18 d2.utils.events]: [0m eta: 2:29:33  iter: 2200  total_loss: 1.67  loss_asso: 1.364  loss_centernet_agn_neg: 0.0232  loss_centernet_agn_pos: 0.05476  loss_centernet_loc: 0.2223  time: 1.5689  data_time: 0.0252  lr: 4.1244e-06  max_mem: 22560M
+[32m[07/28 13:11:50 d2.utils.events]: [0m eta: 2:29:03  iter: 2220  total_loss: 1.521  loss_asso: 1.264  loss_centernet_agn_neg: 0.01966  loss_centernet_agn_pos: 0.04547  loss_centernet_loc: 0.1902  time: 1.5689  data_time: 0.0245  lr: 4.1094e-06  max_mem: 22560M
+[32m[07/28 13:12:24 d2.utils.events]: [0m eta: 2:28:33  iter: 2240  total_loss: 1.648  loss_asso: 1.366  loss_centernet_agn_neg: 0.02125  loss_centernet_agn_pos: 0.05285  loss_centernet_loc: 0.204  time: 1.5699  data_time: 0.0343  lr: 4.0943e-06  max_mem: 22560M
+[32m[07/28 13:12:55 d2.utils.events]: [0m eta: 2:28:01  iter: 2260  total_loss: 1.597  loss_asso: 1.319  loss_centernet_agn_neg: 0.02132  loss_centernet_agn_pos: 0.05116  loss_centernet_loc: 0.2071  time: 1.5697  data_time: 0.0233  lr: 4.0791e-06  max_mem: 22560M
+[32m[07/28 13:13:27 d2.utils.events]: [0m eta: 2:27:21  iter: 2280  total_loss: 1.596  loss_asso: 1.329  loss_centernet_agn_neg: 0.02235  loss_centernet_agn_pos: 0.04859  loss_centernet_loc: 0.2059  time: 1.5696  data_time: 0.0228  lr: 4.0639e-06  max_mem: 22560M
+[32m[07/28 13:13:59 d2.utils.events]: [0m eta: 2:26:43  iter: 2300  total_loss: 1.601  loss_asso: 1.323  loss_centernet_agn_neg: 0.02057  loss_centernet_agn_pos: 0.0517  loss_centernet_loc: 0.202  time: 1.5696  data_time: 0.0223  lr: 4.0485e-06  max_mem: 22560M
+[32m[07/28 13:14:30 d2.utils.events]: [0m eta: 2:26:17  iter: 2320  total_loss: 1.463  loss_asso: 1.18  loss_centernet_agn_neg: 0.02174  loss_centernet_agn_pos: 0.04876  loss_centernet_loc: 0.1959  time: 1.5694  data_time: 0.0198  lr: 4.033e-06  max_mem: 22560M
+[32m[07/28 13:15:01 d2.utils.events]: [0m eta: 2:25:48  iter: 2340  total_loss: 1.756  loss_asso: 1.445  loss_centernet_agn_neg: 0.02268  loss_centernet_agn_pos: 0.05214  loss_centernet_loc: 0.2093  time: 1.5690  data_time: 0.0346  lr: 4.0175e-06  max_mem: 22560M
+[32m[07/28 13:15:32 d2.utils.events]: [0m eta: 2:25:08  iter: 2360  total_loss: 1.614  loss_asso: 1.338  loss_centernet_agn_neg: 0.02308  loss_centernet_agn_pos: 0.04953  loss_centernet_loc: 0.2072  time: 1.5684  data_time: 0.0327  lr: 4.0018e-06  max_mem: 22560M
+[32m[07/28 13:16:05 d2.utils.events]: [0m eta: 2:24:41  iter: 2380  total_loss: 1.726  loss_asso: 1.45  loss_centernet_agn_neg: 0.02374  loss_centernet_agn_pos: 0.04729  loss_centernet_loc: 0.2106  time: 1.5687  data_time: 0.0369  lr: 3.9861e-06  max_mem: 22560M
+[32m[07/28 13:16:37 d2.utils.events]: [0m eta: 2:24:13  iter: 2400  total_loss: 1.589  loss_asso: 1.321  loss_centernet_agn_neg: 0.02131  loss_centernet_agn_pos: 0.05326  loss_centernet_loc: 0.1931  time: 1.5687  data_time: 0.0243  lr: 3.9703e-06  max_mem: 22560M
+[32m[07/28 13:17:09 d2.utils.events]: [0m eta: 2:23:58  iter: 2420  total_loss: 1.847  loss_asso: 1.56  loss_centernet_agn_neg: 0.01994  loss_centernet_agn_pos: 0.05064  loss_centernet_loc: 0.2093  time: 1.5688  data_time: 0.0221  lr: 3.9543e-06  max_mem: 22560M
+[32m[07/28 13:17:41 d2.utils.events]: [0m eta: 2:23:33  iter: 2440  total_loss: 1.571  loss_asso: 1.289  loss_centernet_agn_neg: 0.02397  loss_centernet_agn_pos: 0.04405  loss_centernet_loc: 0.2056  time: 1.5691  data_time: 0.0229  lr: 3.9383e-06  max_mem: 22560M
+[32m[07/28 13:18:12 d2.utils.events]: [0m eta: 2:22:57  iter: 2460  total_loss: 1.739  loss_asso: 1.451  loss_centernet_agn_neg: 0.01948  loss_centernet_agn_pos: 0.05082  loss_centernet_loc: 0.2113  time: 1.5687  data_time: 0.0233  lr: 3.9222e-06  max_mem: 22560M
+[32m[07/28 13:18:44 d2.utils.events]: [0m eta: 2:22:21  iter: 2480  total_loss: 1.601  loss_asso: 1.306  loss_centernet_agn_neg: 0.01896  loss_centernet_agn_pos: 0.05221  loss_centernet_loc: 0.2144  time: 1.5687  data_time: 0.0237  lr: 3.906e-06  max_mem: 22560M
+[32m[07/28 13:19:14 d2.utils.events]: [0m eta: 2:21:42  iter: 2500  total_loss: 1.506  loss_asso: 1.216  loss_centernet_agn_neg: 0.0225  loss_centernet_agn_pos: 0.04117  loss_centernet_loc: 0.2004  time: 1.5682  data_time: 0.0238  lr: 3.8897e-06  max_mem: 22560M
+[32m[07/28 13:19:45 d2.utils.events]: [0m eta: 2:21:11  iter: 2520  total_loss: 1.463  loss_asso: 1.192  loss_centernet_agn_neg: 0.02322  loss_centernet_agn_pos: 0.04477  loss_centernet_loc: 0.2027  time: 1.5677  data_time: 0.0261  lr: 3.8734e-06  max_mem: 22560M
+[32m[07/28 13:20:16 d2.utils.events]: [0m eta: 2:20:39  iter: 2540  total_loss: 1.533  loss_asso: 1.237  loss_centernet_agn_neg: 0.02108  loss_centernet_agn_pos: 0.04917  loss_centernet_loc: 0.1997  time: 1.5674  data_time: 0.0210  lr: 3.8569e-06  max_mem: 22560M
+[32m[07/28 13:20:46 d2.utils.events]: [0m eta: 2:20:08  iter: 2560  total_loss: 1.464  loss_asso: 1.189  loss_centernet_agn_neg: 0.02199  loss_centernet_agn_pos: 0.04305  loss_centernet_loc: 0.2091  time: 1.5666  data_time: 0.0308  lr: 3.8404e-06  max_mem: 22560M
+[32m[07/28 13:21:17 d2.utils.events]: [0m eta: 2:19:37  iter: 2580  total_loss: 1.749  loss_asso: 1.439  loss_centernet_agn_neg: 0.02111  loss_centernet_agn_pos: 0.05376  loss_centernet_loc: 0.2231  time: 1.5664  data_time: 0.0233  lr: 3.8238e-06  max_mem: 22560M
+[32m[07/28 13:21:48 d2.utils.events]: [0m eta: 2:19:06  iter: 2600  total_loss: 1.426  loss_asso: 1.127  loss_centernet_agn_neg: 0.02195  loss_centernet_agn_pos: 0.05177  loss_centernet_loc: 0.2056  time: 1.5661  data_time: 0.0215  lr: 3.8071e-06  max_mem: 22560M
+[32m[07/28 13:22:19 d2.utils.events]: [0m eta: 2:18:35  iter: 2620  total_loss: 1.682  loss_asso: 1.355  loss_centernet_agn_neg: 0.02383  loss_centernet_agn_pos: 0.05036  loss_centernet_loc: 0.2291  time: 1.5657  data_time: 0.0310  lr: 3.7903e-06  max_mem: 22560M
+[32m[07/28 13:22:50 d2.utils.events]: [0m eta: 2:18:06  iter: 2640  total_loss: 1.578  loss_asso: 1.263  loss_centernet_agn_neg: 0.02204  loss_centernet_agn_pos: 0.05086  loss_centernet_loc: 0.2101  time: 1.5652  data_time: 0.0258  lr: 3.7734e-06  max_mem: 22560M
+[32m[07/28 13:23:22 d2.utils.events]: [0m eta: 2:17:42  iter: 2660  total_loss: 1.541  loss_asso: 1.253  loss_centernet_agn_neg: 0.02384  loss_centernet_agn_pos: 0.04692  loss_centernet_loc: 0.2095  time: 1.5653  data_time: 0.0355  lr: 3.7565e-06  max_mem: 22560M
+[32m[07/28 13:23:55 d2.utils.events]: [0m eta: 2:17:17  iter: 2680  total_loss: 1.358  loss_asso: 1.108  loss_centernet_agn_neg: 0.02164  loss_centernet_agn_pos: 0.04763  loss_centernet_loc: 0.1957  time: 1.5651  data_time: 0.0952  lr: 3.7395e-06  max_mem: 22560M
+[32m[07/28 13:24:27 d2.utils.events]: [0m eta: 2:16:46  iter: 2700  total_loss: 1.788  loss_asso: 1.481  loss_centernet_agn_neg: 0.02237  loss_centernet_agn_pos: 0.05073  loss_centernet_loc: 0.2079  time: 1.5651  data_time: 0.0293  lr: 3.7224e-06  max_mem: 22560M
+[32m[07/28 13:24:57 d2.utils.events]: [0m eta: 2:16:09  iter: 2720  total_loss: 1.536  loss_asso: 1.236  loss_centernet_agn_neg: 0.0237  loss_centernet_agn_pos: 0.05268  loss_centernet_loc: 0.2053  time: 1.5647  data_time: 0.0269  lr: 3.7052e-06  max_mem: 22560M
+[32m[07/28 13:25:27 d2.utils.events]: [0m eta: 2:15:37  iter: 2740  total_loss: 1.428  loss_asso: 1.131  loss_centernet_agn_neg: 0.01971  loss_centernet_agn_pos: 0.04792  loss_centernet_loc: 0.207  time: 1.5639  data_time: 0.0356  lr: 3.688e-06  max_mem: 22560M
+[32m[07/28 13:25:59 d2.utils.events]: [0m eta: 2:15:06  iter: 2760  total_loss: 1.616  loss_asso: 1.341  loss_centernet_agn_neg: 0.02276  loss_centernet_agn_pos: 0.04582  loss_centernet_loc: 0.2067  time: 1.5640  data_time: 0.0167  lr: 3.6707e-06  max_mem: 22560M
+[32m[07/28 13:26:31 d2.utils.events]: [0m eta: 2:14:35  iter: 2780  total_loss: 1.429  loss_asso: 1.129  loss_centernet_agn_neg: 0.02326  loss_centernet_agn_pos: 0.04452  loss_centernet_loc: 0.1994  time: 1.5642  data_time: 0.0192  lr: 3.6533e-06  max_mem: 22560M
+[32m[07/28 13:27:02 d2.utils.events]: [0m eta: 2:13:57  iter: 2800  total_loss: 1.415  loss_asso: 1.136  loss_centernet_agn_neg: 0.02447  loss_centernet_agn_pos: 0.05365  loss_centernet_loc: 0.2119  time: 1.5639  data_time: 0.0219  lr: 3.6359e-06  max_mem: 22560M
+[32m[07/28 13:27:33 d2.utils.events]: [0m eta: 2:13:28  iter: 2820  total_loss: 1.469  loss_asso: 1.191  loss_centernet_agn_neg: 0.02371  loss_centernet_agn_pos: 0.04823  loss_centernet_loc: 0.2055  time: 1.5634  data_time: 0.0243  lr: 3.6183e-06  max_mem: 22560M
+[32m[07/28 13:28:05 d2.utils.events]: [0m eta: 2:13:03  iter: 2840  total_loss: 1.573  loss_asso: 1.315  loss_centernet_agn_neg: 0.02376  loss_centernet_agn_pos: 0.05432  loss_centernet_loc: 0.1967  time: 1.5636  data_time: 0.0293  lr: 3.6007e-06  max_mem: 22560M
+[32m[07/28 13:28:36 d2.utils.events]: [0m eta: 2:12:34  iter: 2860  total_loss: 1.481  loss_asso: 1.189  loss_centernet_agn_neg: 0.02122  loss_centernet_agn_pos: 0.04871  loss_centernet_loc: 0.2007  time: 1.5635  data_time: 0.0190  lr: 3.5831e-06  max_mem: 22560M
+[32m[07/28 13:29:07 d2.utils.events]: [0m eta: 2:12:06  iter: 2880  total_loss: 1.339  loss_asso: 1.098  loss_centernet_agn_neg: 0.02299  loss_centernet_agn_pos: 0.03831  loss_centernet_loc: 0.1973  time: 1.5630  data_time: 0.0161  lr: 3.5653e-06  max_mem: 22560M
+[32m[07/28 13:29:38 d2.utils.events]: [0m eta: 2:11:36  iter: 2900  total_loss: 1.642  loss_asso: 1.342  loss_centernet_agn_neg: 0.02418  loss_centernet_agn_pos: 0.04692  loss_centernet_loc: 0.2094  time: 1.5631  data_time: 0.0237  lr: 3.5475e-06  max_mem: 22560M
+[32m[07/28 13:30:10 d2.utils.events]: [0m eta: 2:11:06  iter: 2920  total_loss: 1.426  loss_asso: 1.128  loss_centernet_agn_neg: 0.02404  loss_centernet_agn_pos: 0.04744  loss_centernet_loc: 0.2035  time: 1.5630  data_time: 0.0233  lr: 3.5297e-06  max_mem: 22560M
+[32m[07/28 13:30:42 d2.utils.events]: [0m eta: 2:10:35  iter: 2940  total_loss: 1.398  loss_asso: 1.131  loss_centernet_agn_neg: 0.02254  loss_centernet_agn_pos: 0.04384  loss_centernet_loc: 0.1867  time: 1.5631  data_time: 0.0210  lr: 3.5118e-06  max_mem: 22560M
+[32m[07/28 13:31:13 d2.utils.events]: [0m eta: 2:10:05  iter: 2960  total_loss: 1.593  loss_asso: 1.316  loss_centernet_agn_neg: 0.02221  loss_centernet_agn_pos: 0.05066  loss_centernet_loc: 0.2159  time: 1.5630  data_time: 0.0219  lr: 3.4938e-06  max_mem: 22560M
+[32m[07/28 13:31:44 d2.utils.events]: [0m eta: 2:09:32  iter: 2980  total_loss: 1.679  loss_asso: 1.364  loss_centernet_agn_neg: 0.0249  loss_centernet_agn_pos: 0.0541  loss_centernet_loc: 0.2155  time: 1.5628  data_time: 0.0233  lr: 3.4757e-06  max_mem: 22560M
+[32m[07/28 13:32:20 d2.utils.events]: [0m eta: 2:09:03  iter: 3000  total_loss: 1.578  loss_asso: 1.293  loss_centernet_agn_neg: 0.02141  loss_centernet_agn_pos: 0.04733  loss_centernet_loc: 0.2048  time: 1.5640  data_time: 0.0251  lr: 3.4576e-06  max_mem: 22560M
+[32m[07/28 13:32:51 d2.utils.events]: [0m eta: 2:08:35  iter: 3020  total_loss: 1.288  loss_asso: 1.032  loss_centernet_agn_neg: 0.02227  loss_centernet_agn_pos: 0.04616  loss_centernet_loc: 0.1859  time: 1.5639  data_time: 0.0281  lr: 3.4394e-06  max_mem: 22560M
+[32m[07/28 13:33:22 d2.utils.events]: [0m eta: 2:08:04  iter: 3040  total_loss: 1.452  loss_asso: 1.174  loss_centernet_agn_neg: 0.02202  loss_centernet_agn_pos: 0.04472  loss_centernet_loc: 0.1965  time: 1.5636  data_time: 0.0249  lr: 3.4212e-06  max_mem: 22560M
+[32m[07/28 13:33:55 d2.utils.events]: [0m eta: 2:07:42  iter: 3060  total_loss: 1.549  loss_asso: 1.251  loss_centernet_agn_neg: 0.02205  loss_centernet_agn_pos: 0.04243  loss_centernet_loc: 0.1969  time: 1.5638  data_time: 0.0303  lr: 3.4029e-06  max_mem: 22560M
+[32m[07/28 13:34:27 d2.utils.events]: [0m eta: 2:07:13  iter: 3080  total_loss: 1.59  loss_asso: 1.295  loss_centernet_agn_neg: 0.02361  loss_centernet_agn_pos: 0.04498  loss_centernet_loc: 0.213  time: 1.5638  data_time: 0.0247  lr: 3.3846e-06  max_mem: 22560M
+[32m[07/28 13:34:58 d2.utils.events]: [0m eta: 2:06:42  iter: 3100  total_loss: 1.657  loss_asso: 1.342  loss_centernet_agn_neg: 0.02065  loss_centernet_agn_pos: 0.04718  loss_centernet_loc: 0.2066  time: 1.5636  data_time: 0.0250  lr: 3.3662e-06  max_mem: 22560M
+[32m[07/28 13:35:28 d2.utils.events]: [0m eta: 2:06:12  iter: 3120  total_loss: 1.629  loss_asso: 1.306  loss_centernet_agn_neg: 0.02092  loss_centernet_agn_pos: 0.04301  loss_centernet_loc: 0.2103  time: 1.5632  data_time: 0.0239  lr: 3.3478e-06  max_mem: 22560M
+[32m[07/28 13:36:00 d2.utils.events]: [0m eta: 2:05:43  iter: 3140  total_loss: 1.487  loss_asso: 1.225  loss_centernet_agn_neg: 0.02049  loss_centernet_agn_pos: 0.04586  loss_centernet_loc: 0.2052  time: 1.5632  data_time: 0.0303  lr: 3.3293e-06  max_mem: 22560M
+[32m[07/28 13:36:32 d2.utils.events]: [0m eta: 2:05:11  iter: 3160  total_loss: 1.518  loss_asso: 1.237  loss_centernet_agn_neg: 0.02202  loss_centernet_agn_pos: 0.04476  loss_centernet_loc: 0.1947  time: 1.5633  data_time: 0.0253  lr: 3.3107e-06  max_mem: 22560M
+[32m[07/28 13:37:04 d2.utils.events]: [0m eta: 2:04:41  iter: 3180  total_loss: 1.527  loss_asso: 1.229  loss_centernet_agn_neg: 0.02023  loss_centernet_agn_pos: 0.04679  loss_centernet_loc: 0.2132  time: 1.5635  data_time: 0.0272  lr: 3.2921e-06  max_mem: 22560M
+[32m[07/28 13:37:36 d2.utils.events]: [0m eta: 2:04:09  iter: 3200  total_loss: 1.491  loss_asso: 1.231  loss_centernet_agn_neg: 0.02078  loss_centernet_agn_pos: 0.05007  loss_centernet_loc: 0.1906  time: 1.5634  data_time: 0.0355  lr: 3.2735e-06  max_mem: 22560M
+[32m[07/28 13:38:07 d2.utils.events]: [0m eta: 2:03:37  iter: 3220  total_loss: 1.573  loss_asso: 1.281  loss_centernet_agn_neg: 0.02287  loss_centernet_agn_pos: 0.04683  loss_centernet_loc: 0.1931  time: 1.5631  data_time: 0.0240  lr: 3.2548e-06  max_mem: 22560M
+[32m[07/28 13:38:37 d2.utils.events]: [0m eta: 2:03:04  iter: 3240  total_loss: 1.67  loss_asso: 1.369  loss_centernet_agn_neg: 0.02225  loss_centernet_agn_pos: 0.05233  loss_centernet_loc: 0.2008  time: 1.5627  data_time: 0.0231  lr: 3.236e-06  max_mem: 22560M
+[32m[07/28 13:39:07 d2.utils.events]: [0m eta: 2:02:26  iter: 3260  total_loss: 1.607  loss_asso: 1.31  loss_centernet_agn_neg: 0.02267  loss_centernet_agn_pos: 0.05211  loss_centernet_loc: 0.2105  time: 1.5622  data_time: 0.0252  lr: 3.2173e-06  max_mem: 22560M
+[32m[07/28 13:39:39 d2.utils.events]: [0m eta: 2:01:55  iter: 3280  total_loss: 1.512  loss_asso: 1.252  loss_centernet_agn_neg: 0.0199  loss_centernet_agn_pos: 0.04514  loss_centernet_loc: 0.2014  time: 1.5620  data_time: 0.0308  lr: 3.1984e-06  max_mem: 22560M
+[32m[07/28 13:40:09 d2.utils.events]: [0m eta: 2:01:20  iter: 3300  total_loss: 1.572  loss_asso: 1.278  loss_centernet_agn_neg: 0.02274  loss_centernet_agn_pos: 0.05232  loss_centernet_loc: 0.2095  time: 1.5617  data_time: 0.0239  lr: 3.1795e-06  max_mem: 22560M
+[32m[07/28 13:40:42 d2.utils.events]: [0m eta: 2:00:57  iter: 3320  total_loss: 1.496  loss_asso: 1.188  loss_centernet_agn_neg: 0.0221  loss_centernet_agn_pos: 0.04863  loss_centernet_loc: 0.21  time: 1.5619  data_time: 0.0214  lr: 3.1606e-06  max_mem: 22560M
+[32m[07/28 13:41:13 d2.utils.events]: [0m eta: 2:00:26  iter: 3340  total_loss: 1.599  loss_asso: 1.349  loss_centernet_agn_neg: 0.02165  loss_centernet_agn_pos: 0.04848  loss_centernet_loc: 0.2012  time: 1.5618  data_time: 0.0308  lr: 3.1417e-06  max_mem: 22560M
+[32m[07/28 13:41:44 d2.utils.events]: [0m eta: 1:59:57  iter: 3360  total_loss: 1.446  loss_asso: 1.17  loss_centernet_agn_neg: 0.02274  loss_centernet_agn_pos: 0.04919  loss_centernet_loc: 0.2087  time: 1.5616  data_time: 0.0247  lr: 3.1227e-06  max_mem: 22560M
+[32m[07/28 13:42:16 d2.utils.events]: [0m eta: 1:59:24  iter: 3380  total_loss: 1.477  loss_asso: 1.187  loss_centernet_agn_neg: 0.02172  loss_centernet_agn_pos: 0.04991  loss_centernet_loc: 0.201  time: 1.5616  data_time: 0.0271  lr: 3.1036e-06  max_mem: 22560M
+[32m[07/28 13:42:49 d2.utils.events]: [0m eta: 1:58:55  iter: 3400  total_loss: 1.522  loss_asso: 1.287  loss_centernet_agn_neg: 0.02241  loss_centernet_agn_pos: 0.03972  loss_centernet_loc: 0.1958  time: 1.5620  data_time: 0.0274  lr: 3.0846e-06  max_mem: 22560M
+[32m[07/28 13:43:19 d2.utils.events]: [0m eta: 1:58:18  iter: 3420  total_loss: 1.415  loss_asso: 1.109  loss_centernet_agn_neg: 0.02299  loss_centernet_agn_pos: 0.04498  loss_centernet_loc: 0.2005  time: 1.5615  data_time: 0.0212  lr: 3.0655e-06  max_mem: 22560M
+[32m[07/28 13:43:51 d2.utils.events]: [0m eta: 1:57:44  iter: 3440  total_loss: 1.425  loss_asso: 1.136  loss_centernet_agn_neg: 0.01975  loss_centernet_agn_pos: 0.0428  loss_centernet_loc: 0.2149  time: 1.5614  data_time: 0.0279  lr: 3.0463e-06  max_mem: 22560M
+[32m[07/28 13:44:22 d2.utils.events]: [0m eta: 1:57:15  iter: 3460  total_loss: 1.502  loss_asso: 1.225  loss_centernet_agn_neg: 0.02328  loss_centernet_agn_pos: 0.04786  loss_centernet_loc: 0.203  time: 1.5614  data_time: 0.0216  lr: 3.0271e-06  max_mem: 22560M
+[32m[07/28 13:44:54 d2.utils.events]: [0m eta: 1:56:45  iter: 3480  total_loss: 1.326  loss_asso: 1.075  loss_centernet_agn_neg: 0.02104  loss_centernet_agn_pos: 0.04501  loss_centernet_loc: 0.1978  time: 1.5612  data_time: 0.0319  lr: 3.0079e-06  max_mem: 22560M
+[32m[07/28 13:45:27 d2.utils.events]: [0m eta: 1:56:16  iter: 3500  total_loss: 1.568  loss_asso: 1.291  loss_centernet_agn_neg: 0.02273  loss_centernet_agn_pos: 0.04318  loss_centernet_loc: 0.1994  time: 1.5616  data_time: 0.0340  lr: 2.9887e-06  max_mem: 22560M
+[32m[07/28 13:45:59 d2.utils.events]: [0m eta: 1:55:46  iter: 3520  total_loss: 1.535  loss_asso: 1.256  loss_centernet_agn_neg: 0.02123  loss_centernet_agn_pos: 0.05587  loss_centernet_loc: 0.2104  time: 1.5618  data_time: 0.0275  lr: 2.9694e-06  max_mem: 22560M
+[32m[07/28 13:46:29 d2.utils.events]: [0m eta: 1:55:08  iter: 3540  total_loss: 1.354  loss_asso: 1.089  loss_centernet_agn_neg: 0.02096  loss_centernet_agn_pos: 0.04972  loss_centernet_loc: 0.1986  time: 1.5612  data_time: 0.0232  lr: 2.9501e-06  max_mem: 22560M
+[32m[07/28 13:47:00 d2.utils.events]: [0m eta: 1:54:39  iter: 3560  total_loss: 1.347  loss_asso: 1.066  loss_centernet_agn_neg: 0.0215  loss_centernet_agn_pos: 0.04097  loss_centernet_loc: 0.2048  time: 1.5610  data_time: 0.0335  lr: 2.9308e-06  max_mem: 22560M
+[32m[07/28 13:47:32 d2.utils.events]: [0m eta: 1:54:14  iter: 3580  total_loss: 1.648  loss_asso: 1.349  loss_centernet_agn_neg: 0.02265  loss_centernet_agn_pos: 0.04589  loss_centernet_loc: 0.2009  time: 1.5611  data_time: 0.0294  lr: 2.9114e-06  max_mem: 22560M
+[32m[07/28 13:48:02 d2.utils.events]: [0m eta: 1:53:39  iter: 3600  total_loss: 1.43  loss_asso: 1.133  loss_centernet_agn_neg: 0.02273  loss_centernet_agn_pos: 0.04341  loss_centernet_loc: 0.2094  time: 1.5606  data_time: 0.0276  lr: 2.8921e-06  max_mem: 22560M
+[32m[07/28 13:48:33 d2.utils.events]: [0m eta: 1:53:07  iter: 3620  total_loss: 1.449  loss_asso: 1.168  loss_centernet_agn_neg: 0.02076  loss_centernet_agn_pos: 0.05081  loss_centernet_loc: 0.2026  time: 1.5603  data_time: 0.0320  lr: 2.8727e-06  max_mem: 22560M
+[32m[07/28 13:49:03 d2.utils.events]: [0m eta: 1:52:34  iter: 3640  total_loss: 1.306  loss_asso: 1.042  loss_centernet_agn_neg: 0.021  loss_centernet_agn_pos: 0.05014  loss_centernet_loc: 0.197  time: 1.5599  data_time: 0.0276  lr: 2.8532e-06  max_mem: 22560M
+[32m[07/28 13:49:37 d2.utils.events]: [0m eta: 1:52:01  iter: 3660  total_loss: 1.341  loss_asso: 1.08  loss_centernet_agn_neg: 0.022  loss_centernet_agn_pos: 0.04938  loss_centernet_loc: 0.1947  time: 1.5598  data_time: 0.1483  lr: 2.8338e-06  max_mem: 22560M
+[32m[07/28 13:50:09 d2.utils.events]: [0m eta: 1:51:33  iter: 3680  total_loss: 1.491  loss_asso: 1.178  loss_centernet_agn_neg: 0.02095  loss_centernet_agn_pos: 0.05147  loss_centernet_loc: 0.2082  time: 1.5599  data_time: 0.0212  lr: 2.8143e-06  max_mem: 22560M
+[32m[07/28 13:50:42 d2.utils.events]: [0m eta: 1:50:59  iter: 3700  total_loss: 1.54  loss_asso: 1.261  loss_centernet_agn_neg: 0.02368  loss_centernet_agn_pos: 0.04519  loss_centernet_loc: 0.1994  time: 1.5601  data_time: 0.0295  lr: 2.7948e-06  max_mem: 22560M
+[32m[07/28 13:51:12 d2.utils.events]: [0m eta: 1:50:29  iter: 3720  total_loss: 1.39  loss_asso: 1.125  loss_centernet_agn_neg: 0.0212  loss_centernet_agn_pos: 0.04555  loss_centernet_loc: 0.2001  time: 1.5598  data_time: 0.0182  lr: 2.7753e-06  max_mem: 22560M
+[32m[07/28 13:51:42 d2.utils.events]: [0m eta: 1:49:57  iter: 3740  total_loss: 1.264  loss_asso: 0.976  loss_centernet_agn_neg: 0.02196  loss_centernet_agn_pos: 0.04317  loss_centernet_loc: 0.2074  time: 1.5593  data_time: 0.0184  lr: 2.7558e-06  max_mem: 22560M
+[32m[07/28 13:52:12 d2.utils.events]: [0m eta: 1:49:26  iter: 3760  total_loss: 1.302  loss_asso: 1.021  loss_centernet_agn_neg: 0.02049  loss_centernet_agn_pos: 0.04479  loss_centernet_loc: 0.1984  time: 1.5590  data_time: 0.0214  lr: 2.7362e-06  max_mem: 22560M
+[32m[07/28 13:52:43 d2.utils.events]: [0m eta: 1:48:52  iter: 3780  total_loss: 1.347  loss_asso: 1.09  loss_centernet_agn_neg: 0.02152  loss_centernet_agn_pos: 0.0412  loss_centernet_loc: 0.1938  time: 1.5588  data_time: 0.0222  lr: 2.7167e-06  max_mem: 22560M
+[32m[07/28 13:53:13 d2.utils.events]: [0m eta: 1:48:15  iter: 3800  total_loss: 1.425  loss_asso: 1.141  loss_centernet_agn_neg: 0.01967  loss_centernet_agn_pos: 0.04667  loss_centernet_loc: 0.2013  time: 1.5585  data_time: 0.0155  lr: 2.6971e-06  max_mem: 22560M
+[32m[07/28 13:53:45 d2.utils.events]: [0m eta: 1:47:50  iter: 3820  total_loss: 1.35  loss_asso: 1.087  loss_centernet_agn_neg: 0.02047  loss_centernet_agn_pos: 0.04526  loss_centernet_loc: 0.2064  time: 1.5585  data_time: 0.0221  lr: 2.6775e-06  max_mem: 22560M
+[32m[07/28 13:54:16 d2.utils.events]: [0m eta: 1:47:14  iter: 3840  total_loss: 1.373  loss_asso: 1.105  loss_centernet_agn_neg: 0.02025  loss_centernet_agn_pos: 0.03939  loss_centernet_loc: 0.197  time: 1.5584  data_time: 0.0246  lr: 2.658e-06  max_mem: 22560M
+[32m[07/28 13:54:49 d2.utils.events]: [0m eta: 1:46:46  iter: 3860  total_loss: 1.385  loss_asso: 1.094  loss_centernet_agn_neg: 0.01983  loss_centernet_agn_pos: 0.04837  loss_centernet_loc: 0.1957  time: 1.5586  data_time: 0.0259  lr: 2.6384e-06  max_mem: 22560M
+[32m[07/28 13:55:19 d2.utils.events]: [0m eta: 1:46:15  iter: 3880  total_loss: 1.333  loss_asso: 1.051  loss_centernet_agn_neg: 0.02367  loss_centernet_agn_pos: 0.0425  loss_centernet_loc: 0.2006  time: 1.5584  data_time: 0.0234  lr: 2.6187e-06  max_mem: 22560M
+[32m[07/28 13:55:51 d2.utils.events]: [0m eta: 1:45:38  iter: 3900  total_loss: 1.345  loss_asso: 1.086  loss_centernet_agn_neg: 0.02075  loss_centernet_agn_pos: 0.0444  loss_centernet_loc: 0.1953  time: 1.5582  data_time: 0.0238  lr: 2.5991e-06  max_mem: 22560M
+[32m[07/28 13:56:23 d2.utils.events]: [0m eta: 1:45:14  iter: 3920  total_loss: 1.462  loss_asso: 1.196  loss_centernet_agn_neg: 0.02408  loss_centernet_agn_pos: 0.04637  loss_centernet_loc: 0.1993  time: 1.5583  data_time: 0.0199  lr: 2.5795e-06  max_mem: 22560M
+[32m[07/28 13:56:55 d2.utils.events]: [0m eta: 1:44:50  iter: 3940  total_loss: 1.576  loss_asso: 1.302  loss_centernet_agn_neg: 0.02256  loss_centernet_agn_pos: 0.04715  loss_centernet_loc: 0.2066  time: 1.5585  data_time: 0.0350  lr: 2.5599e-06  max_mem: 22560M
+[32m[07/28 13:57:27 d2.utils.events]: [0m eta: 1:44:22  iter: 3960  total_loss: 1.395  loss_asso: 1.136  loss_centernet_agn_neg: 0.02213  loss_centernet_agn_pos: 0.0502  loss_centernet_loc: 0.2154  time: 1.5585  data_time: 0.0214  lr: 2.5402e-06  max_mem: 22560M
+[32m[07/28 13:57:58 d2.utils.events]: [0m eta: 1:43:51  iter: 3980  total_loss: 1.437  loss_asso: 1.178  loss_centernet_agn_neg: 0.0238  loss_centernet_agn_pos: 0.0418  loss_centernet_loc: 0.1964  time: 1.5585  data_time: 0.0312  lr: 2.5206e-06  max_mem: 22560M
+[32m[07/28 13:58:31 d2.utils.events]: [0m eta: 1:43:20  iter: 4000  total_loss: 1.416  loss_asso: 1.145  loss_centernet_agn_neg: 0.02162  loss_centernet_agn_pos: 0.04834  loss_centernet_loc: 0.2006  time: 1.5586  data_time: 0.0313  lr: 2.501e-06  max_mem: 22560M
+[32m[07/28 13:59:03 d2.utils.events]: [0m eta: 1:42:49  iter: 4020  total_loss: 1.37  loss_asso: 1.124  loss_centernet_agn_neg: 0.0215  loss_centernet_agn_pos: 0.04165  loss_centernet_loc: 0.1968  time: 1.5586  data_time: 0.0340  lr: 2.4813e-06  max_mem: 22560M
+[32m[07/28 13:59:33 d2.utils.events]: [0m eta: 1:42:15  iter: 4040  total_loss: 1.354  loss_asso: 1.069  loss_centernet_agn_neg: 0.02437  loss_centernet_agn_pos: 0.05088  loss_centernet_loc: 0.1979  time: 1.5585  data_time: 0.0158  lr: 2.4617e-06  max_mem: 22560M
+[32m[07/28 14:00:03 d2.utils.events]: [0m eta: 1:41:37  iter: 4060  total_loss: 1.459  loss_asso: 1.219  loss_centernet_agn_neg: 0.01894  loss_centernet_agn_pos: 0.04143  loss_centernet_loc: 0.1937  time: 1.5579  data_time: 0.0239  lr: 2.4421e-06  max_mem: 22560M
+[32m[07/28 14:00:33 d2.utils.events]: [0m eta: 1:40:57  iter: 4080  total_loss: 1.308  loss_asso: 1.072  loss_centernet_agn_neg: 0.02072  loss_centernet_agn_pos: 0.04328  loss_centernet_loc: 0.1972  time: 1.5576  data_time: 0.0262  lr: 2.4225e-06  max_mem: 22560M
+[32m[07/28 14:01:05 d2.utils.events]: [0m eta: 1:40:32  iter: 4100  total_loss: 1.653  loss_asso: 1.344  loss_centernet_agn_neg: 0.02185  loss_centernet_agn_pos: 0.0482  loss_centernet_loc: 0.2231  time: 1.5576  data_time: 0.0293  lr: 2.4028e-06  max_mem: 22560M
+[32m[07/28 14:01:38 d2.utils.events]: [0m eta: 1:40:10  iter: 4120  total_loss: 1.471  loss_asso: 1.218  loss_centernet_agn_neg: 0.02139  loss_centernet_agn_pos: 0.04709  loss_centernet_loc: 0.1959  time: 1.5577  data_time: 0.0608  lr: 2.3832e-06  max_mem: 22560M
+[32m[07/28 14:02:08 d2.utils.events]: [0m eta: 1:39:36  iter: 4140  total_loss: 1.441  loss_asso: 1.183  loss_centernet_agn_neg: 0.02357  loss_centernet_agn_pos: 0.05002  loss_centernet_loc: 0.2072  time: 1.5574  data_time: 0.0205  lr: 2.3636e-06  max_mem: 22560M
+[32m[07/28 14:02:39 d2.utils.events]: [0m eta: 1:39:05  iter: 4160  total_loss: 1.206  loss_asso: 0.9816  loss_centernet_agn_neg: 0.02216  loss_centernet_agn_pos: 0.04354  loss_centernet_loc: 0.1904  time: 1.5573  data_time: 0.0244  lr: 2.344e-06  max_mem: 22560M
+[32m[07/28 14:03:10 d2.utils.events]: [0m eta: 1:38:30  iter: 4180  total_loss: 1.454  loss_asso: 1.182  loss_centernet_agn_neg: 0.02341  loss_centernet_agn_pos: 0.04014  loss_centernet_loc: 0.2027  time: 1.5572  data_time: 0.0172  lr: 2.3244e-06  max_mem: 22560M
+[32m[07/28 14:03:42 d2.utils.events]: [0m eta: 1:37:59  iter: 4200  total_loss: 1.468  loss_asso: 1.222  loss_centernet_agn_neg: 0.02211  loss_centernet_agn_pos: 0.04346  loss_centernet_loc: 0.2016  time: 1.5571  data_time: 0.0380  lr: 2.3048e-06  max_mem: 22560M
+[32m[07/28 14:04:13 d2.utils.events]: [0m eta: 1:37:29  iter: 4220  total_loss: 1.371  loss_asso: 1.098  loss_centernet_agn_neg: 0.0213  loss_centernet_agn_pos: 0.04993  loss_centernet_loc: 0.2087  time: 1.5569  data_time: 0.0185  lr: 2.2853e-06  max_mem: 22560M
+[32m[07/28 14:04:45 d2.utils.events]: [0m eta: 1:37:04  iter: 4240  total_loss: 1.38  loss_asso: 1.091  loss_centernet_agn_neg: 0.02101  loss_centernet_agn_pos: 0.0477  loss_centernet_loc: 0.2076  time: 1.5570  data_time: 0.0289  lr: 2.2657e-06  max_mem: 22560M
+[32m[07/28 14:05:17 d2.utils.events]: [0m eta: 1:36:37  iter: 4260  total_loss: 1.367  loss_asso: 1.085  loss_centernet_agn_neg: 0.02406  loss_centernet_agn_pos: 0.04982  loss_centernet_loc: 0.2063  time: 1.5571  data_time: 0.0263  lr: 2.2462e-06  max_mem: 22560M
+[32m[07/28 14:05:46 d2.utils.events]: [0m eta: 1:35:59  iter: 4280  total_loss: 1.436  loss_asso: 1.138  loss_centernet_agn_neg: 0.01951  loss_centernet_agn_pos: 0.04398  loss_centernet_loc: 0.1779  time: 1.5566  data_time: 0.0190  lr: 2.2266e-06  max_mem: 22560M
+[32m[07/28 14:06:19 d2.utils.events]: [0m eta: 1:35:33  iter: 4300  total_loss: 1.349  loss_asso: 1.09  loss_centernet_agn_neg: 0.02049  loss_centernet_agn_pos: 0.04716  loss_centernet_loc: 0.1984  time: 1.5568  data_time: 0.0305  lr: 2.2071e-06  max_mem: 22560M
+[32m[07/28 14:06:50 d2.utils.events]: [0m eta: 1:35:01  iter: 4320  total_loss: 1.64  loss_asso: 1.33  loss_centernet_agn_neg: 0.02349  loss_centernet_agn_pos: 0.04973  loss_centernet_loc: 0.2054  time: 1.5567  data_time: 0.0247  lr: 2.1876e-06  max_mem: 22560M
+[32m[07/28 14:07:21 d2.utils.events]: [0m eta: 1:34:30  iter: 4340  total_loss: 1.53  loss_asso: 1.254  loss_centernet_agn_neg: 0.02236  loss_centernet_agn_pos: 0.0467  loss_centernet_loc: 0.2162  time: 1.5566  data_time: 0.0221  lr: 2.1682e-06  max_mem: 22560M
+[32m[07/28 14:07:51 d2.utils.events]: [0m eta: 1:33:52  iter: 4360  total_loss: 1.152  loss_asso: 0.9089  loss_centernet_agn_neg: 0.02101  loss_centernet_agn_pos: 0.04401  loss_centernet_loc: 0.1982  time: 1.5561  data_time: 0.0276  lr: 2.1487e-06  max_mem: 22560M
+[32m[07/28 14:08:23 d2.utils.events]: [0m eta: 1:33:29  iter: 4380  total_loss: 1.461  loss_asso: 1.226  loss_centernet_agn_neg: 0.02192  loss_centernet_agn_pos: 0.04408  loss_centernet_loc: 0.2025  time: 1.5564  data_time: 0.0216  lr: 2.1293e-06  max_mem: 22560M
+[32m[07/28 14:08:56 d2.utils.events]: [0m eta: 1:32:57  iter: 4400  total_loss: 1.459  loss_asso: 1.179  loss_centernet_agn_neg: 0.02105  loss_centernet_agn_pos: 0.04924  loss_centernet_loc: 0.2046  time: 1.5566  data_time: 0.0275  lr: 2.1099e-06  max_mem: 22560M
+[32m[07/28 14:09:27 d2.utils.events]: [0m eta: 1:32:31  iter: 4420  total_loss: 1.269  loss_asso: 1.003  loss_centernet_agn_neg: 0.02296  loss_centernet_agn_pos: 0.04163  loss_centernet_loc: 0.1935  time: 1.5565  data_time: 0.0216  lr: 2.0905e-06  max_mem: 22560M
+[32m[07/28 14:09:57 d2.utils.events]: [0m eta: 1:31:56  iter: 4440  total_loss: 1.378  loss_asso: 1.131  loss_centernet_agn_neg: 0.0219  loss_centernet_agn_pos: 0.05085  loss_centernet_loc: 0.2046  time: 1.5561  data_time: 0.0220  lr: 2.0711e-06  max_mem: 22560M
+[32m[07/28 14:10:27 d2.utils.events]: [0m eta: 1:31:15  iter: 4460  total_loss: 1.557  loss_asso: 1.254  loss_centernet_agn_neg: 0.02261  loss_centernet_agn_pos: 0.04494  loss_centernet_loc: 0.1993  time: 1.5558  data_time: 0.0334  lr: 2.0518e-06  max_mem: 22560M
+[32m[07/28 14:10:59 d2.utils.events]: [0m eta: 1:30:42  iter: 4480  total_loss: 1.316  loss_asso: 1.054  loss_centernet_agn_neg: 0.01878  loss_centernet_agn_pos: 0.05024  loss_centernet_loc: 0.1977  time: 1.5557  data_time: 0.0272  lr: 2.0325e-06  max_mem: 22560M
+[32m[07/28 14:11:31 d2.utils.events]: [0m eta: 1:30:16  iter: 4500  total_loss: 1.46  loss_asso: 1.162  loss_centernet_agn_neg: 0.02493  loss_centernet_agn_pos: 0.04274  loss_centernet_loc: 0.1898  time: 1.5558  data_time: 0.0354  lr: 2.0132e-06  max_mem: 22560M
+[32m[07/28 14:12:03 d2.utils.events]: [0m eta: 1:29:41  iter: 4520  total_loss: 1.315  loss_asso: 1.039  loss_centernet_agn_neg: 0.01993  loss_centernet_agn_pos: 0.05022  loss_centernet_loc: 0.1995  time: 1.5557  data_time: 0.0945  lr: 1.994e-06  max_mem: 22560M
+[32m[07/28 14:12:34 d2.utils.events]: [0m eta: 1:29:23  iter: 4540  total_loss: 1.539  loss_asso: 1.269  loss_centernet_agn_neg: 0.02021  loss_centernet_agn_pos: 0.04647  loss_centernet_loc: 0.2028  time: 1.5556  data_time: 0.0223  lr: 1.9748e-06  max_mem: 22560M
+[32m[07/28 14:13:07 d2.utils.events]: [0m eta: 1:28:54  iter: 4560  total_loss: 1.251  loss_asso: 0.9931  loss_centernet_agn_neg: 0.02089  loss_centernet_agn_pos: 0.03986  loss_centernet_loc: 0.1842  time: 1.5556  data_time: 0.0341  lr: 1.9556e-06  max_mem: 22560M
+[32m[07/28 14:13:39 d2.utils.events]: [0m eta: 1:28:20  iter: 4580  total_loss: 1.776  loss_asso: 1.478  loss_centernet_agn_neg: 0.02499  loss_centernet_agn_pos: 0.05326  loss_centernet_loc: 0.2124  time: 1.5559  data_time: 0.0367  lr: 1.9365e-06  max_mem: 22560M
+[32m[07/28 14:14:12 d2.utils.events]: [0m eta: 1:27:54  iter: 4600  total_loss: 1.402  loss_asso: 1.153  loss_centernet_agn_neg: 0.02161  loss_centernet_agn_pos: 0.05306  loss_centernet_loc: 0.2015  time: 1.5560  data_time: 0.0218  lr: 1.9173e-06  max_mem: 22560M
+[32m[07/28 14:14:43 d2.utils.events]: [0m eta: 1:27:24  iter: 4620  total_loss: 1.446  loss_asso: 1.144  loss_centernet_agn_neg: 0.02239  loss_centernet_agn_pos: 0.04722  loss_centernet_loc: 0.1958  time: 1.5560  data_time: 0.0219  lr: 1.8983e-06  max_mem: 22560M
+[32m[07/28 14:15:15 d2.utils.events]: [0m eta: 1:27:01  iter: 4640  total_loss: 1.526  loss_asso: 1.244  loss_centernet_agn_neg: 0.02462  loss_centernet_agn_pos: 0.04678  loss_centernet_loc: 0.2098  time: 1.5561  data_time: 0.0282  lr: 1.8792e-06  max_mem: 22560M
+[32m[07/28 14:15:48 d2.utils.events]: [0m eta: 1:26:40  iter: 4660  total_loss: 1.266  loss_asso: 1.019  loss_centernet_agn_neg: 0.02094  loss_centernet_agn_pos: 0.03701  loss_centernet_loc: 0.2036  time: 1.5563  data_time: 0.0236  lr: 1.8602e-06  max_mem: 22560M
+[32m[07/28 14:16:19 d2.utils.events]: [0m eta: 1:26:03  iter: 4680  total_loss: 1.361  loss_asso: 1.115  loss_centernet_agn_neg: 0.02246  loss_centernet_agn_pos: 0.0457  loss_centernet_loc: 0.1923  time: 1.5563  data_time: 0.0162  lr: 1.8413e-06  max_mem: 22560M
+[32m[07/28 14:16:49 d2.utils.events]: [0m eta: 1:25:23  iter: 4700  total_loss: 1.3  loss_asso: 1.047  loss_centernet_agn_neg: 0.02085  loss_centernet_agn_pos: 0.0428  loss_centernet_loc: 0.2027  time: 1.5558  data_time: 0.0160  lr: 1.8223e-06  max_mem: 22560M
+[32m[07/28 14:17:20 d2.utils.events]: [0m eta: 1:24:52  iter: 4720  total_loss: 1.37  loss_asso: 1.101  loss_centernet_agn_neg: 0.02392  loss_centernet_agn_pos: 0.04822  loss_centernet_loc: 0.1937  time: 1.5557  data_time: 0.0235  lr: 1.8035e-06  max_mem: 22560M
+[32m[07/28 14:17:52 d2.utils.events]: [0m eta: 1:24:34  iter: 4740  total_loss: 1.359  loss_asso: 1.066  loss_centernet_agn_neg: 0.02328  loss_centernet_agn_pos: 0.05025  loss_centernet_loc: 0.2157  time: 1.5558  data_time: 0.0322  lr: 1.7846e-06  max_mem: 22560M
+[32m[07/28 14:18:24 d2.utils.events]: [0m eta: 1:24:05  iter: 4760  total_loss: 1.306  loss_asso: 1.025  loss_centernet_agn_neg: 0.01899  loss_centernet_agn_pos: 0.04468  loss_centernet_loc: 0.1935  time: 1.5559  data_time: 0.0200  lr: 1.7658e-06  max_mem: 22560M
+[32m[07/28 14:18:55 d2.utils.events]: [0m eta: 1:23:35  iter: 4780  total_loss: 1.309  loss_asso: 1.054  loss_centernet_agn_neg: 0.02172  loss_centernet_agn_pos: 0.0426  loss_centernet_loc: 0.1895  time: 1.5558  data_time: 0.0329  lr: 1.7471e-06  max_mem: 22906M
+[32m[07/28 14:19:27 d2.utils.events]: [0m eta: 1:23:08  iter: 4800  total_loss: 1.492  loss_asso: 1.214  loss_centernet_agn_neg: 0.02138  loss_centernet_agn_pos: 0.04402  loss_centernet_loc: 0.1933  time: 1.5558  data_time: 0.0399  lr: 1.7284e-06  max_mem: 22906M
+[32m[07/28 14:19:59 d2.utils.events]: [0m eta: 1:22:35  iter: 4820  total_loss: 1.484  loss_asso: 1.175  loss_centernet_agn_neg: 0.02161  loss_centernet_agn_pos: 0.04466  loss_centernet_loc: 0.2014  time: 1.5558  data_time: 0.0248  lr: 1.7097e-06  max_mem: 22906M
+[32m[07/28 14:20:30 d2.utils.events]: [0m eta: 1:22:02  iter: 4840  total_loss: 1.315  loss_asso: 1.025  loss_centernet_agn_neg: 0.0207  loss_centernet_agn_pos: 0.04424  loss_centernet_loc: 0.1998  time: 1.5557  data_time: 0.0275  lr: 1.6911e-06  max_mem: 22906M
+[32m[07/28 14:21:01 d2.utils.events]: [0m eta: 1:21:30  iter: 4860  total_loss: 1.482  loss_asso: 1.204  loss_centernet_agn_neg: 0.02549  loss_centernet_agn_pos: 0.05176  loss_centernet_loc: 0.205  time: 1.5557  data_time: 0.0166  lr: 1.6726e-06  max_mem: 22906M
+[32m[07/28 14:21:35 d2.utils.events]: [0m eta: 1:21:02  iter: 4880  total_loss: 1.393  loss_asso: 1.156  loss_centernet_agn_neg: 0.02228  loss_centernet_agn_pos: 0.0437  loss_centernet_loc: 0.1937  time: 1.5560  data_time: 0.0482  lr: 1.6541e-06  max_mem: 22906M
+[32m[07/28 14:22:05 d2.utils.events]: [0m eta: 1:20:29  iter: 4900  total_loss: 1.227  loss_asso: 0.9586  loss_centernet_agn_neg: 0.01898  loss_centernet_agn_pos: 0.04354  loss_centernet_loc: 0.1891  time: 1.5558  data_time: 0.0267  lr: 1.6356e-06  max_mem: 22906M
+[32m[07/28 14:22:36 d2.utils.events]: [0m eta: 1:19:55  iter: 4920  total_loss: 1.36  loss_asso: 1.07  loss_centernet_agn_neg: 0.0208  loss_centernet_agn_pos: 0.0477  loss_centernet_loc: 0.2117  time: 1.5555  data_time: 0.0233  lr: 1.6172e-06  max_mem: 22906M
+[32m[07/28 14:23:08 d2.utils.events]: [0m eta: 1:19:26  iter: 4940  total_loss: 1.402  loss_asso: 1.128  loss_centernet_agn_neg: 0.02214  loss_centernet_agn_pos: 0.04943  loss_centernet_loc: 0.2011  time: 1.5556  data_time: 0.0277  lr: 1.5989e-06  max_mem: 22906M
+[32m[07/28 14:23:39 d2.utils.events]: [0m eta: 1:18:56  iter: 4960  total_loss: 1.365  loss_asso: 1.107  loss_centernet_agn_neg: 0.02121  loss_centernet_agn_pos: 0.04811  loss_centernet_loc: 0.1955  time: 1.5556  data_time: 0.0172  lr: 1.5806e-06  max_mem: 22906M
+[32m[07/28 14:24:09 d2.utils.events]: [0m eta: 1:18:21  iter: 4980  total_loss: 1.351  loss_asso: 1.103  loss_centernet_agn_neg: 0.02116  loss_centernet_agn_pos: 0.0407  loss_centernet_loc: 0.1992  time: 1.5553  data_time: 0.0248  lr: 1.5624e-06  max_mem: 22906M
+[32m[07/28 14:24:38 fvcore.common.checkpoint]: [0mSaving checkpoint to /lfs_ssd/slurm_tmp/briannlz/260362/GTR/output/GTR_MOT/GTR_MOT_FPN/model_0004999.pth
+[32m[07/28 14:24:41 d2.utils.events]: [0m eta: 1:17:39  iter: 5000  total_loss: 1.151  loss_asso: 0.8937  loss_centernet_agn_neg: 0.02007  loss_centernet_agn_pos: 0.04303  loss_centernet_loc: 0.2035  time: 1.5551  data_time: 0.0902  lr: 1.5442e-06  max_mem: 22906M
+[32m[07/28 14:25:12 d2.utils.events]: [0m eta: 1:17:18  iter: 5020  total_loss: 1.409  loss_asso: 1.151  loss_centernet_agn_neg: 0.02168  loss_centernet_agn_pos: 0.03834  loss_centernet_loc: 0.1857  time: 1.5550  data_time: 0.0206  lr: 1.5261e-06  max_mem: 22906M
+[32m[07/28 14:25:43 d2.utils.events]: [0m eta: 1:16:46  iter: 5040  total_loss: 1.313  loss_asso: 1.023  loss_centernet_agn_neg: 0.0237  loss_centernet_agn_pos: 0.047  loss_centernet_loc: 0.2011  time: 1.5549  data_time: 0.0239  lr: 1.508e-06  max_mem: 22906M
+[32m[07/28 14:26:16 d2.utils.events]: [0m eta: 1:16:19  iter: 5060  total_loss: 1.4  loss_asso: 1.126  loss_centernet_agn_neg: 0.02009  loss_centernet_agn_pos: 0.04854  loss_centernet_loc: 0.1965  time: 1.5551  data_time: 0.0220  lr: 1.49e-06  max_mem: 22906M
+[32m[07/28 14:26:47 d2.utils.events]: [0m eta: 1:15:51  iter: 5080  total_loss: 1.461  loss_asso: 1.146  loss_centernet_agn_neg: 0.02185  loss_centernet_agn_pos: 0.04429  loss_centernet_loc: 0.1942  time: 1.5551  data_time: 0.0249  lr: 1.4721e-06  max_mem: 22906M
+[32m[07/28 14:27:18 d2.utils.events]: [0m eta: 1:15:15  iter: 5100  total_loss: 1.426  loss_asso: 1.112  loss_centernet_agn_neg: 0.02349  loss_centernet_agn_pos: 0.04511  loss_centernet_loc: 0.1932  time: 1.5548  data_time: 0.0398  lr: 1.4542e-06  max_mem: 22906M
+[32m[07/28 14:27:48 d2.utils.events]: [0m eta: 1:14:30  iter: 5120  total_loss: 1.171  loss_asso: 0.9052  loss_centernet_agn_neg: 0.01825  loss_centernet_agn_pos: 0.04331  loss_centernet_loc: 0.1943  time: 1.5545  data_time: 0.0229  lr: 1.4364e-06  max_mem: 22906M
+[32m[07/28 14:28:18 d2.utils.events]: [0m eta: 1:13:58  iter: 5140  total_loss: 1.399  loss_asso: 1.136  loss_centernet_agn_neg: 0.02162  loss_centernet_agn_pos: 0.04374  loss_centernet_loc: 0.1876  time: 1.5543  data_time: 0.0336  lr: 1.4187e-06  max_mem: 22906M
+[32m[07/28 14:28:48 d2.utils.events]: [0m eta: 1:13:21  iter: 5160  total_loss: 1.23  loss_asso: 0.9624  loss_centernet_agn_neg: 0.02178  loss_centernet_agn_pos: 0.04615  loss_centernet_loc: 0.1937  time: 1.5540  data_time: 0.0194  lr: 1.401e-06  max_mem: 22906M
+[32m[07/28 14:29:21 d2.utils.events]: [0m eta: 1:12:54  iter: 5180  total_loss: 1.476  loss_asso: 1.201  loss_centernet_agn_neg: 0.02209  loss_centernet_agn_pos: 0.04652  loss_centernet_loc: 0.2039  time: 1.5542  data_time: 0.0216  lr: 1.3834e-06  max_mem: 22906M
+[32m[07/28 14:29:51 d2.utils.events]: [0m eta: 1:12:19  iter: 5200  total_loss: 1.436  loss_asso: 1.124  loss_centernet_agn_neg: 0.02147  loss_centernet_agn_pos: 0.05121  loss_centernet_loc: 0.2032  time: 1.5539  data_time: 0.0304  lr: 1.3659e-06  max_mem: 22906M
+[32m[07/28 14:30:21 d2.utils.events]: [0m eta: 1:11:45  iter: 5220  total_loss: 1.208  loss_asso: 0.9498  loss_centernet_agn_neg: 0.01938  loss_centernet_agn_pos: 0.04617  loss_centernet_loc: 0.1912  time: 1.5537  data_time: 0.0255  lr: 1.3484e-06  max_mem: 22906M
+[32m[07/28 14:30:54 d2.utils.events]: [0m eta: 1:11:12  iter: 5240  total_loss: 1.458  loss_asso: 1.19  loss_centernet_agn_neg: 0.02186  loss_centernet_agn_pos: 0.04586  loss_centernet_loc: 0.205  time: 1.5539  data_time: 0.0326  lr: 1.331e-06  max_mem: 22906M
+[32m[07/28 14:31:26 d2.utils.events]: [0m eta: 1:10:41  iter: 5260  total_loss: 1.442  loss_asso: 1.171  loss_centernet_agn_neg: 0.02106  loss_centernet_agn_pos: 0.04052  loss_centernet_loc: 0.1897  time: 1.5538  data_time: 0.0364  lr: 1.3137e-06  max_mem: 22906M
+[32m[07/28 14:31:58 d2.utils.events]: [0m eta: 1:10:17  iter: 5280  total_loss: 1.43  loss_asso: 1.189  loss_centernet_agn_neg: 0.02185  loss_centernet_agn_pos: 0.04638  loss_centernet_loc: 0.1998  time: 1.5539  data_time: 0.0286  lr: 1.2965e-06  max_mem: 22906M
+[32m[07/28 14:32:29 d2.utils.events]: [0m eta: 1:09:42  iter: 5300  total_loss: 1.417  loss_asso: 1.124  loss_centernet_agn_neg: 0.02169  loss_centernet_agn_pos: 0.05081  loss_centernet_loc: 0.2056  time: 1.5537  data_time: 0.0289  lr: 1.2793e-06  max_mem: 22906M
+[32m[07/28 14:33:01 d2.utils.events]: [0m eta: 1:09:10  iter: 5320  total_loss: 1.335  loss_asso: 1.079  loss_centernet_agn_neg: 0.02486  loss_centernet_agn_pos: 0.04616  loss_centernet_loc: 0.1919  time: 1.5538  data_time: 0.0222  lr: 1.2622e-06  max_mem: 22906M
+[32m[07/28 14:33:31 d2.utils.events]: [0m eta: 1:08:37  iter: 5340  total_loss: 1.349  loss_asso: 1.083  loss_centernet_agn_neg: 0.01955  loss_centernet_agn_pos: 0.04072  loss_centernet_loc: 0.1898  time: 1.5536  data_time: 0.0173  lr: 1.2452e-06  max_mem: 22906M
+[32m[07/28 14:34:03 d2.utils.events]: [0m eta: 1:08:09  iter: 5360  total_loss: 1.275  loss_asso: 1.038  loss_centernet_agn_neg: 0.02297  loss_centernet_agn_pos: 0.04968  loss_centernet_loc: 0.1943  time: 1.5536  data_time: 0.0185  lr: 1.2282e-06  max_mem: 22906M
+[32m[07/28 14:34:34 d2.utils.events]: [0m eta: 1:07:34  iter: 5380  total_loss: 1.407  loss_asso: 1.128  loss_centernet_agn_neg: 0.02072  loss_centernet_agn_pos: 0.04459  loss_centernet_loc: 0.2083  time: 1.5535  data_time: 0.0266  lr: 1.2114e-06  max_mem: 22906M
+[32m[07/28 14:35:04 d2.utils.events]: [0m eta: 1:07:01  iter: 5400  total_loss: 1.353  loss_asso: 1.074  loss_centernet_agn_neg: 0.02224  loss_centernet_agn_pos: 0.04621  loss_centernet_loc: 0.2056  time: 1.5534  data_time: 0.0219  lr: 1.1946e-06  max_mem: 22906M
+[32m[07/28 14:35:36 d2.utils.events]: [0m eta: 1:06:29  iter: 5420  total_loss: 1.47  loss_asso: 1.191  loss_centernet_agn_neg: 0.02147  loss_centernet_agn_pos: 0.04519  loss_centernet_loc: 0.1965  time: 1.5533  data_time: 0.0408  lr: 1.1779e-06  max_mem: 22906M
+[32m[07/28 14:36:07 d2.utils.events]: [0m eta: 1:05:59  iter: 5440  total_loss: 1.36  loss_asso: 1.131  loss_centernet_agn_neg: 0.02082  loss_centernet_agn_pos: 0.04821  loss_centernet_loc: 0.1883  time: 1.5533  data_time: 0.0180  lr: 1.1613e-06  max_mem: 22906M
+[32m[07/28 14:36:38 d2.utils.events]: [0m eta: 1:05:32  iter: 5460  total_loss: 1.257  loss_asso: 1.02  loss_centernet_agn_neg: 0.02102  loss_centernet_agn_pos: 0.04125  loss_centernet_loc: 0.2015  time: 1.5532  data_time: 0.0262  lr: 1.1447e-06  max_mem: 22906M
+[32m[07/28 14:37:10 d2.utils.events]: [0m eta: 1:05:04  iter: 5480  total_loss: 1.344  loss_asso: 1.074  loss_centernet_agn_neg: 0.02031  loss_centernet_agn_pos: 0.04289  loss_centernet_loc: 0.1906  time: 1.5533  data_time: 0.0233  lr: 1.1283e-06  max_mem: 22906M
+[32m[07/28 14:37:40 d2.utils.events]: [0m eta: 1:04:29  iter: 5500  total_loss: 1.006  loss_asso: 0.7828  loss_centernet_agn_neg: 0.01768  loss_centernet_agn_pos: 0.04426  loss_centernet_loc: 0.1821  time: 1.5530  data_time: 0.0212  lr: 1.1119e-06  max_mem: 22906M
+[32m[07/28 14:38:11 d2.utils.events]: [0m eta: 1:03:59  iter: 5520  total_loss: 1.35  loss_asso: 1.087  loss_centernet_agn_neg: 0.02358  loss_centernet_agn_pos: 0.04629  loss_centernet_loc: 0.1984  time: 1.5529  data_time: 0.0191  lr: 1.0956e-06  max_mem: 22906M
+[32m[07/28 14:38:42 d2.utils.events]: [0m eta: 1:03:24  iter: 5540  total_loss: 1.375  loss_asso: 1.113  loss_centernet_agn_neg: 0.02379  loss_centernet_agn_pos: 0.04603  loss_centernet_loc: 0.1967  time: 1.5528  data_time: 0.0238  lr: 1.0794e-06  max_mem: 22906M
+[32m[07/28 14:39:14 d2.utils.events]: [0m eta: 1:02:52  iter: 5560  total_loss: 1.336  loss_asso: 1.053  loss_centernet_agn_neg: 0.02169  loss_centernet_agn_pos: 0.04389  loss_centernet_loc: 0.1941  time: 1.5529  data_time: 0.0227  lr: 1.0633e-06  max_mem: 22906M
+[32m[07/28 14:39:45 d2.utils.events]: [0m eta: 1:02:19  iter: 5580  total_loss: 1.335  loss_asso: 1.031  loss_centernet_agn_neg: 0.0225  loss_centernet_agn_pos: 0.04556  loss_centernet_loc: 0.211  time: 1.5529  data_time: 0.0197  lr: 1.0473e-06  max_mem: 22906M
+[32m[07/28 14:40:17 d2.utils.events]: [0m eta: 1:01:48  iter: 5600  total_loss: 1.429  loss_asso: 1.14  loss_centernet_agn_neg: 0.02386  loss_centernet_agn_pos: 0.0471  loss_centernet_loc: 0.2062  time: 1.5528  data_time: 0.0199  lr: 1.0313e-06  max_mem: 22906M
+[32m[07/28 14:40:53 d2.utils.events]: [0m eta: 1:01:16  iter: 5620  total_loss: 1.445  loss_asso: 1.14  loss_centernet_agn_neg: 0.01998  loss_centernet_agn_pos: 0.04447  loss_centernet_loc: 0.2048  time: 1.5537  data_time: 0.0293  lr: 1.0155e-06  max_mem: 22906M
+[32m[07/28 14:41:26 d2.utils.events]: [0m eta: 1:00:41  iter: 5640  total_loss: 1.249  loss_asso: 0.9946  loss_centernet_agn_neg: 0.02365  loss_centernet_agn_pos: 0.04997  loss_centernet_loc: 0.1911  time: 1.5538  data_time: 0.0372  lr: 9.9973e-07  max_mem: 22906M
+[32m[07/28 14:41:55 d2.utils.events]: [0m eta: 1:00:05  iter: 5660  total_loss: 1.344  loss_asso: 1.098  loss_centernet_agn_neg: 0.02331  loss_centernet_agn_pos: 0.04708  loss_centernet_loc: 0.1909  time: 1.5535  data_time: 0.0155  lr: 9.8407e-07  max_mem: 22906M
+[32m[07/28 14:42:26 d2.utils.events]: [0m eta: 0:59:31  iter: 5680  total_loss: 1.225  loss_asso: 0.9989  loss_centernet_agn_neg: 0.01892  loss_centernet_agn_pos: 0.03756  loss_centernet_loc: 0.1941  time: 1.5533  data_time: 0.0267  lr: 9.6851e-07  max_mem: 22906M
+[32m[07/28 14:43:00 d2.utils.events]: [0m eta: 0:59:10  iter: 5700  total_loss: 1.702  loss_asso: 1.41  loss_centernet_agn_neg: 0.01841  loss_centernet_agn_pos: 0.05173  loss_centernet_loc: 0.2086  time: 1.5537  data_time: 0.0351  lr: 9.5304e-07  max_mem: 22906M
+[32m[07/28 14:43:32 d2.utils.events]: [0m eta: 0:58:42  iter: 5720  total_loss: 1.452  loss_asso: 1.176  loss_centernet_agn_neg: 0.02448  loss_centernet_agn_pos: 0.04682  loss_centernet_loc: 0.2044  time: 1.5538  data_time: 0.0322  lr: 9.3766e-07  max_mem: 22906M
+[32m[07/28 14:44:03 d2.utils.events]: [0m eta: 0:58:06  iter: 5740  total_loss: 1.263  loss_asso: 1.004  loss_centernet_agn_neg: 0.02227  loss_centernet_agn_pos: 0.04457  loss_centernet_loc: 0.1976  time: 1.5537  data_time: 0.0234  lr: 9.2238e-07  max_mem: 22906M
+[32m[07/28 14:44:34 d2.utils.events]: [0m eta: 0:57:34  iter: 5760  total_loss: 1.478  loss_asso: 1.215  loss_centernet_agn_neg: 0.02189  loss_centernet_agn_pos: 0.0462  loss_centernet_loc: 0.2024  time: 1.5536  data_time: 0.0341  lr: 9.072e-07  max_mem: 22906M
+[32m[07/28 14:45:04 d2.utils.events]: [0m eta: 0:57:03  iter: 5780  total_loss: 1.477  loss_asso: 1.216  loss_centernet_agn_neg: 0.01986  loss_centernet_agn_pos: 0.04231  loss_centernet_loc: 0.196  time: 1.5534  data_time: 0.0270  lr: 8.9211e-07  max_mem: 22906M
+[32m[07/28 14:45:35 d2.utils.events]: [0m eta: 0:56:30  iter: 5800  total_loss: 1.236  loss_asso: 0.9953  loss_centernet_agn_neg: 0.02134  loss_centernet_agn_pos: 0.04582  loss_centernet_loc: 0.1883  time: 1.5531  data_time: 0.0219  lr: 8.7713e-07  max_mem: 22906M
+[32m[07/28 14:46:05 d2.utils.events]: [0m eta: 0:55:59  iter: 5820  total_loss: 1.624  loss_asso: 1.322  loss_centernet_agn_neg: 0.02278  loss_centernet_agn_pos: 0.04512  loss_centernet_loc: 0.2111  time: 1.5530  data_time: 0.0293  lr: 8.6224e-07  max_mem: 22906M
+[32m[07/28 14:46:35 d2.utils.events]: [0m eta: 0:55:25  iter: 5840  total_loss: 1.155  loss_asso: 0.9005  loss_centernet_agn_neg: 0.01908  loss_centernet_agn_pos: 0.04096  loss_centernet_loc: 0.1832  time: 1.5526  data_time: 0.0363  lr: 8.4746e-07  max_mem: 22906M
+[32m[07/28 14:47:07 d2.utils.events]: [0m eta: 0:54:53  iter: 5860  total_loss: 1.364  loss_asso: 1.082  loss_centernet_agn_neg: 0.02017  loss_centernet_agn_pos: 0.04757  loss_centernet_loc: 0.1899  time: 1.5526  data_time: 0.0253  lr: 8.3277e-07  max_mem: 22906M
+[32m[07/28 14:47:39 d2.utils.events]: [0m eta: 0:54:23  iter: 5880  total_loss: 1.652  loss_asso: 1.346  loss_centernet_agn_neg: 0.02452  loss_centernet_agn_pos: 0.04403  loss_centernet_loc: 0.2153  time: 1.5528  data_time: 0.0187  lr: 8.1819e-07  max_mem: 22906M
+[32m[07/28 14:48:11 d2.utils.events]: [0m eta: 0:53:57  iter: 5900  total_loss: 1.397  loss_asso: 1.109  loss_centernet_agn_neg: 0.02309  loss_centernet_agn_pos: 0.04929  loss_centernet_loc: 0.2109  time: 1.5529  data_time: 0.0270  lr: 8.0372e-07  max_mem: 22906M
+[32m[07/28 14:48:42 d2.utils.events]: [0m eta: 0:53:27  iter: 5920  total_loss: 1.429  loss_asso: 1.168  loss_centernet_agn_neg: 0.01988  loss_centernet_agn_pos: 0.04216  loss_centernet_loc: 0.1948  time: 1.5527  data_time: 0.0222  lr: 7.8935e-07  max_mem: 22906M
+[32m[07/28 14:49:11 d2.utils.events]: [0m eta: 0:52:54  iter: 5940  total_loss: 1.443  loss_asso: 1.133  loss_centernet_agn_neg: 0.0221  loss_centernet_agn_pos: 0.04539  loss_centernet_loc: 0.2083  time: 1.5524  data_time: 0.0136  lr: 7.7508e-07  max_mem: 22906M
+[32m[07/28 14:49:42 d2.utils.events]: [0m eta: 0:52:19  iter: 5960  total_loss: 1.409  loss_asso: 1.122  loss_centernet_agn_neg: 0.02194  loss_centernet_agn_pos: 0.05497  loss_centernet_loc: 0.1933  time: 1.5524  data_time: 0.0173  lr: 7.6092e-07  max_mem: 22906M
+[32m[07/28 14:50:13 d2.utils.events]: [0m eta: 0:51:49  iter: 5980  total_loss: 1.188  loss_asso: 0.9008  loss_centernet_agn_neg: 0.02053  loss_centernet_agn_pos: 0.03672  loss_centernet_loc: 0.1818  time: 1.5522  data_time: 0.0258  lr: 7.4687e-07  max_mem: 22906M
+[32m[07/28 14:50:46 d2.utils.events]: [0m eta: 0:51:22  iter: 6000  total_loss: 1.386  loss_asso: 1.103  loss_centernet_agn_neg: 0.02182  loss_centernet_agn_pos: 0.04469  loss_centernet_loc: 0.2018  time: 1.5525  data_time: 0.0199  lr: 7.3293e-07  max_mem: 22906M
+[32m[07/28 14:51:16 d2.utils.events]: [0m eta: 0:50:50  iter: 6020  total_loss: 1.306  loss_asso: 1.054  loss_centernet_agn_neg: 0.02125  loss_centernet_agn_pos: 0.04036  loss_centernet_loc: 0.195  time: 1.5523  data_time: 0.0248  lr: 7.1909e-07  max_mem: 22906M
+[32m[07/28 14:51:49 d2.utils.events]: [0m eta: 0:50:23  iter: 6040  total_loss: 1.371  loss_asso: 1.101  loss_centernet_agn_neg: 0.02234  loss_centernet_agn_pos: 0.05022  loss_centernet_loc: 0.202  time: 1.5524  data_time: 0.0278  lr: 7.0537e-07  max_mem: 22906M
+[32m[07/28 14:52:20 d2.utils.events]: [0m eta: 0:49:50  iter: 6060  total_loss: 1.384  loss_asso: 1.116  loss_centernet_agn_neg: 0.02373  loss_centernet_agn_pos: 0.04913  loss_centernet_loc: 0.203  time: 1.5524  data_time: 0.0258  lr: 6.9175e-07  max_mem: 22906M
+[32m[07/28 14:52:52 d2.utils.events]: [0m eta: 0:49:19  iter: 6080  total_loss: 1.471  loss_asso: 1.215  loss_centernet_agn_neg: 0.02191  loss_centernet_agn_pos: 0.04517  loss_centernet_loc: 0.2061  time: 1.5524  data_time: 0.0284  lr: 6.7825e-07  max_mem: 22906M
+[32m[07/28 14:53:23 d2.utils.events]: [0m eta: 0:48:51  iter: 6100  total_loss: 1.382  loss_asso: 1.132  loss_centernet_agn_neg: 0.01985  loss_centernet_agn_pos: 0.04455  loss_centernet_loc: 0.2016  time: 1.5524  data_time: 0.0275  lr: 6.6486e-07  max_mem: 22906M
+[32m[07/28 14:53:56 d2.utils.events]: [0m eta: 0:48:23  iter: 6120  total_loss: 1.485  loss_asso: 1.181  loss_centernet_agn_neg: 0.02124  loss_centernet_agn_pos: 0.04142  loss_centernet_loc: 0.1974  time: 1.5526  data_time: 0.0288  lr: 6.5158e-07  max_mem: 22906M
+[32m[07/28 14:54:26 d2.utils.events]: [0m eta: 0:47:50  iter: 6140  total_loss: 1.141  loss_asso: 0.8952  loss_centernet_agn_neg: 0.02093  loss_centernet_agn_pos: 0.04321  loss_centernet_loc: 0.1838  time: 1.5523  data_time: 0.0207  lr: 6.3842e-07  max_mem: 22906M
+[32m[07/28 14:54:56 d2.utils.events]: [0m eta: 0:47:21  iter: 6160  total_loss: 1.281  loss_asso: 1.007  loss_centernet_agn_neg: 0.02058  loss_centernet_agn_pos: 0.04755  loss_centernet_loc: 0.1985  time: 1.5520  data_time: 0.0182  lr: 6.2537e-07  max_mem: 22906M
+[32m[07/28 14:55:27 d2.utils.events]: [0m eta: 0:46:50  iter: 6180  total_loss: 1.444  loss_asso: 1.145  loss_centernet_agn_neg: 0.02406  loss_centernet_agn_pos: 0.04807  loss_centernet_loc: 0.2193  time: 1.5520  data_time: 0.0238  lr: 6.1244e-07  max_mem: 22906M
+[32m[07/28 14:56:00 d2.utils.events]: [0m eta: 0:46:21  iter: 6200  total_loss: 1.254  loss_asso: 0.9793  loss_centernet_agn_neg: 0.02179  loss_centernet_agn_pos: 0.04696  loss_centernet_loc: 0.1992  time: 1.5522  data_time: 0.0353  lr: 5.9962e-07  max_mem: 22906M
+[32m[07/28 14:56:31 d2.utils.events]: [0m eta: 0:45:56  iter: 6220  total_loss: 1.302  loss_asso: 1.057  loss_centernet_agn_neg: 0.02067  loss_centernet_agn_pos: 0.04374  loss_centernet_loc: 0.1952  time: 1.5521  data_time: 0.0246  lr: 5.8692e-07  max_mem: 22906M
+[32m[07/28 14:57:02 d2.utils.events]: [0m eta: 0:45:25  iter: 6240  total_loss: 1.313  loss_asso: 1.078  loss_centernet_agn_neg: 0.02062  loss_centernet_agn_pos: 0.03749  loss_centernet_loc: 0.1855  time: 1.5520  data_time: 0.0404  lr: 5.7434e-07  max_mem: 22906M
+[32m[07/28 14:57:36 d2.utils.events]: [0m eta: 0:44:55  iter: 6260  total_loss: 1.383  loss_asso: 1.097  loss_centernet_agn_neg: 0.02162  loss_centernet_agn_pos: 0.04384  loss_centernet_loc: 0.2012  time: 1.5523  data_time: 0.0271  lr: 5.6188e-07  max_mem: 22906M
+[32m[07/28 14:58:08 d2.utils.events]: [0m eta: 0:44:23  iter: 6280  total_loss: 1.238  loss_asso: 0.9752  loss_centernet_agn_neg: 0.02019  loss_centernet_agn_pos: 0.04577  loss_centernet_loc: 0.1901  time: 1.5525  data_time: 0.0178  lr: 5.4954e-07  max_mem: 22906M
+[32m[07/28 14:58:40 d2.utils.events]: [0m eta: 0:43:56  iter: 6300  total_loss: 1.329  loss_asso: 1.025  loss_centernet_agn_neg: 0.02418  loss_centernet_agn_pos: 0.04616  loss_centernet_loc: 0.207  time: 1.5525  data_time: 0.0310  lr: 5.3732e-07  max_mem: 22906M
+[32m[07/28 14:59:11 d2.utils.events]: [0m eta: 0:43:23  iter: 6320  total_loss: 1.38  loss_asso: 1.146  loss_centernet_agn_neg: 0.02035  loss_centernet_agn_pos: 0.04841  loss_centernet_loc: 0.1969  time: 1.5524  data_time: 0.0184  lr: 5.2521e-07  max_mem: 22906M
+[32m[07/28 14:59:40 d2.utils.events]: [0m eta: 0:42:51  iter: 6340  total_loss: 1.228  loss_asso: 0.9722  loss_centernet_agn_neg: 0.02321  loss_centernet_agn_pos: 0.04086  loss_centernet_loc: 0.1951  time: 1.5521  data_time: 0.0156  lr: 5.1323e-07  max_mem: 22906M
+[32m[07/28 15:00:11 d2.utils.events]: [0m eta: 0:42:16  iter: 6360  total_loss: 1.293  loss_asso: 1.032  loss_centernet_agn_neg: 0.01927  loss_centernet_agn_pos: 0.04497  loss_centernet_loc: 0.2055  time: 1.5520  data_time: 0.0339  lr: 5.0138e-07  max_mem: 22906M
+[32m[07/28 15:00:42 d2.utils.events]: [0m eta: 0:41:48  iter: 6380  total_loss: 1.387  loss_asso: 1.109  loss_centernet_agn_neg: 0.02104  loss_centernet_agn_pos: 0.04281  loss_centernet_loc: 0.1968  time: 1.5519  data_time: 0.0337  lr: 4.8964e-07  max_mem: 22906M
+[32m[07/28 15:01:15 d2.utils.events]: [0m eta: 0:41:18  iter: 6400  total_loss: 1.298  loss_asso: 1.027  loss_centernet_agn_neg: 0.02292  loss_centernet_agn_pos: 0.04359  loss_centernet_loc: 0.1894  time: 1.5520  data_time: 0.0316  lr: 4.7803e-07  max_mem: 22906M
+[32m[07/28 15:01:47 d2.utils.events]: [0m eta: 0:40:47  iter: 6420  total_loss: 1.404  loss_asso: 1.104  loss_centernet_agn_neg: 0.0211  loss_centernet_agn_pos: 0.04079  loss_centernet_loc: 0.2045  time: 1.5521  data_time: 0.0315  lr: 4.6655e-07  max_mem: 22906M
+[32m[07/28 15:02:17 d2.utils.events]: [0m eta: 0:40:16  iter: 6440  total_loss: 1.339  loss_asso: 1.085  loss_centernet_agn_neg: 0.02167  loss_centernet_agn_pos: 0.04228  loss_centernet_loc: 0.1945  time: 1.5519  data_time: 0.0209  lr: 4.5519e-07  max_mem: 22906M
+[32m[07/28 15:02:47 d2.utils.events]: [0m eta: 0:39:44  iter: 6460  total_loss: 1.117  loss_asso: 0.8492  loss_centernet_agn_neg: 0.0189  loss_centernet_agn_pos: 0.04154  loss_centernet_loc: 0.1983  time: 1.5516  data_time: 0.0294  lr: 4.4396e-07  max_mem: 22906M
+[32m[07/28 15:03:18 d2.utils.events]: [0m eta: 0:39:13  iter: 6480  total_loss: 1.16  loss_asso: 0.904  loss_centernet_agn_neg: 0.01901  loss_centernet_agn_pos: 0.04715  loss_centernet_loc: 0.1995  time: 1.5516  data_time: 0.0305  lr: 4.3285e-07  max_mem: 22906M
+[32m[07/28 15:03:50 d2.utils.events]: [0m eta: 0:38:43  iter: 6500  total_loss: 1.361  loss_asso: 1.079  loss_centernet_agn_neg: 0.02306  loss_centernet_agn_pos: 0.04232  loss_centernet_loc: 0.209  time: 1.5517  data_time: 0.0238  lr: 4.2187e-07  max_mem: 22906M
+[32m[07/28 15:04:22 d2.utils.events]: [0m eta: 0:38:14  iter: 6520  total_loss: 1.232  loss_asso: 0.9901  loss_centernet_agn_neg: 0.02359  loss_centernet_agn_pos: 0.04491  loss_centernet_loc: 0.1889  time: 1.5517  data_time: 0.0300  lr: 4.1102e-07  max_mem: 22906M
+[32m[07/28 15:04:57 d2.utils.events]: [0m eta: 0:37:45  iter: 6540  total_loss: 1.334  loss_asso: 1.03  loss_centernet_agn_neg: 0.02243  loss_centernet_agn_pos: 0.05177  loss_centernet_loc: 0.1911  time: 1.5519  data_time: 0.1228  lr: 4.003e-07  max_mem: 22906M
+[32m[07/28 15:05:28 d2.utils.events]: [0m eta: 0:37:14  iter: 6560  total_loss: 1.207  loss_asso: 0.9545  loss_centernet_agn_neg: 0.01935  loss_centernet_agn_pos: 0.04081  loss_centernet_loc: 0.1893  time: 1.5518  data_time: 0.0226  lr: 3.8971e-07  max_mem: 22906M
+[32m[07/28 15:06:01 d2.utils.events]: [0m eta: 0:36:44  iter: 6580  total_loss: 1.355  loss_asso: 1.116  loss_centernet_agn_neg: 0.02158  loss_centernet_agn_pos: 0.0407  loss_centernet_loc: 0.1807  time: 1.5520  data_time: 0.0296  lr: 3.7924e-07  max_mem: 22906M
+[32m[07/28 15:06:33 d2.utils.events]: [0m eta: 0:36:13  iter: 6600  total_loss: 1.232  loss_asso: 0.9532  loss_centernet_agn_neg: 0.02004  loss_centernet_agn_pos: 0.04337  loss_centernet_loc: 0.2043  time: 1.5521  data_time: 0.0257  lr: 3.6891e-07  max_mem: 22906M
+[32m[07/28 15:07:05 d2.utils.events]: [0m eta: 0:35:42  iter: 6620  total_loss: 1.235  loss_asso: 0.9818  loss_centernet_agn_neg: 0.02221  loss_centernet_agn_pos: 0.04118  loss_centernet_loc: 0.1842  time: 1.5521  data_time: 0.0222  lr: 3.5871e-07  max_mem: 22906M
+[32m[07/28 15:07:37 d2.utils.events]: [0m eta: 0:35:13  iter: 6640  total_loss: 1.274  loss_asso: 1.002  loss_centernet_agn_neg: 0.02087  loss_centernet_agn_pos: 0.04629  loss_centernet_loc: 0.1986  time: 1.5522  data_time: 0.0211  lr: 3.4864e-07  max_mem: 22906M
+[32m[07/28 15:08:09 d2.utils.events]: [0m eta: 0:34:45  iter: 6660  total_loss: 1.315  loss_asso: 1.046  loss_centernet_agn_neg: 0.02024  loss_centernet_agn_pos: 0.0439  loss_centernet_loc: 0.2033  time: 1.5524  data_time: 0.0250  lr: 3.3871e-07  max_mem: 22906M
+[32m[07/28 15:08:40 d2.utils.events]: [0m eta: 0:34:14  iter: 6680  total_loss: 1.166  loss_asso: 0.8999  loss_centernet_agn_neg: 0.02119  loss_centernet_agn_pos: 0.04182  loss_centernet_loc: 0.1941  time: 1.5522  data_time: 0.0246  lr: 3.2891e-07  max_mem: 22906M
+[32m[07/28 15:09:11 d2.utils.events]: [0m eta: 0:33:41  iter: 6700  total_loss: 1.282  loss_asso: 1.027  loss_centernet_agn_neg: 0.02113  loss_centernet_agn_pos: 0.0484  loss_centernet_loc: 0.1804  time: 1.5521  data_time: 0.0214  lr: 3.1924e-07  max_mem: 22906M
+[32m[07/28 15:09:44 d2.utils.events]: [0m eta: 0:33:10  iter: 6720  total_loss: 1.551  loss_asso: 1.273  loss_centernet_agn_neg: 0.02208  loss_centernet_agn_pos: 0.04692  loss_centernet_loc: 0.2021  time: 1.5523  data_time: 0.0742  lr: 3.0971e-07  max_mem: 22906M
+[32m[07/28 15:10:17 d2.utils.events]: [0m eta: 0:32:40  iter: 6740  total_loss: 1.258  loss_asso: 0.9708  loss_centernet_agn_neg: 0.0202  loss_centernet_agn_pos: 0.04316  loss_centernet_loc: 0.1902  time: 1.5523  data_time: 0.0634  lr: 3.0031e-07  max_mem: 22906M
+[32m[07/28 15:10:49 d2.utils.events]: [0m eta: 0:32:12  iter: 6760  total_loss: 1.342  loss_asso: 1.087  loss_centernet_agn_neg: 0.02478  loss_centernet_agn_pos: 0.0443  loss_centernet_loc: 0.1956  time: 1.5524  data_time: 0.0209  lr: 2.9105e-07  max_mem: 22906M
+[32m[07/28 15:11:23 d2.utils.events]: [0m eta: 0:31:43  iter: 6780  total_loss: 1.409  loss_asso: 1.156  loss_centernet_agn_neg: 0.02185  loss_centernet_agn_pos: 0.04726  loss_centernet_loc: 0.2116  time: 1.5525  data_time: 0.1007  lr: 2.8192e-07  max_mem: 22906M
+[32m[07/28 15:11:53 d2.utils.events]: [0m eta: 0:31:12  iter: 6800  total_loss: 1.219  loss_asso: 0.9496  loss_centernet_agn_neg: 0.02047  loss_centernet_agn_pos: 0.04214  loss_centernet_loc: 0.1909  time: 1.5524  data_time: 0.0257  lr: 2.7293e-07  max_mem: 22906M
+[32m[07/28 15:12:25 d2.utils.events]: [0m eta: 0:30:41  iter: 6820  total_loss: 1.359  loss_asso: 1.122  loss_centernet_agn_neg: 0.02132  loss_centernet_agn_pos: 0.04953  loss_centernet_loc: 0.2038  time: 1.5524  data_time: 0.0217  lr: 2.6408e-07  max_mem: 22906M
+[32m[07/28 15:12:57 d2.utils.events]: [0m eta: 0:30:12  iter: 6840  total_loss: 1.375  loss_asso: 1.142  loss_centernet_agn_neg: 0.02312  loss_centernet_agn_pos: 0.04069  loss_centernet_loc: 0.1892  time: 1.5525  data_time: 0.0257  lr: 2.5536e-07  max_mem: 22906M
+[32m[07/28 15:13:28 d2.utils.events]: [0m eta: 0:29:41  iter: 6860  total_loss: 1.288  loss_asso: 1.046  loss_centernet_agn_neg: 0.02057  loss_centernet_agn_pos: 0.0423  loss_centernet_loc: 0.188  time: 1.5524  data_time: 0.0198  lr: 2.4679e-07  max_mem: 22906M
+[32m[07/28 15:14:00 d2.utils.events]: [0m eta: 0:29:09  iter: 6880  total_loss: 1.231  loss_asso: 0.9612  loss_centernet_agn_neg: 0.01823  loss_centernet_agn_pos: 0.04557  loss_centernet_loc: 0.1966  time: 1.5525  data_time: 0.0253  lr: 2.3835e-07  max_mem: 22906M
+[32m[07/28 15:14:31 d2.utils.events]: [0m eta: 0:28:38  iter: 6900  total_loss: 1.207  loss_asso: 0.97  loss_centernet_agn_neg: 0.02241  loss_centernet_agn_pos: 0.04232  loss_centernet_loc: 0.1882  time: 1.5524  data_time: 0.0323  lr: 2.3005e-07  max_mem: 22906M
+[32m[07/28 15:15:02 d2.utils.events]: [0m eta: 0:28:06  iter: 6920  total_loss: 1.246  loss_asso: 0.9554  loss_centernet_agn_neg: 0.02228  loss_centernet_agn_pos: 0.04588  loss_centernet_loc: 0.2038  time: 1.5522  data_time: 0.0295  lr: 2.219e-07  max_mem: 22906M
+[32m[07/28 15:15:32 d2.utils.events]: [0m eta: 0:27:34  iter: 6940  total_loss: 1.407  loss_asso: 1.111  loss_centernet_agn_neg: 0.02024  loss_centernet_agn_pos: 0.04004  loss_centernet_loc: 0.2079  time: 1.5521  data_time: 0.0263  lr: 2.1388e-07  max_mem: 22906M
+[32m[07/28 15:16:03 d2.utils.events]: [0m eta: 0:27:04  iter: 6960  total_loss: 1.234  loss_asso: 0.9551  loss_centernet_agn_neg: 0.02027  loss_centernet_agn_pos: 0.04097  loss_centernet_loc: 0.188  time: 1.5519  data_time: 0.0243  lr: 2.06e-07  max_mem: 22906M
+[32m[07/28 15:16:34 d2.utils.events]: [0m eta: 0:26:34  iter: 6980  total_loss: 1.313  loss_asso: 1.033  loss_centernet_agn_neg: 0.021  loss_centernet_agn_pos: 0.05097  loss_centernet_loc: 0.2129  time: 1.5519  data_time: 0.0202  lr: 1.9827e-07  max_mem: 22906M
+[32m[07/28 15:17:04 d2.utils.events]: [0m eta: 0:26:01  iter: 7000  total_loss: 1.217  loss_asso: 0.9299  loss_centernet_agn_neg: 0.02383  loss_centernet_agn_pos: 0.03556  loss_centernet_loc: 0.2019  time: 1.5517  data_time: 0.0222  lr: 1.9068e-07  max_mem: 22906M
+[32m[07/28 15:17:36 d2.utils.events]: [0m eta: 0:25:30  iter: 7020  total_loss: 1.209  loss_asso: 0.9644  loss_centernet_agn_neg: 0.02157  loss_centernet_agn_pos: 0.04198  loss_centernet_loc: 0.19  time: 1.5517  data_time: 0.0304  lr: 1.8323e-07  max_mem: 22906M
+[32m[07/28 15:18:08 d2.utils.events]: [0m eta: 0:24:58  iter: 7040  total_loss: 1.407  loss_asso: 1.143  loss_centernet_agn_neg: 0.02163  loss_centernet_agn_pos: 0.04777  loss_centernet_loc: 0.2052  time: 1.5518  data_time: 0.0336  lr: 1.7592e-07  max_mem: 22906M
+[32m[07/28 15:18:40 d2.utils.events]: [0m eta: 0:24:26  iter: 7060  total_loss: 1.328  loss_asso: 1.061  loss_centernet_agn_neg: 0.02171  loss_centernet_agn_pos: 0.04758  loss_centernet_loc: 0.1986  time: 1.5519  data_time: 0.0268  lr: 1.6876e-07  max_mem: 22906M
+[32m[07/28 15:19:10 d2.utils.events]: [0m eta: 0:23:55  iter: 7080  total_loss: 1.272  loss_asso: 0.9953  loss_centernet_agn_neg: 0.02205  loss_centernet_agn_pos: 0.04897  loss_centernet_loc: 0.1983  time: 1.5516  data_time: 0.0258  lr: 1.6174e-07  max_mem: 22906M
+[32m[07/28 15:19:42 d2.utils.events]: [0m eta: 0:23:24  iter: 7100  total_loss: 1.414  loss_asso: 1.136  loss_centernet_agn_neg: 0.02076  loss_centernet_agn_pos: 0.03581  loss_centernet_loc: 0.1891  time: 1.5516  data_time: 0.0309  lr: 1.5486e-07  max_mem: 22906M
+[32m[07/28 15:20:12 d2.utils.events]: [0m eta: 0:22:51  iter: 7120  total_loss: 1.26  loss_asso: 0.9876  loss_centernet_agn_neg: 0.01976  loss_centernet_agn_pos: 0.04992  loss_centernet_loc: 0.2002  time: 1.5515  data_time: 0.0183  lr: 1.4813e-07  max_mem: 22906M
+[32m[07/28 15:20:44 d2.utils.events]: [0m eta: 0:22:22  iter: 7140  total_loss: 1.217  loss_asso: 0.9569  loss_centernet_agn_neg: 0.02265  loss_centernet_agn_pos: 0.04171  loss_centernet_loc: 0.1939  time: 1.5515  data_time: 0.0286  lr: 1.4155e-07  max_mem: 22906M
+[32m[07/28 15:21:16 d2.utils.events]: [0m eta: 0:21:52  iter: 7160  total_loss: 1.428  loss_asso: 1.146  loss_centernet_agn_neg: 0.02085  loss_centernet_agn_pos: 0.04779  loss_centernet_loc: 0.191  time: 1.5515  data_time: 0.0251  lr: 1.351e-07  max_mem: 22906M
+[32m[07/28 15:21:47 d2.utils.events]: [0m eta: 0:21:21  iter: 7180  total_loss: 1.303  loss_asso: 1.064  loss_centernet_agn_neg: 0.01994  loss_centernet_agn_pos: 0.04422  loss_centernet_loc: 0.2062  time: 1.5516  data_time: 0.0245  lr: 1.2881e-07  max_mem: 22906M
+[32m[07/28 15:22:20 d2.utils.events]: [0m eta: 0:20:49  iter: 7200  total_loss: 1.377  loss_asso: 1.143  loss_centernet_agn_neg: 0.02232  loss_centernet_agn_pos: 0.04253  loss_centernet_loc: 0.1949  time: 1.5516  data_time: 0.0834  lr: 1.2266e-07  max_mem: 22906M
+[32m[07/28 15:22:51 d2.utils.events]: [0m eta: 0:20:18  iter: 7220  total_loss: 1.22  loss_asso: 0.9376  loss_centernet_agn_neg: 0.01848  loss_centernet_agn_pos: 0.04009  loss_centernet_loc: 0.1948  time: 1.5515  data_time: 0.0348  lr: 1.1666e-07  max_mem: 22906M
+[32m[07/28 15:23:23 d2.utils.events]: [0m eta: 0:19:46  iter: 7240  total_loss: 1.285  loss_asso: 1.007  loss_centernet_agn_neg: 0.02121  loss_centernet_agn_pos: 0.04084  loss_centernet_loc: 0.2084  time: 1.5515  data_time: 0.0259  lr: 1.1081e-07  max_mem: 22906M
+[32m[07/28 15:23:52 d2.utils.events]: [0m eta: 0:19:14  iter: 7260  total_loss: 1.423  loss_asso: 1.165  loss_centernet_agn_neg: 0.02026  loss_centernet_agn_pos: 0.04085  loss_centernet_loc: 0.2071  time: 1.5512  data_time: 0.0248  lr: 1.051e-07  max_mem: 22906M
+[32m[07/28 15:24:23 d2.utils.events]: [0m eta: 0:18:43  iter: 7280  total_loss: 1.426  loss_asso: 1.149  loss_centernet_agn_neg: 0.02379  loss_centernet_agn_pos: 0.04325  loss_centernet_loc: 0.2012  time: 1.5512  data_time: 0.0193  lr: 9.954e-08  max_mem: 22906M
+[32m[07/28 15:24:55 d2.utils.events]: [0m eta: 0:18:12  iter: 7300  total_loss: 1.23  loss_asso: 0.989  loss_centernet_agn_neg: 0.02077  loss_centernet_agn_pos: 0.04457  loss_centernet_loc: 0.1861  time: 1.5513  data_time: 0.0249  lr: 9.4129e-08  max_mem: 22906M
+[32m[07/28 15:25:27 d2.utils.events]: [0m eta: 0:17:41  iter: 7320  total_loss: 1.272  loss_asso: 1.003  loss_centernet_agn_neg: 0.02059  loss_centernet_agn_pos: 0.03742  loss_centernet_loc: 0.1896  time: 1.5513  data_time: 0.0256  lr: 8.8866e-08  max_mem: 22906M
+[32m[07/28 15:25:57 d2.utils.events]: [0m eta: 0:17:10  iter: 7340  total_loss: 1.255  loss_asso: 0.9684  loss_centernet_agn_neg: 0.02049  loss_centernet_agn_pos: 0.04626  loss_centernet_loc: 0.2115  time: 1.5511  data_time: 0.0229  lr: 8.3752e-08  max_mem: 22906M
+[32m[07/28 15:26:28 d2.utils.events]: [0m eta: 0:16:39  iter: 7360  total_loss: 1.299  loss_asso: 1.014  loss_centernet_agn_neg: 0.02165  loss_centernet_agn_pos: 0.04686  loss_centernet_loc: 0.1949  time: 1.5511  data_time: 0.0194  lr: 7.8786e-08  max_mem: 22906M
+[32m[07/28 15:27:00 d2.utils.events]: [0m eta: 0:16:08  iter: 7380  total_loss: 1.276  loss_asso: 1.023  loss_centernet_agn_neg: 0.02058  loss_centernet_agn_pos: 0.038  loss_centernet_loc: 0.1943  time: 1.5510  data_time: 0.0306  lr: 7.3971e-08  max_mem: 22906M
+[32m[07/28 15:27:32 d2.utils.events]: [0m eta: 0:15:36  iter: 7400  total_loss: 1.274  loss_asso: 1.007  loss_centernet_agn_neg: 0.02368  loss_centernet_agn_pos: 0.0453  loss_centernet_loc: 0.1912  time: 1.5510  data_time: 0.0315  lr: 6.9305e-08  max_mem: 22906M
+[32m[07/28 15:28:05 d2.utils.events]: [0m eta: 0:15:05  iter: 7420  total_loss: 1.262  loss_asso: 0.9879  loss_centernet_agn_neg: 0.02211  loss_centernet_agn_pos: 0.04071  loss_centernet_loc: 0.1978  time: 1.5512  data_time: 0.0301  lr: 6.4788e-08  max_mem: 22906M
+[32m[07/28 15:28:37 d2.utils.events]: [0m eta: 0:14:34  iter: 7440  total_loss: 1.385  loss_asso: 1.125  loss_centernet_agn_neg: 0.02345  loss_centernet_agn_pos: 0.04581  loss_centernet_loc: 0.195  time: 1.5513  data_time: 0.0270  lr: 6.0422e-08  max_mem: 22906M
+[32m[07/28 15:29:09 d2.utils.events]: [0m eta: 0:14:03  iter: 7460  total_loss: 1.269  loss_asso: 0.9837  loss_centernet_agn_neg: 0.02092  loss_centernet_agn_pos: 0.04659  loss_centernet_loc: 0.1771  time: 1.5513  data_time: 0.0307  lr: 5.6207e-08  max_mem: 22906M
+[32m[07/28 15:29:39 d2.utils.events]: [0m eta: 0:13:32  iter: 7480  total_loss: 1.275  loss_asso: 0.9899  loss_centernet_agn_neg: 0.02202  loss_centernet_agn_pos: 0.04221  loss_centernet_loc: 0.1954  time: 1.5512  data_time: 0.0314  lr: 5.2142e-08  max_mem: 22906M
+[32m[07/28 15:30:10 d2.utils.events]: [0m eta: 0:13:00  iter: 7500  total_loss: 1.291  loss_asso: 1.023  loss_centernet_agn_neg: 0.02078  loss_centernet_agn_pos: 0.04225  loss_centernet_loc: 0.1945  time: 1.5511  data_time: 0.0364  lr: 4.8229e-08  max_mem: 22906M
+[32m[07/28 15:30:42 d2.utils.events]: [0m eta: 0:12:28  iter: 7520  total_loss: 1.232  loss_asso: 0.9761  loss_centernet_agn_neg: 0.02037  loss_centernet_agn_pos: 0.04038  loss_centernet_loc: 0.191  time: 1.5512  data_time: 0.0217  lr: 4.4466e-08  max_mem: 22906M
+[32m[07/28 15:31:13 d2.utils.events]: [0m eta: 0:11:56  iter: 7540  total_loss: 1.424  loss_asso: 1.156  loss_centernet_agn_neg: 0.02014  loss_centernet_agn_pos: 0.0477  loss_centernet_loc: 0.2108  time: 1.5511  data_time: 0.0275  lr: 4.0855e-08  max_mem: 22906M
+[32m[07/28 15:31:46 d2.utils.events]: [0m eta: 0:11:25  iter: 7560  total_loss: 1.388  loss_asso: 1.132  loss_centernet_agn_neg: 0.02109  loss_centernet_agn_pos: 0.04814  loss_centernet_loc: 0.2032  time: 1.5512  data_time: 0.0420  lr: 3.7396e-08  max_mem: 22906M
+[32m[07/28 15:32:17 d2.utils.events]: [0m eta: 0:10:53  iter: 7580  total_loss: 1.336  loss_asso: 1.072  loss_centernet_agn_neg: 0.02079  loss_centernet_agn_pos: 0.0394  loss_centernet_loc: 0.2012  time: 1.5511  data_time: 0.0294  lr: 3.4088e-08  max_mem: 22906M
+[32m[07/28 15:32:49 d2.utils.events]: [0m eta: 0:10:22  iter: 7600  total_loss: 1.312  loss_asso: 1.052  loss_centernet_agn_neg: 0.02083  loss_centernet_agn_pos: 0.04697  loss_centernet_loc: 0.2047  time: 1.5511  data_time: 0.0301  lr: 3.0933e-08  max_mem: 22906M
+[32m[07/28 15:33:20 d2.utils.events]: [0m eta: 0:09:51  iter: 7620  total_loss: 1.477  loss_asso: 1.174  loss_centernet_agn_neg: 0.02124  loss_centernet_agn_pos: 0.0443  loss_centernet_loc: 0.2001  time: 1.5511  data_time: 0.0243  lr: 2.793e-08  max_mem: 22906M
+[32m[07/28 15:33:51 d2.utils.events]: [0m eta: 0:09:19  iter: 7640  total_loss: 1.279  loss_asso: 1.03  loss_centernet_agn_neg: 0.022  loss_centernet_agn_pos: 0.04878  loss_centernet_loc: 0.1907  time: 1.5510  data_time: 0.0314  lr: 2.5079e-08  max_mem: 22906M
+[32m[07/28 15:34:21 d2.utils.events]: [0m eta: 0:08:47  iter: 7660  total_loss: 1.224  loss_asso: 0.9559  loss_centernet_agn_neg: 0.02102  loss_centernet_agn_pos: 0.04058  loss_centernet_loc: 0.183  time: 1.5509  data_time: 0.0247  lr: 2.2382e-08  max_mem: 22906M
+[32m[07/28 15:34:53 d2.utils.events]: [0m eta: 0:08:16  iter: 7680  total_loss: 1.403  loss_asso: 1.132  loss_centernet_agn_neg: 0.02093  loss_centernet_agn_pos: 0.04067  loss_centernet_loc: 0.1988  time: 1.5509  data_time: 0.0322  lr: 1.9836e-08  max_mem: 22906M
+[32m[07/28 15:35:26 d2.utils.events]: [0m eta: 0:07:45  iter: 7700  total_loss: 1.313  loss_asso: 1.053  loss_centernet_agn_neg: 0.02012  loss_centernet_agn_pos: 0.0453  loss_centernet_loc: 0.1837  time: 1.5510  data_time: 0.0362  lr: 1.7444e-08  max_mem: 22906M
+[32m[07/28 15:35:56 d2.utils.events]: [0m eta: 0:07:13  iter: 7720  total_loss: 1.272  loss_asso: 0.9748  loss_centernet_agn_neg: 0.019  loss_centernet_agn_pos: 0.04197  loss_centernet_loc: 0.2019  time: 1.5509  data_time: 0.0179  lr: 1.5206e-08  max_mem: 22906M
+[32m[07/28 15:36:28 d2.utils.events]: [0m eta: 0:06:43  iter: 7740  total_loss: 1.485  loss_asso: 1.212  loss_centernet_agn_neg: 0.02191  loss_centernet_agn_pos: 0.04416  loss_centernet_loc: 0.2065  time: 1.5509  data_time: 0.0284  lr: 1.312e-08  max_mem: 22906M
+[32m[07/28 15:36:59 d2.utils.events]: [0m eta: 0:06:11  iter: 7760  total_loss: 1.31  loss_asso: 1.017  loss_centernet_agn_neg: 0.02071  loss_centernet_agn_pos: 0.04357  loss_centernet_loc: 0.1985  time: 1.5509  data_time: 0.0177  lr: 1.1188e-08  max_mem: 22906M
+[32m[07/28 15:37:31 d2.utils.events]: [0m eta: 0:05:40  iter: 7780  total_loss: 1.276  loss_asso: 1.045  loss_centernet_agn_neg: 0.02184  loss_centernet_agn_pos: 0.04268  loss_centernet_loc: 0.1877  time: 1.5509  data_time: 0.0292  lr: 9.409e-09  max_mem: 22906M
+[32m[07/28 15:38:04 d2.utils.events]: [0m eta: 0:05:09  iter: 7800  total_loss: 1.363  loss_asso: 1.086  loss_centernet_agn_neg: 0.0219  loss_centernet_agn_pos: 0.0426  loss_centernet_loc: 0.2006  time: 1.5510  data_time: 0.0355  lr: 7.7839e-09  max_mem: 22906M
+[32m[07/28 15:38:35 d2.utils.events]: [0m eta: 0:04:38  iter: 7820  total_loss: 1.221  loss_asso: 0.9716  loss_centernet_agn_neg: 0.01709  loss_centernet_agn_pos: 0.04419  loss_centernet_loc: 0.1882  time: 1.5510  data_time: 0.0400  lr: 6.3125e-09  max_mem: 22906M
+[32m[07/28 15:39:07 d2.utils.events]: [0m eta: 0:04:07  iter: 7840  total_loss: 1.365  loss_asso: 1.077  loss_centernet_agn_neg: 0.02178  loss_centernet_agn_pos: 0.05129  loss_centernet_loc: 0.1965  time: 1.5511  data_time: 0.0263  lr: 4.995e-09  max_mem: 22906M
+[32m[07/28 15:39:39 d2.utils.events]: [0m eta: 0:03:36  iter: 7860  total_loss: 1.467  loss_asso: 1.182  loss_centernet_agn_neg: 0.0222  loss_centernet_agn_pos: 0.04354  loss_centernet_loc: 0.1983  time: 1.5510  data_time: 0.0350  lr: 3.8314e-09  max_mem: 22906M
+[32m[07/28 15:40:11 d2.utils.events]: [0m eta: 0:03:05  iter: 7880  total_loss: 1.224  loss_asso: 0.963  loss_centernet_agn_neg: 0.01915  loss_centernet_agn_pos: 0.04276  loss_centernet_loc: 0.1919  time: 1.5511  data_time: 0.0337  lr: 2.8218e-09  max_mem: 22906M
+[32m[07/28 15:40:41 d2.utils.events]: [0m eta: 0:02:33  iter: 7900  total_loss: 1.411  loss_asso: 1.119  loss_centernet_agn_neg: 0.02315  loss_centernet_agn_pos: 0.0457  loss_centernet_loc: 0.1975  time: 1.5509  data_time: 0.0266  lr: 1.9661e-09  max_mem: 22906M
+[32m[07/28 15:41:12 d2.utils.events]: [0m eta: 0:02:02  iter: 7920  total_loss: 1.292  loss_asso: 1.019  loss_centernet_agn_neg: 0.02173  loss_centernet_agn_pos: 0.04379  loss_centernet_loc: 0.1894  time: 1.5509  data_time: 0.0371  lr: 1.2646e-09  max_mem: 22906M
+[32m[07/28 15:41:44 d2.utils.events]: [0m eta: 0:01:31  iter: 7940  total_loss: 1.41  loss_asso: 1.133  loss_centernet_agn_neg: 0.01996  loss_centernet_agn_pos: 0.04942  loss_centernet_loc: 0.2101  time: 1.5508  data_time: 0.0282  lr: 7.1725e-10  max_mem: 22906M
+[32m[07/28 15:42:15 d2.utils.events]: [0m eta: 0:01:00  iter: 7960  total_loss: 1.116  loss_asso: 0.8871  loss_centernet_agn_neg: 0.02188  loss_centernet_agn_pos: 0.04108  loss_centernet_loc: 0.1859  time: 1.5508  data_time: 0.0188  lr: 3.2403e-10  max_mem: 22906M
+[32m[07/28 15:42:48 d2.utils.events]: [0m eta: 0:00:29  iter: 7980  total_loss: 1.443  loss_asso: 1.185  loss_centernet_agn_neg: 0.01977  loss_centernet_agn_pos: 0.04656  loss_centernet_loc: 0.2009  time: 1.5509  data_time: 0.0313  lr: 8.5009e-11  max_mem: 22906M
+[32m[07/28 15:43:17 fvcore.common.checkpoint]: [0mSaving checkpoint to /lfs_ssd/slurm_tmp/briannlz/260362/GTR/output/GTR_MOT/GTR_MOT_FPN/model_final.pth
+[32m[07/28 15:43:20 fvcore.common.checkpoint]: [0mSaving checkpoint to /lfs_ssd/slurm_tmp/briannlz/260362/GTR/output/GTR_MOT/GTR_MOT_FPN/model_final.pth
+lvis_v1.py: HOSTNAME=vista15
+lvis_v1.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+mot.py: HOSTNAME=vista15
+mot.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+crowdhuman.py: HOSTNAME=vista15
+crowdhuman.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+mot.py: HOSTNAME=vista15
+mot.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+mot_evaluation.py: HOSTNAME=vista15
+mot_evaluation.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+lvis_v1.py: HOSTNAME=vista15
+lvis_v1.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+mot.py: HOSTNAME=vista15
+mot.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+crowdhuman.py: HOSTNAME=vista15
+crowdhuman.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+mot.py: HOSTNAME=vista15
+mot.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+mot_evaluation.py: HOSTNAME=vista15
+mot_evaluation.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+lvis_v1.py: HOSTNAME=vista15
+lvis_v1.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+mot.py: HOSTNAME=vista15
+mot.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+crowdhuman.py: HOSTNAME=vista15
+crowdhuman.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+mot.py: HOSTNAME=vista15
+mot.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+mot_evaluation.py: HOSTNAME=vista15
+mot_evaluation.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+lvis_v1.py: HOSTNAME=vista15
+lvis_v1.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+mot.py: HOSTNAME=vista15
+mot.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+crowdhuman.py: HOSTNAME=vista15
+crowdhuman.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+mot.py: HOSTNAME=vista15
+mot.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+mot_evaluation.py: HOSTNAME=vista15
+mot_evaluation.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+lvis_v1.py: HOSTNAME=vista15
+lvis_v1.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+mot.py: HOSTNAME=vista15
+mot.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+crowdhuman.py: HOSTNAME=vista15
+crowdhuman.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+mot.py: HOSTNAME=vista15
+mot.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+mot_evaluation.py: HOSTNAME=vista15
+mot_evaluation.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+lvis_v1.py: HOSTNAME=vista15
+lvis_v1.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+mot.py: HOSTNAME=vista15
+mot.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+crowdhuman.py: HOSTNAME=vista15
+crowdhuman.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+mot.py: HOSTNAME=vista15
+mot.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+mot_evaluation.py: HOSTNAME=vista15
+mot_evaluation.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+lvis_v1.py: HOSTNAME=vista15
+lvis_v1.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+mot.py: HOSTNAME=vista15
+mot.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+crowdhuman.py: HOSTNAME=vista15
+crowdhuman.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+mot.py: HOSTNAME=vista15
+mot.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+mot_evaluation.py: HOSTNAME=vista15
+mot_evaluation.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+lvis_v1.py: HOSTNAME=vista15
+lvis_v1.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+mot.py: HOSTNAME=vista15
+mot.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+crowdhuman.py: HOSTNAME=vista15
+crowdhuman.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+mot.py: HOSTNAME=vista15
+mot.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+mot_evaluation.py: HOSTNAME=vista15
+mot_evaluation.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+lvis_v1.py: HOSTNAME=vista15
+lvis_v1.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+mot.py: HOSTNAME=vista15
+mot.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+crowdhuman.py: HOSTNAME=vista15
+crowdhuman.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+mot.py: HOSTNAME=vista15
+mot.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+mot_evaluation.py: HOSTNAME=vista15
+mot_evaluation.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+lvis_v1.py: HOSTNAME=vista15
+lvis_v1.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+mot.py: HOSTNAME=vista15
+mot.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+crowdhuman.py: HOSTNAME=vista15
+crowdhuman.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+mot.py: HOSTNAME=vista15
+mot.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+mot_evaluation.py: HOSTNAME=vista15
+mot_evaluation.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+lvis_v1.py: HOSTNAME=vista15
+lvis_v1.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+mot.py: HOSTNAME=vista15
+mot.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+crowdhuman.py: HOSTNAME=vista15
+crowdhuman.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+mot.py: HOSTNAME=vista15
+mot.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+mot_evaluation.py: HOSTNAME=vista15
+mot_evaluation.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+lvis_v1.py: HOSTNAME=vista15
+lvis_v1.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+mot.py: HOSTNAME=vista15
+mot.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+crowdhuman.py: HOSTNAME=vista15
+crowdhuman.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+mot.py: HOSTNAME=vista15
+mot.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+mot_evaluation.py: HOSTNAME=vista15
+mot_evaluation.py: TMPDIR=/lfs_ssd/slurm_tmp/briannlz/260362
+output_folder for mot17_halfval: /lfs_ssd/slurm_tmp/briannlz/260362/GTR/output/GTR_MOT/GTR_MOT_FPN/inference_mot17_halfval
+evaluator_type: mot
+output_folder for mot17_halfval: /lfs_ssd/slurm_tmp/briannlz/260362/GTR/output/GTR_MOT/GTR_MOT_FPN/inference_mot17_halfval
+evaluator_type: mot
+output_folder for mot17_halfval: /lfs_ssd/slurm_tmp/briannlz/260362/GTR/output/GTR_MOT/GTR_MOT_FPN/inference_mot17_halfval
+evaluator_type: mot
+[32m[07/28 15:43:22 detectron2]: [0mTotal training time: 3:30:53
+output_folder for mot17_halfval: /lfs_ssd/slurm_tmp/briannlz/260362/GTR/output/GTR_MOT/GTR_MOT_FPN/inference_mot17_halfval
+evaluator_type: mot
+[5m[31mWARNING[0m [32m[07/28 15:43:22 d2.evaluation.coco_evaluation]: [0mCOCO Evaluator instantiated using config, this is deprecated behavior. Please pass in explicit arguments instead.
+Maping instances len/ min/ max 152 1 152
+[32m[07/28 15:43:23 d2.data.common]: [0mSerializing 7 elements to byte tensors and concatenating them all ...
+[32m[07/28 15:43:23 d2.data.common]: [0mSerialized dataset takes 3.17 MiB
+[32m[07/28 15:43:23 d2.evaluation.evaluator]: [0mStart inference on 7 batches
+[32m[07/28 15:43:56 d2.evaluation.evaluator]: [0mInference done 1/7. Dataloading: 15.6071 s/iter. Inference: 17.3186 s/iter. Eval: 0.0444 s/iter. Total: 32.9718 s/iter. ETA=0:03:17
+[32m[07/28 15:45:02 d2.evaluation.evaluator]: [0mInference done 2/7. Dataloading: 22.1407 s/iter. Inference: 27.1836 s/iter. Eval: 0.0822 s/iter. Total: 49.4074 s/iter. ETA=0:04:07
+[32m[07/28 15:45:45 d2.evaluation.evaluator]: [0mInference done 3/7. Dataloading: 18.3158 s/iter. Inference: 29.0243 s/iter. Eval: 0.0731 s/iter. Total: 47.4141 s/iter. ETA=0:03:09
+[32m[07/28 15:46:15 d2.evaluation.evaluator]: [0mInference done 4/7. Dataloading: 17.1935 s/iter. Inference: 25.9268 s/iter. Eval: 0.0640 s/iter. Total: 43.1850 s/iter. ETA=0:02:09
+[32m[07/28 15:46:53 d2.evaluation.evaluator]: [0mInference done 5/7. Dataloading: 17.1025 s/iter. Inference: 24.9413 s/iter. Eval: 0.0612 s/iter. Total: 42.1057 s/iter. ETA=0:01:24
+[32m[07/28 15:47:45 d2.evaluation.evaluator]: [0mInference done 6/7. Dataloading: 0.0000 s/iter. Inference: 28.4899 s/iter. Eval: 0.0580 s/iter. Total: 28.5479 s/iter. ETA=0:00:28
+[32m[07/28 15:48:28 d2.evaluation.evaluator]: [0mInference done 7/7. Dataloading: 9.8877 s/iter. Inference: 26.0867 s/iter. Eval: 0.0529 s/iter. Total: 36.0274 s/iter. ETA=0:00:00
+[32m[07/28 15:48:28 d2.evaluation.evaluator]: [0mTotal inference time: 0:01:12.056710 (36.028355 s / iter per device, on 4 devices)
+[32m[07/28 15:48:28 d2.evaluation.evaluator]: [0mTotal inference pure compute time: 0:00:52 (26.086656 s / iter per device, on 4 devices)
+[32m[07/28 15:48:29 d2.evaluation.coco_evaluation]: [0mPreparing results for COCO format ...
+[32m[07/28 15:48:29 d2.evaluation.coco_evaluation]: [0mSaving results to /lfs_ssd/slurm_tmp/briannlz/260362/GTR/output/GTR_MOT/GTR_MOT_FPN/inference_mot17_halfval/coco_instances_results.json
+[32m[07/28 15:48:29 d2.evaluation.coco_evaluation]: [0mEvaluating predictions with unofficial COCO API...
+Loading and preparing results...
+DONE (t=0.23s)
+creating index...
+index created!
+[32m[07/28 15:48:29 d2.evaluation.fast_eval_api]: [0mEvaluate annotation type *bbox*
+[32m[07/28 15:48:30 d2.evaluation.fast_eval_api]: [0mCOCOeval_opt.evaluate() finished in 0.77 seconds.
+[32m[07/28 15:48:30 d2.evaluation.fast_eval_api]: [0mAccumulating evaluation results...
+[32m[07/28 15:48:30 d2.evaluation.fast_eval_api]: [0mCOCOeval_opt.accumulate() finished in 0.12 seconds.
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.558
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.830
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.645
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.112
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.471
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.670
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.044
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.335
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.609
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.146
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.523
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.729
+[32m[07/28 15:48:30 d2.evaluation.coco_evaluation]: [0mEvaluation results for bbox: 
+|   AP   |  AP50  |  AP75  |  APs   |  APm   |  APl   |
+|:------:|:------:|:------:|:------:|:------:|:------:|
+| 55.771 | 82.989 | 64.511 | 11.185 | 47.133 | 66.985 |
+code_path: /nas/home/briannlz/GTR/gtr/tracking
+config {'USE_PARALLEL': False, 'NUM_PARALLEL_CORES': 8, 'BREAK_ON_ERROR': True, 'RETURN_ON_ERROR': False, 'LOG_ON_ERROR': '/nas/home/briannlz/GTR/gtr/tracking/error_log.txt', 'PRINT_RESULTS': True, 'PRINT_ONLY_COMBINED': False, 'PRINT_CONFIG': True, 'TIME_PROGRESS': True, 'DISPLAY_LESS_PROGRESS': True, 'OUTPUT_SUMMARY': True, 'OUTPUT_EMPTY_CLASSES': True, 'OUTPUT_DETAILED': True, 'PLOT_CURVES': True, 'GT_FOLDER': '/lfs_ssd/slurm_tmp/briannlz/260362/GTR/datasets/mot/MOT17/', 'TRACKERS_FOLDER': '/lfs_ssd/slurm_tmp/briannlz/260362/GTR/output/GTR_MOT/GTR_MOT_FPN/inference_mot17_halfval/moteval', 'OUTPUT_FOLDER': None, 'TRACKERS_TO_EVAL': None, 'CLASSES_TO_EVAL': ['pedestrian'], 'BENCHMARK': 'MOT17', 'SPLIT_TO_EVAL': 'half_val', 'INPUT_AS_ZIP': False, 'DO_PREPROC': True, 'TRACKER_SUB_FOLDER': 'data', 'OUTPUT_SUB_FOLDER': '', 'TRACKER_DISPLAY_NAMES': None, 'SEQMAP_FOLDER': '/nas/home/briannlz/GTR/gtr/tracking/seqmaps/', 'SEQMAP_FILE': None, 'SEQ_INFO': None, 'GT_LOC_FORMAT': '{gt_folder}/{seq}/gt/gt{split_mark}.txt', 'SKIP_SPLIT_FOL': False, 'METRICS': ['HOTA', 'CLEAR', 'Identity']}
+
+Eval Config:
+USE_PARALLEL         : False                         
+NUM_PARALLEL_CORES   : 8                             
+BREAK_ON_ERROR       : True                          
+RETURN_ON_ERROR      : False                         
+LOG_ON_ERROR         : /nas/home/briannlz/GTR/gtr/tracking/error_log.txt
+PRINT_RESULTS        : True                          
+PRINT_ONLY_COMBINED  : False                         
+PRINT_CONFIG         : True                          
+TIME_PROGRESS        : True                          
+DISPLAY_LESS_PROGRESS : True                          
+OUTPUT_SUMMARY       : True                          
+OUTPUT_EMPTY_CLASSES : True                          
+OUTPUT_DETAILED      : True                          
+PLOT_CURVES          : True                          
+code_path: /nas/home/briannlz/GTR/gtr/tracking
+
+MotChallenge2DBox Config:
+PRINT_CONFIG         : True                          
+GT_FOLDER            : /lfs_ssd/slurm_tmp/briannlz/260362/GTR/datasets/mot/MOT17/
+TRACKERS_FOLDER      : /lfs_ssd/slurm_tmp/briannlz/260362/GTR/output/GTR_MOT/GTR_MOT_FPN/inference_mot17_halfval/moteval
+OUTPUT_FOLDER        : None                          
+TRACKERS_TO_EVAL     : None                          
+CLASSES_TO_EVAL      : ['pedestrian']                
+BENCHMARK            : MOT17                         
+SPLIT_TO_EVAL        : half_val                      
+INPUT_AS_ZIP         : False                         
+DO_PREPROC           : True                          
+TRACKER_SUB_FOLDER   : data                          
+OUTPUT_SUB_FOLDER    :                               
+TRACKER_DISPLAY_NAMES : None                          
+SEQMAP_FOLDER        : /nas/home/briannlz/GTR/gtr/tracking/seqmaps/
+SEQMAP_FILE          : None                          
+SEQ_INFO             : None                          
+GT_LOC_FORMAT        : {gt_folder}/{seq}/gt/gt{split_mark}.txt
+SKIP_SPLIT_FOL       : False                         
+GT_FOLDER /lfs_ssd/slurm_tmp/briannlz/260362/GTR/datasets/mot/MOT17/
+gt_set trainval
+self.tracker_list ['pred']
+
+Evaluating 1 tracker(s) on 7 sequence(s) for 1 class(es) on MotChallenge2DBox dataset using the following metrics: HOTA, CLEAR, Identity, Count
+
+
+Evaluating pred
+
+eval_sequence(MOT17-02-FRCNN, pred)                                    0.3910 sec
+eval_sequence(MOT17-04-FRCNN, pred)                                    1.4177 sec
+eval_sequence(MOT17-05-FRCNN, pred)                                    0.4673 sec
+eval_sequence(MOT17-09-FRCNN, pred)                                    0.2768 sec
+eval_sequence(MOT17-10-FRCNN, pred)                                    0.3786 sec
+eval_sequence(MOT17-11-FRCNN, pred)                                    0.4477 sec
+eval_sequence(MOT17-13-FRCNN, pred)                                    0.3948 sec
+
+All sequences for pred finished in 3.77 seconds
+
+HOTA: pred-pedestrian              HOTA      DetA      AssA      DetRe     DetPr     AssRe     AssPr     LocA      RHOTA     HOTA(0)   LocA(0)   HOTALocA(0)
+MOT17-02-FRCNN                     41.002    37.028    45.531    38.408    81.959    48.732    77.288    84.616    41.802    49.031    81.367    39.895    
+MOT17-04-FRCNN                     72.763    69.852    76.256    77.103    80.371    79.793    86.456    85.68     76.64     87.504    82.63     72.305    
+MOT17-05-FRCNN                     51.512    59.925    44.368    65.808    77.135    60.019    57.417    83.398    54.033    64.921    79.43     51.567    
+MOT17-09-FRCNN                     55.201    66.768    45.781    69.774    85.736    59.279    60.08     86.494    56.513    65.049    84.054    54.676    
+MOT17-10-FRCNN                     54.01     54.829    53.629    59.15     76.03     57.993    76.439    81.33     56.27     69.349    77.103    53.47     
+MOT17-11-FRCNN                     56.234    60.851    52.144    71.428    75.56     61.199    74.341    87.888    61.001    65.195    85.6      55.807    
+MOT17-13-FRCNN                     63.976    60.966    67.324    69.643    73.707    73.758    78.164    82.909    68.469    81.058    79.074    64.095    
+COMBINED                           62.207    60.3      64.597    66.028    79.262    70.254    79.993    85.057    65.254    75.196    81.819    61.525    
+
+CLEAR: pred-pedestrian             MOTA      MODA      rFP       rFN       rIDS      CLR_TP    CLR_FN    CLR_FP    IDSW      MT        PT        ML        Frag      
+MOT17-02-FRCNN                     43.553    44.15     1.3563    54.494    0.59717   4496      5384      134       59        8         23        22        194       
+MOT17-04-FRCNN                     82.968    83.212    6.3612    10.427    0.24402   21657     2521      1538      59        54        14        1         255       
+MOT17-05-FRCNN                     71.373    73.101    6.1066    20.792    1.7277    2659      698       205       58        34        31        6         72        
+MOT17-09-FRCNN                     78.812    79.576    0.90309   19.521    0.76415   2317      562       26        22        16        5         1         44        
+MOT17-10-FRCNN                     69.222    69.931    3.9338    26.135    0.7091    4375      1548      233       42        13        20        3         251       
+MOT17-11-FRCNN                     65.884    66.283    14.124    19.593    0.39849   3632      885       638       18        23        12        9         71        
+MOT17-13-FRCNN                     73.099    73.701    10.393    15.906    0.60203   2654      502       328       19        31        9         4         99        
+COMBINED                           71.277    71.791    5.7562    22.453    0.51401   41790     12100     3102      277       179       114       46        986       
+
+Identity: pred-pedestrian          IDF1      IDR       IDP       IDTP      IDFN      IDFP      
+MOT17-02-FRCNN                     49.014    35.992    76.803    3556      6324      1074      
+MOT17-04-FRCNN                     88.434    86.637    90.308    20947     3231      2248      
+MOT17-05-FRCNN                     64.202    59.488    69.728    1997      1360      867       
+MOT17-09-FRCNN                     63.769    57.833    71.063    1665      1214      678       
+MOT17-10-FRCNN                     69.794    62.046    79.753    3675      2248      933       
+MOT17-11-FRCNN                     63.184    61.457    65.012    2776      1741      1494      
+MOT17-13-FRCNN                     82.731    80.45     85.144    2539      617       443       
+COMBINED                           75.226    68.946    82.765    37155     16735     7737      
+
+Count: pred-pedestrian             Dets      GT_Dets   IDs       GT_IDs    
+MOT17-02-FRCNN                     4630      9880      64        53        
+MOT17-04-FRCNN                     23195     24178     113       69        
+MOT17-05-FRCNN                     2864      3357      55        71        
+MOT17-09-FRCNN                     2343      2879      22        22        
+MOT17-10-FRCNN                     4608      5923      55        36        
+MOT17-11-FRCNN                     4270      4517      63        44        
+MOT17-13-FRCNN                     2982      3156      51        44        
+COMBINED                           44892     53890     423       339       
+[32m[07/28 15:48:37 detectron2]: [0mEvaluation results for mot17_halfval in csv format:
+[32m[07/28 15:48:37 d2.evaluation.testing]: [0mcopypaste: Task: bbox
+[32m[07/28 15:48:37 d2.evaluation.testing]: [0mcopypaste: AP,AP50,AP75,APs,APm,APl
+[32m[07/28 15:48:37 d2.evaluation.testing]: [0mcopypaste: 55.7713,82.9894,64.5108,11.1850,47.1327,66.9854
