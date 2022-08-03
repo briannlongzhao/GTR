@@ -3,6 +3,8 @@ backup
 GTR_models
 GTR_models_TAO
 *.pth
+*.zip
+*.tar
 slurm-*.out
 slurm-output
 # output dir
