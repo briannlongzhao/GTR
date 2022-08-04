@@ -151,8 +151,7 @@ def do_train(cfg, model, resume=False):
     )
 
     DatasetMapperClass = GTRDatasetMapper if cfg.VIDEO_INPUT else CustomDatasetMapper
-    mapper = DatasetMapperClass(
-        cfg, True, augmentations=build_custom_augmentation(cfg, True))
+    mapper = DatasetMapperClass(cfg, True, augmentations=build_custom_augmentation(cfg, True))
     if cfg.VIDEO_INPUT:
         data_loader = build_gtr_train_loader(cfg, mapper=mapper)
     else:
@@ -214,6 +213,8 @@ def setup(args):
     add_gtr_config(cfg)
     cfg.merge_from_file(args.config_file)
     cfg.merge_from_list(args.opts)
+    if args.num_gpus:
+        cfg.SOLVER.IMS_PER_BATCH = args.num_gpus
     if "TMPDIR" in os.environ.keys():
         cfg.OUTPUT_DIR = (cfg.OUTPUT_DIR).replace('.', os.path.join(os.environ["TMPDIR"], "GTR"))
         cfg.MODEL.WEIGHTS = os.path.join(os.environ["TMPDIR"], "GTR" ,cfg.MODEL.WEIGHTS)

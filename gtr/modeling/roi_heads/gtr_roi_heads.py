@@ -238,7 +238,7 @@ class GTRROIHeads(CascadeROIHeads):
         '''
         # pairwise IoU of proposals and gt bboxes (num proposal * num gt)
         ious = pairwise_iou(Boxes(pred_box), Boxes(target_box)) # N x G
-        # assign -1 to match of bboxes not in same frame
+        # assign -1 to pairs of bboxes not in same frame
         ious[pred_time[:, None] != target_time[None, :]] = -1.
         # list of unique gt instance ids
         inst_ids = torch.unique(target_inst_id[target_inst_id > 0])
@@ -252,9 +252,9 @@ class GTRROIHeads(CascadeROIHeads):
         ret = pred_box.new_zeros((K, T), dtype=torch.long)
         # split pairwise IoU tensor into frames, each is a frame
         ious_per_frame = ious.split(n_t, dim=0) # T x [n_t x G]
-
+        # for all unique gt instance ids
         for k, inst_id in enumerate(inst_ids):
-
+            # boolean list of whether
             target_inds = target_inst_id == inst_id # G
 
             base_ind = 0
