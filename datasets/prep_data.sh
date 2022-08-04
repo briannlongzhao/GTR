@@ -5,7 +5,7 @@ MOT17 () {
 	cd $DATASETS_DIR || exit
 	if ! [[ -d mot/ ]]
 	then
-		mkdir mot/
+		mkdir mot/ && cd mot/ || exit
 		if [[ -f $GTR_DIR/datasets/MOT17.zip ]]; then
 		    echo "Copying MOT17 dataset..."
 		    cp $GTR_DIR/datasets/MOT17.zip ./
@@ -14,8 +14,8 @@ MOT17 () {
 		    wget -q https://motchallenge.net/data/MOT17.zip
 		fi
         echo "Extracting MOT17 dataset..."
-		unzip -q MOT17.zip -d mot/
-        cd mot/MOT17/ || exit
+		unzip -q MOT17.zip
+        cd MOT17/ || exit
         ln -s train trainval
         cd $1 || exit
         python tools/convert_mot2coco.py val
@@ -28,43 +28,44 @@ CrowdHuman () {
     cd $DATASETS_DIR || exit
 	if ! [[ -d crowdhuman/ ]]; then
 	    CH_COPIED=1
-	    mkdir crowdhuman/
-	    if [[ -f $GTR_DIR/datasets/crowdhuman/CrowdHuman_train01.zip && CH_COPIED == 1 ]]; then
+	    mkdir crowdhuman/ && cd crowdhuman/ || exit
+	    if [[ -f $GTR_DIR/datasets/crowdhuman/CrowdHuman_train01.zip && $CH_COPIED == 1 ]]; then
 	        echo "Copying CrowdHuman dataset 1..."
-	        cp $GTR_DIR/datasets/crowdhuman/CrowdHuman_train01.zip crowdhuman/ || CH_COPIED=0
+	        cp $GTR_DIR/datasets/crowdhuman/CrowdHuman_train01.zip ./ || CH_COPIED=0
 	    else
 	        CH_COPIED=0
 	    fi
-	    if [[ -f $GTR_DIR/datasets/crowdhuman/CrowdHuman_train02.zip && CH_COPIED == 1 ]]; then
+	    if [[ -f $GTR_DIR/datasets/crowdhuman/CrowdHuman_train02.zip && $CH_COPIED == 1 ]]; then
 	        echo "Copying CrowdHuman dataset 2..."
-	        cp $GTR_DIR/datasets/crowdhuman/CrowdHuman_train02.zip crowdhuman/ || CH_COPIED=0
+	        cp $GTR_DIR/datasets/crowdhuman/CrowdHuman_train02.zip ./ || CH_COPIED=0
 	    else
 	        CH_COPIED=0
 	    fi
-	    if [[ -f $GTR_DIR/datasets/crowdhuman/CrowdHuman_train03.zip && CH_COPIED == 1 ]]; then
+	    if [[ -f $GTR_DIR/datasets/crowdhuman/CrowdHuman_train03.zip && $CH_COPIED == 1 ]]; then
 	        echo "Copying CrowdHuman dataset 3..."
-	        cp $GTR_DIR/datasets/crowdhuman/CrowdHuman_train03.zip crowdhuman/ || CH_COPIED=0
+	        cp $GTR_DIR/datasets/crowdhuman/CrowdHuman_train03.zip ./ || CH_COPIED=0
 	    else
 	        CH_COPIED=0
 	    fi
-	    if [[ -f $GTR_DIR/datasets/crowdhuman/CrowdHuman_val.zip && CH_COPIED == 1 ]]; then
+	    if [[ -f $GTR_DIR/datasets/crowdhuman/CrowdHuman_val.zip && $CH_COPIED == 1 ]]; then
 	        echo "Copying CrowdHuman dataset 4..."
-	        cp $GTR_DIR/datasets/crowdhuman/CrowdHuman_val.zip crowdhuman/ || CH_COPIED=0
+	        cp $GTR_DIR/datasets/crowdhuman/CrowdHuman_val.zip ./ || CH_COPIED=0
 	    else
 	        CH_COPIED=0
 	    fi
-	    if [[ -f $GTR_DIR/datasets/crowdhuman/annotation_train.odgt && CH_COPIED == 1 ]]; then
+	    if [[ -f $GTR_DIR/datasets/crowdhuman/annotation_train.odgt && $CH_COPIED == 1 ]]; then
 	        echo "Copying CrowdHuman dataset 5..."
-	        cp $GTR_DIR/datasets/crowdhuman/annotation_train.odgt crowdhuman/ || CH_COPIED=0
+	        cp $GTR_DIR/datasets/crowdhuman/annotation_train.odgt ./ || CH_COPIED=0
 	    else
 	        CH_COPIED=0
 	    fi
-	    if [[ -f $GTR_DIR/datasets/crowdhuman/annotation_val.odgt && CH_COPIED == 1 ]]; then
+	    if [[ -f $GTR_DIR/datasets/crowdhuman/annotation_val.odgt && $CH_COPIED == 1 ]]; then
 	        echo "Copying CrowdHuman dataset 6..."
-	        cp $GTR_DIR/datasets/crowdhuman/annotation_val.odgt crowdhuman/ || CH_COPIED=0
+	        cp $GTR_DIR/datasets/crowdhuman/annotation_val.odgt ./ || CH_COPIED=0
 	    else
 	        CH_COPIED=0
 	    fi
+	    cd ../
 	    if [[ $CH_COPIED == 0 ]]; then
 	        echo "Downloading CrowdHuman dataset..."
 		    gdown -q --folder 1-N59uI5plTXEepaIasH3kpFW6SPKSVkQ
@@ -98,10 +99,10 @@ BDD100K () {
 		    else
 		        echo "BDD100K dataset does not exist, contact Joe"
 		        exit
+            fi
         fi
         if ! [[ -d bdd/ ]]; then
-            mkdir bdd/
-            cd bdd/
+            mkdir bdd/ && cd bdd/ || exit
             echo "Downloading BDD100K dataset..."
             gdown -q 1u1DKH7Stk-YNRhhGHHJx_4lUH7sA_e6m
             curl -f -L http://dl.yf.io/bdd100k/mot20/ | grep -oe "images.*"\"$"" > bdd100k.txt
@@ -109,15 +110,15 @@ BDD100K () {
             cat bdd100k.txt | xargs -n 1 -P 3 wget -q
             for file in *; do
                 if [[ $file =~ ".md5" ]]; then
-                    if ! [[ $(md5sum $(echo $file | sed 's/.md5//') | cut -d' ' -f 1) == $(cat $file) ]]; then
-                        echo "Error: MD5 checksum does not match for" $file
+                    if ! [[ $(md5sum "${file//.md5/}" | cut -d' ' -f 1) == $(cat $file) ]]; then
+                        echo "Error: MD5 checksum does not match for" "${file//.md5/}"
                         exit
                     else
-                        echo $file "checked"
+                        echo "$file" "checked"
                     fi
                 fi
             done
-            rm *.md5 *.txt
+            rm ./*.md5 ./*.txt
             if [[ $(ls -1 | wc -l) != 11 ]]; then
                 echo "Error: Incomplete BDD100K dataset"
                 exit
@@ -131,14 +132,6 @@ BDD100K () {
             python3 -m bdd100k.label.to_coco -m box_track -i $DATASETS_DIR/bdd/BDD100K/labels/bdd100k_labels_images_val.json -o $DATASETS_DIR/bdd100k/labels/bdd100k_labels_images_val_coco.json
 
         fi
-
-
-		echo "Converting BDD100K to COCO format..."
-		cd $1/tools || exit
-
-        cd bdd100k/MOT17 || exit
-        ln -s train trainval
-        cd $1 || exit
 
     fi
 }
@@ -193,6 +186,6 @@ then
 	CrowdHuman $GTR_DIR_TMP
 	BDD100K $GTR_DIR_TMP
 else
-    echo "Error: TMPDIR not set"
+    echo "Error: TMPDIR not set, "
     exit
 fi

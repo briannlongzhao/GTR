@@ -8,8 +8,8 @@
 #SBATCH --qos=premium_memory
 #SBATCH --mem=128GB
 #SBATCH --time=10:00:00
-#SBATCH --output=output_train.txt
-#SBATCH --error=error_train.txt
+#SBATCH --output=output.txt
+#SBATCH --error=error.txt
 #SBATCH --open-mode=truncate
 #SBATCH --gres=gpu:4
 
@@ -22,11 +22,12 @@ conda activate gtr
 echo "HOSTNAME=$HOSTNAME"
 if ! [[ $HOSTNAME =~ "turing" || $HOSTNAME =~ "vista" ]]
 then
-    echo "Host not Turing, exit"
+    echo "Error: Host not Turing"
     exit
-elif ! [[ -v TMPDIR ]]
+fi
+if ! [[ -v TMPDIR ]]
 then
-    echo "TMPDIR not set, exit"
+    echo "Error: TMPDIR not set"
     exit
 fi
 
