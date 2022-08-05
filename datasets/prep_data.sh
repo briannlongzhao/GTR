@@ -148,7 +148,7 @@ if [[ -v TMPDIR ]]; then
 		cp -r $GTR_DIR/models $GTR_DIR_TMP/models
 	fi
 
-	#MOT17 $GTR_DIR_TMP
+	MOT17 $GTR_DIR_TMP
 	CrowdHuman $GTR_DIR_TMP
 	BDD100K $GTR_DIR_TMP
 else
