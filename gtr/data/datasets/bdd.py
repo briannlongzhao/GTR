@@ -55,7 +55,7 @@ def load_video_json(json_file, image_root, dataset_name=None, extra_annotation_k
             x['instance_id'] for x in coco_api.dataset['annotations'] if x['instance_id'] > 0)
         inst_id_map = {x: i + 1 for i, x in enumerate(sorted(instance_ids))}
         if len(instance_ids) > 0: 
-            print('Maping instances len/ min/ max', len(inst_id_map), min(inst_id_map.values()), max(inst_id_map.values()))
+            print('Mapping instances len/ min/ max', len(inst_id_map), min(inst_id_map.values()), max(inst_id_map.values()))
         inst_id_map[0] = 0
         inst_id_map[-1] = 0
         
@@ -153,8 +153,8 @@ categories = [
     {'id': 6, 'name': "train"},
     {'id': 7, 'name': "motorcycle"},
     {'id': 8, 'name': "bicycle"},
-    {'id': 9, 'name': 'traffic light'},
-    {'id': 10, 'name': 'traffic sign'},
+    # {'id': 9, 'name': 'traffic light'},
+    # {'id': 10, 'name': 'traffic sign'},
 ]
 
 def _get_builtin_metadata():
