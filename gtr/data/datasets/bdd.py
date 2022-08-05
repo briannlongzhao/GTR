@@ -146,15 +146,15 @@ def register_bdd_instances(name, metadata, json_file, image_root):
 
 categories = [
     {'id': 1, 'name': 'pedestrian'},
-    # {'id': 2, 'name': 'rider'},
-    # {'id': 3, 'name': 'car'},
-    # {'id': 4, 'name': "truck"},
-    # {'id': 5, 'name': "bus"},
-    # {'id': 6, 'name': "train"},
-    # {'id': 7, 'name': "motorcycle"},
-    # {'id': 8, 'name': "bicycle"},
-    # {'id': 9, 'name': 'traffic light'},
-    # {'id': 10, 'name': 'traffic sign'},
+    {'id': 2, 'name': 'rider'},
+    {'id': 3, 'name': 'car'},
+    {'id': 4, 'name': "truck"},
+    {'id': 5, 'name': "bus"},
+    {'id': 6, 'name': "train"},
+    {'id': 7, 'name': "motorcycle"},
+    {'id': 8, 'name': "bicycle"},
+    {'id': 9, 'name': 'traffic light'},
+    {'id': 10, 'name': 'traffic sign'},
 ]
 
 def _get_builtin_metadata():
