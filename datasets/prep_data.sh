@@ -6,9 +6,9 @@ MOT17 () {
 	if ! [[ -d mot/ ]]
 	then
 		mkdir mot/ && cd mot/ || exit
-		if [[ -f $GTR_DIR/datasets/MOT17.zip ]]; then
+		if [[ -f $GTR_DIR/datasets/mot/MOT17.zip ]]; then
 		    echo "Copying MOT17 dataset..."
-		    cp $GTR_DIR/datasets/MOT17.zip ./
+		    cp $GTR_DIR/datasets/mot/MOT17.zip ./
 		else
 		    echo "Downloading MOT17 dataset..."
 		    wget -q https://motchallenge.net/data/MOT17.zip
@@ -18,7 +18,8 @@ MOT17 () {
         cd MOT17/ || exit
         ln -s train trainval
         cd $1 || exit
-        python tools/convert_mot2coco.py val
+        echo "Converting MOT17 dataset format..."
+        python tools/convert_mot2coco.py trainval
         python tools/convert_mot2coco.py test
     fi
 }
@@ -54,6 +55,7 @@ CrowdHuman () {
 		unzip -q CrowdHuman_train\* -d CrowdHuman_train/
 		unzip -q CrowdHuman_val\* -d CrowdHuman_val/
 		cd "$1" || exit
+		echo "Converting CrowdHuman dataset format..."
 		python tools/convert_crowdhuman_amodal.py
 	fi
 }
@@ -70,10 +72,8 @@ BDD100K () {
 		        tar -xf bdd100k_qdtrack_data.tar
 		        mv data/ bdd/
 		        mv bdd/bdd/ bdd/BDD100K/
-		        # manage data
 		    else
-		        echo "BDD100K dataset does not exist, contact Joe"
-		        exit
+		        echo "BDD100K dataset does not exist: /nas/vista-ssd02/users/jmathai/bdd100k_qdtrack_data.tar"
             fi
         fi
         if ! [[ -d bdd/ ]]; then
@@ -101,10 +101,10 @@ BDD100K () {
             echo "Extracting BDD100K dataset..."
             unzip -q \*.zip
             mv bdd100k/ BDD100K/
-            echo "Converting BDD100K to COCO format..."
 		    cd $1/tools || exit
-		    python3 -m bdd100k.label.to_coco -m box_track -i $DATASETS_DIR/bdd/BDD100K/labels/box_track_20/train/bdd100k_labels_images_val.json -o $DATASETS_DIR/bdd100k/labels/bdd100k_labels_images_val_coco.json
-            python3 -m bdd100k.label.to_coco -m box_track -i $DATASETS_DIR/bdd/BDD100K/labels/bdd100k_labels_images_val.json -o $DATASETS_DIR/bdd100k/labels/bdd100k_labels_images_val_coco.json
+		    echo "Converting BDD100K dataset format..."
+		    python3 -m bdd100k.label.to_coco -m box_track -i $DATASETS_DIR/bdd/BDD100K/labels/box_track_20/train -o $DATASETS_DIR/bdd100k/labels/box_track_20/box_track_train_cocofmt.json
+            python3 -m bdd100k.label.to_coco -m box_track -i $DATASETS_DIR/bdd/BDD100K/labels/box_track_20/val -o $DATASETS_DIR/bdd100k/labels/box_track_20/box_track_val_cocofmt.json
         fi
     fi
 }

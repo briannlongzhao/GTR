@@ -13,7 +13,7 @@ CREATE_SPLITTED_DET = True
 SAVE_JSON = True
 
 if __name__ == '__main__':
-  if sys.argv[1] == "val":
+  if sys.argv[1] == "trainval":
     SPLITS  = ['train_half', 'val_half']
   elif sys.argv[1] == "test":
     SPLITS = ['train', 'test']
