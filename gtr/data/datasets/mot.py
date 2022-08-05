@@ -158,7 +158,8 @@ def _get_builtin_metadata():
     thing_classes = [id_to_name[k] for k in sorted(id_to_name)]
     return {
         "thing_dataset_id_to_contiguous_id": thing_dataset_id_to_contiguous_id,
-        "thing_classes": thing_classes}
+        "thing_classes": thing_classes
+    }
 
 _PREDEFINED_SPLITS = {
     "mot17_halfval":

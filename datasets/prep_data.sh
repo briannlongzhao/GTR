@@ -44,8 +44,8 @@ CrowdHuman () {
             echo "Downloading CrowdHuman dataset..."
             cd ../
 		    gdown -q --folder 1-N59uI5plTXEepaIasH3kpFW6SPKSVkQ
+		    cd crowdhuman/ || exit
         fi
-        cd crowdhuman/ || exit
         if [[ $(ls -1 | wc -l) != 6 ]]; then
 		    echo "Error: Incomplete CrowdHuman dataset"
 		    exit
