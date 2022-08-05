@@ -38,7 +38,7 @@ fi
 wandb login --relogin da75e98d29ae627bc5e000d68b033fda0155fc79
 
 # Train
-python train_net.py --num-gpus 4 --config-file configs/GTR_MOT_FPN.yaml
+python train_net.py --num-gpus 4 --config-file configs/GTR_BDD_FPN.yaml
 
 # Evaluate only
 #python train_net.py --config-file configs/GTR_MOT_FPN.yaml --eval-only MODEL.WEIGHTS models/GTR_MOT_FPN.pth
