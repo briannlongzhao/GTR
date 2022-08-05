@@ -2,7 +2,7 @@ GTR_DIR=~/GTR
 
 MOT17 () {
 	DATASETS_DIR=$1/datasets
-	cd $DATASETS_DIR || exit
+	cd "$DATASETS_DIR" || exit
 	if ! [[ -d mot/ ]]
 	then
 		mkdir mot/ && cd mot/ || exit
@@ -25,67 +25,42 @@ MOT17 () {
 
 CrowdHuman () {
 	DATASETS_DIR=$1/datasets
-    cd $DATASETS_DIR || exit
+    cd "$DATASETS_DIR" || exit
 	if ! [[ -d crowdhuman/ ]]; then
-	    CH_COPIED=1
+	    CH_SUCCESS=0
 	    mkdir crowdhuman/ && cd crowdhuman/ || exit
-	    if [[ -f $GTR_DIR/datasets/crowdhuman/CrowdHuman_train01.zip && $CH_COPIED == 1 ]]; then
-	        echo "Copying CrowdHuman dataset 1..."
-	        cp $GTR_DIR/datasets/crowdhuman/CrowdHuman_train01.zip ./ || CH_COPIED=0
-	    else
-	        CH_COPIED=0
-	    fi
-	    if [[ -f $GTR_DIR/datasets/crowdhuman/CrowdHuman_train02.zip && $CH_COPIED == 1 ]]; then
-	        echo "Copying CrowdHuman dataset 2..."
-	        cp $GTR_DIR/datasets/crowdhuman/CrowdHuman_train02.zip ./ || CH_COPIED=0
-	    else
-	        CH_COPIED=0
-	    fi
-	    if [[ -f $GTR_DIR/datasets/crowdhuman/CrowdHuman_train03.zip && $CH_COPIED == 1 ]]; then
-	        echo "Copying CrowdHuman dataset 3..."
-	        cp $GTR_DIR/datasets/crowdhuman/CrowdHuman_train03.zip ./ || CH_COPIED=0
-	    else
-	        CH_COPIED=0
-	    fi
-	    if [[ -f $GTR_DIR/datasets/crowdhuman/CrowdHuman_val.zip && $CH_COPIED == 1 ]]; then
-	        echo "Copying CrowdHuman dataset 4..."
-	        cp $GTR_DIR/datasets/crowdhuman/CrowdHuman_val.zip ./ || CH_COPIED=0
-	    else
-	        CH_COPIED=0
-	    fi
-	    if [[ -f $GTR_DIR/datasets/crowdhuman/annotation_train.odgt && $CH_COPIED == 1 ]]; then
-	        echo "Copying CrowdHuman dataset 5..."
-	        cp $GTR_DIR/datasets/crowdhuman/annotation_train.odgt ./ || CH_COPIED=0
-	    else
-	        CH_COPIED=0
-	    fi
-	    if [[ -f $GTR_DIR/datasets/crowdhuman/annotation_val.odgt && $CH_COPIED == 1 ]]; then
-	        echo "Copying CrowdHuman dataset 6..."
-	        cp $GTR_DIR/datasets/crowdhuman/annotation_val.odgt ./ || CH_COPIED=0
-	    else
-	        CH_COPIED=0
-	    fi
-	    cd ../
-	    if [[ $CH_COPIED == 0 ]]; then
-	        echo "Downloading CrowdHuman dataset..."
+	    if [[ -d $GTR_DIR/datasets/crowdhuman/ ]]; then
+	        echo "Copying CrowdHuman dataset..."
+	        cp $GTR_DIR/datasets/crowdhuman/*.zip ./
+	        cp $GTR_DIR/datasets/crowdhuman/*.odgt ./
+	        if [[ $(ls -1 | wc -l) == 6 ]]; then
+		        CH_SUCCESS=1
+            else
+                echo "Failed copying CrowdHuman dataset"
+		        rm ./*
+            fi
+        fi
+        if [[ $CH_SUCCESS == 0 ]]; then
+            echo "Downloading CrowdHuman dataset..."
+            cd ../
 		    gdown -q --folder 1-N59uI5plTXEepaIasH3kpFW6SPKSVkQ
-		fi
-		cd crowdhuman || exit
-		if [[ $(ls -1 | wc -l) != 6 ]]; then
+        fi
+        cd crowdhuman/ || exit
+        if [[ $(ls -1 | wc -l) != 6 ]]; then
 		    echo "Error: Incomplete CrowdHuman dataset"
 		    exit
         fi
         echo "Extracting CrowdHuman dataset..."
-		unzip -q CrowdHuman_train\* -d CrowdHuman_train
-		unzip -q CrowdHuman_val\* -d CrowdHuman_val
-		cd $1 || exit
+		unzip -q CrowdHuman_train\* -d CrowdHuman_train/
+		unzip -q CrowdHuman_val\* -d CrowdHuman_val/
+		cd "$1" || exit
 		python tools/convert_crowdhuman_amodal.py
 	fi
 }
 
 BDD100K () {
 	DATASETS_DIR=$1/datasets
-	cd $DATASETS_DIR || exit
+	cd "$DATASETS_DIR" || exit
 	if ! [[ -d bdd/ ]]; then
 		if [[ $HOSTNAME =~ "turing" || $HOSTNAME =~ "vista" ]]; then
 		    if [[ -f /nas/vista-ssd02/users/jmathai/bdd100k_qdtrack_data.tar ]]; then
@@ -130,9 +105,7 @@ BDD100K () {
 		    cd $1/tools || exit
 		    python3 -m bdd100k.label.to_coco -m box_track -i $DATASETS_DIR/bdd/BDD100K/labels/box_track_20/train/bdd100k_labels_images_val.json -o $DATASETS_DIR/bdd100k/labels/bdd100k_labels_images_val_coco.json
             python3 -m bdd100k.label.to_coco -m box_track -i $DATASETS_DIR/bdd/BDD100K/labels/bdd100k_labels_images_val.json -o $DATASETS_DIR/bdd100k/labels/bdd100k_labels_images_val_coco.json
-
         fi
-
     fi
 }
 
@@ -141,16 +114,13 @@ BDD100K () {
 #CrowdHuman $GTR_DIR
 
 # Set TMPDIR if on iLab or Discovery
-if [[ $HOSTNAME =~ iGpu || $HOSTNAME =~ iLab ]]
-then
+if [[ $HOSTNAME =~ iGpu || $HOSTNAME =~ iLab ]]; then
 	export TMPDIR=/lab/tmpig8e/u/brian-data
-elif [[ $HOSTNAME =~ "discovery" || $HOSTNAME =~ "hpc" || $HOSTNAME =~ [a-z][0-9][0-9]-[0-9][0-9] ]]
-then
+elif [[ $HOSTNAME =~ "discovery" || $HOSTNAME =~ "hpc" || $HOSTNAME =~ [a-z][0-9][0-9]-[0-9][0-9] ]]; then
     export TMPDIR=/scratch1/briannlz
     module load gcc
     module load unzip
-elif [[ $HOSTNAME =~ "turing" || $HOSTNAME =~ "vista" ]]
-then
+elif [[ $HOSTNAME =~ "turing" || $HOSTNAME =~ "vista" ]]; then
     :
 else
     echo "Error: Unknown host: $HOSTNAME"
@@ -158,27 +128,23 @@ else
 fi
 
 # Download to data directory specified by $TMPDIR if set
-if [[ -v TMPDIR ]]
-then 
-	echo "Prepaaring data in TMPDIR=$TMPDIR"
+if [[ -v TMPDIR ]]; then
+	echo "Preparing data in TMPDIR=$TMPDIR"
 	GTR_DIR_TMP=$TMPDIR/GTR
 
 	# Copy datasets metadata to $TMPDIR
-	if ! [[ -d $GTR_DIR_TMP/datasets ]]
-	then 
+	if ! [[ -d $GTR_DIR_TMP/datasets ]]; then
 		mkdir -p $GTR_DIR_TMP/datasets
 		cp -r $GTR_DIR/datasets/metadata $GTR_DIR_TMP/datasets/metadata
 	fi
 
 	# Copy tools to $TMPDIR
-	if ! [[ -d $GTR_DIR_TMP/tools ]]
-	then
+	if ! [[ -d $GTR_DIR_TMP/tools ]]; then
 		cp -r $GTR_DIR/tools $GTR_DIR_TMP/tools
 	fi
 
 	# Copy models to $TMPDIR
-	if ! [[ -d $GTR_DIR_TMP/models ]]
-	then
+	if ! [[ -d $GTR_DIR_TMP/models ]]; then
 		cp -r $GTR_DIR/models $GTR_DIR_TMP/models
 	fi
 
