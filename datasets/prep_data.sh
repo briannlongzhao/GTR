@@ -130,11 +130,11 @@ if [[ -v TMPDIR ]]; then
 	if ! [[ -d $GTR_DIR_TMP/datasets ]]; then
 		mkdir -p $GTR_DIR_TMP/datasets/
 	fi
-	rm -r $GTR_DIR_TMP/datasets/metadata/
+	rm -rf $GTR_DIR_TMP/datasets/metadata/
     cp -r $GTR_DIR/datasets/metadata/ $GTR_DIR_TMP/datasets/metadata/
-    rm -r $GTR_DIR_TMP/tools/
+    rm -rf $GTR_DIR_TMP/tools/
 	cp -r $GTR_DIR/tools/ $GTR_DIR_TMP/tools/
-	rm -r $GTR_DIR_TMP/models/
+	rm -rf $GTR_DIR_TMP/models/
 	cp -r $GTR_DIR/models/ $GTR_DIR_TMP/models/
 
 	MOT17 $GTR_DIR_TMP
