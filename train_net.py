@@ -56,6 +56,7 @@ from gtr.data.gtr_dataset_mapper import GTRDatasetMapper
 from gtr.costom_solver import build_custom_optimizer
 from gtr.evaluation.custom_lvis_evaluation import CustomLVISEvaluator
 from gtr.evaluation.mot_evaluation import MOTEvaluator
+from gtr.evaluation.bdd_evaluation import BDDEvaluator
 from gtr.modeling.freeze_layers import check_if_freeze_model
 from gtr.predictor import VisualizationDemo
 
@@ -100,7 +101,7 @@ def do_test(cfg, model, visualize=False, debug=False, wandb_logger=None):
         elif evaluator_type == "mot":
             evaluator = MOTEvaluator(dataset_name, cfg, False, output_folder)
         elif evaluator_type == "bdd":
-            evaluator = MOTEvaluator(dataset_name, cfg, False, output_folder)
+            evaluator = BDDEvaluator(dataset_name, cfg, False, output_folder)
         else:
             raise NotImplementedError(evaluator_type)
 
