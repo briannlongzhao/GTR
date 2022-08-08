@@ -3,10 +3,11 @@ backup
 GTR_models
 GTR_models_TAO
 *.pth
-*.zip
-*.tar
+datasets/*.zip
+datasets/*.tar
 slurm-*.out
 slurm-output
+
 # output dir
 output/
 instant_test_output
