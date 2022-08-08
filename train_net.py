@@ -122,7 +122,7 @@ def do_test(cfg, model, visualize=False, wandb_logger=None):
             else:
                 mapper = GTRDatasetMapper(cfg, False, augmentations=build_custom_augmentation(cfg, False))
             data_loader = build_gtr_test_loader(cfg, dataset_name, mapper)
-            data_loader = [next(iter(data_loader))] # Debug: load only one sequence
+            #data_loader = [next(iter(data_loader))] # Debug: load only one sequence
             results[dataset_name] = inference_on_dataset(model, data_loader, evaluator,)
             if visualize:
                 do_visualize(cfg, model, data_loader, dataset_name, wandb_logger)
