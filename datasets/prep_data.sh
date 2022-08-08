@@ -99,19 +99,15 @@ BDD100K () {
                 exit
             fi
             echo "Extracting BDD100K dataset..."
-            unzip -q \*.zip
+            ls -1 | xargs -n 1 -P 0 unzip -q
             mv bdd100k/ BDD100K/
 		    cd $1/tools || exit
 		    echo "Converting BDD100K dataset format..."
-		    python3 -m bdd100k.label.to_coco -m box_track -i $DATASETS_DIR/bdd/BDD100K/labels/box_track_20/train -o $DATASETS_DIR/bdd100k/labels/box_track_20/box_track_train_cocofmt.json
-            python3 -m bdd100k.label.to_coco -m box_track -i $DATASETS_DIR/bdd/BDD100K/labels/box_track_20/val -o $DATASETS_DIR/bdd100k/labels/box_track_20/box_track_val_cocofmt.json
+		    python3 -m bdd100k.label.to_coco -m box_track -i $DATASETS_DIR/bdd/BDD100K/labels/box_track_20/train/ -o $DATASETS_DIR/bdd/BDD100K/labels/box_track_20/box_track_train_cocofmt.json
+            python3 -m bdd100k.label.to_coco -m box_track -i $DATASETS_DIR/bdd/BDD100K/labels/box_track_20/val/ -o $DATASETS_DIR/bdd/BDD100K/labels/box_track_20/box_track_val_cocofmt.json
         fi
     fi
 }
-
-# Download to home directory
-#MOT17 $GTR_DIR
-#CrowdHuman $GTR_DIR
 
 # Set TMPDIR if on iLab or Discovery
 if [[ $HOSTNAME =~ iGpu || $HOSTNAME =~ iLab ]]; then
@@ -131,22 +127,15 @@ fi
 if [[ -v TMPDIR ]]; then
 	echo "Preparing data in TMPDIR=$TMPDIR"
 	GTR_DIR_TMP=$TMPDIR/GTR
-
-	# Copy datasets metadata to $TMPDIR
 	if ! [[ -d $GTR_DIR_TMP/datasets ]]; then
-		mkdir -p $GTR_DIR_TMP/datasets
-		cp -r $GTR_DIR/datasets/metadata $GTR_DIR_TMP/datasets/metadata
+		mkdir -p $GTR_DIR_TMP/datasets/
 	fi
-
-	# Copy tools to $TMPDIR
-	if ! [[ -d $GTR_DIR_TMP/tools ]]; then
-		cp -r $GTR_DIR/tools $GTR_DIR_TMP/tools
-	fi
-
-	# Copy models to $TMPDIR
-	if ! [[ -d $GTR_DIR_TMP/models ]]; then
-		cp -r $GTR_DIR/models $GTR_DIR_TMP/models
-	fi
+	rm -r $GTR_DIR_TMP/datasets/metadata/
+    cp -r $GTR_DIR/datasets/metadata/ $GTR_DIR_TMP/datasets/metadata/
+    rm -r $GTR_DIR_TMP/tools/
+	cp -r $GTR_DIR/tools/ $GTR_DIR_TMP/tools/
+	rm -r $GTR_DIR_TMP/models/
+	cp -r $GTR_DIR/models/ $GTR_DIR_TMP/models/
 
 	MOT17 $GTR_DIR_TMP
 	CrowdHuman $GTR_DIR_TMP
