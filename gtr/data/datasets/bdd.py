@@ -11,8 +11,22 @@ from fvcore.common.timer import Timer
 from detectron2.data import DatasetCatalog, MetadataCatalog
 from detectron2.structures import BoxMode
 
-logger = logging.getLogger(__name__)
 
+categories = [
+    {'id': 1, 'name': 'pedestrian'},
+    {'id': 2, 'name': 'rider'},
+    {'id': 3, 'name': 'car'},
+    {'id': 4, 'name': "truck"},
+    {'id': 5, 'name': "bus"},
+    {'id': 6, 'name': "train"},
+    {'id': 7, 'name': "motorcycle"},
+    {'id': 8, 'name': "bicycle"},
+    # {'id': 9, 'name': 'traffic light'},
+    # {'id': 10, 'name': 'traffic sign'},
+]
+
+
+logger = logging.getLogger(__name__)
 tmp_data_dir = ''
 hostname = platform.node()
 if "iGpu" in hostname or "iLab" in hostname:
@@ -21,8 +35,7 @@ elif re.search("[a-z]\d\d-\d\d", hostname):
     os.environ["TMPDIR"] = "/scratch1/briannlz"
 if "TMPDIR" in os.environ.keys():
     tmp_data_dir = os.path.join(os.environ["TMPDIR"], "GTR/datasets", '')
-print(f"bdd.py: HOSTNAME={hostname}")
-print(f"bdd.py: TMPDIR={os.environ['TMPDIR']}")
+
 
 def load_video_json(json_file, image_root, dataset_name=None, extra_annotation_keys=None, map_inst_id=False):
     """
@@ -144,18 +157,6 @@ def register_bdd_instances(name, metadata, json_file, image_root):
         evaluator_type="bdd", **metadata
     )
 
-categories = [
-    {'id': 1, 'name': 'pedestrian'},
-    {'id': 2, 'name': 'rider'},
-    {'id': 3, 'name': 'car'},
-    {'id': 4, 'name': "truck"},
-    {'id': 5, 'name': "bus"},
-    {'id': 6, 'name': "train"},
-    {'id': 7, 'name': "motorcycle"},
-    {'id': 8, 'name': "bicycle"},
-    # {'id': 9, 'name': 'traffic light'},
-    # {'id': 10, 'name': 'traffic sign'},
-]
 
 def _get_builtin_metadata():
     id_to_name = {x['id']: x['name'] for x in categories}
@@ -166,6 +167,7 @@ def _get_builtin_metadata():
         "thing_classes": thing_classes
     }
 
+
 _PREDEFINED_SPLITS = {
     "bdd100k_train":
         (os.path.join(tmp_data_dir, "bdd/BDD100K/images/track/train/"),
@@ -174,6 +176,7 @@ _PREDEFINED_SPLITS = {
         (os.path.join(tmp_data_dir, "bdd/BDD100K/images/track/val/"),
         os.path.join(tmp_data_dir, "bdd/BDD100K/labels/box_track_20/box_track_val_cocofmt.json")),
 }
+
 
 for key, (image_root, json_file) in _PREDEFINED_SPLITS.items():
     register_bdd_instances(
