@@ -114,8 +114,7 @@ if __name__ == "__main__":
             img = read_image(path, format="BGR")
             frames.append(img)
 
-        for path, visualized_output in zip(
-            args.input, demo.run_on_images(frames)):
+        for path, visualized_output in zip(args.input, demo.run_on_images(frames)):
             if args.output:
                 if not os.path.exists(args.output):
                     os.mkdir(args.output)

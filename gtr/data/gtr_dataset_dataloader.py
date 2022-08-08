@@ -59,9 +59,7 @@ def build_gtr_train_loader(cfg, mapper):
     world_size = get_world_size()
     batch_size = cfg.SOLVER.IMS_PER_BATCH // world_size
     assert batch_size == 1, f'batch_size should be 1, but {cfg.SOLVER.IMS_PER_BATCH}//{world_size}={batch_size}'
-    batch_sampler = torch.utils.data.sampler.BatchSampler(
-        sampler, batch_size, drop_last=True
-    )
+    batch_sampler = torch.utils.data.sampler.BatchSampler(sampler, batch_size, drop_last=True)
     return torch.utils.data.DataLoader(
         dataset,
         num_workers=cfg.DATALOADER.NUM_WORKERS,
@@ -91,9 +89,7 @@ def build_gtr_test_loader(cfg, dataset_name, mapper):
     return data_loader
 
 
-def get_video_dataset_dicts(
-    dataset_names, gen_inst_id=False,
-):
+def get_video_dataset_dicts(dataset_names, gen_inst_id=False, ):
     assert len(dataset_names)
     dataset_dicts = [DatasetCatalog.get(dataset_name) for dataset_name in dataset_names]
     for dataset_name, dicts in zip(dataset_names, dataset_dicts):

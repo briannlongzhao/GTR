@@ -47,7 +47,7 @@ python train_net.py --num-gpus 4 --config-file configs/GTR_BDD_FPN.yaml
 if [[ -v TMPDIR ]]
 then
     echo Copy output from TMPDIR=$TMPDIR to home
-    rm -r output
-    cp -r $TMPDIR/GTR/output ./output
+    rm -r output/
+    cp -r $TMPDIR/GTR/output/ ./output/
 fi
 echo Done

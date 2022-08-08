@@ -1,4 +1,3 @@
-
 import os
 import json
 import numpy as np
@@ -8,7 +7,6 @@ from ._base_dataset import _BaseDataset
 from .. import utils
 from .. import _timing
 
-
 class BDD100K(_BaseDataset):
     """Dataset class for BDD100K tracking"""
 
@@ -16,6 +14,7 @@ class BDD100K(_BaseDataset):
     def get_default_dataset_config():
         """Default class config values"""
         code_path = utils.get_code_path()
+        print("BDD100K eval code_path:", code_path)
         default_config = {
             'GT_FOLDER': os.path.join(code_path, 'data/gt/bdd100k/bdd100k_val'),  # Location of GT data
             'TRACKERS_FOLDER': os.path.join(code_path, 'data/trackers/bdd100k/bdd100k_val'),  # Trackers location
