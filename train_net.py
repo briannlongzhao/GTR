@@ -86,7 +86,7 @@ def do_visualize(cfg, model, dataloader, dataset_name, wandb_logger=None):
             wandb_logger.log_video(vis_video, video_name)
 
 
-def do_test(cfg, model, visualize=False, wandb_logger=None):
+def do_test(cfg, model, visualize=False, debug=False, wandb_logger=None):
     results = OrderedDict()
     for dataset_name in cfg.DATASETS.TEST:
         output_folder = os.path.join(cfg.OUTPUT_DIR, "inference_{}".format(dataset_name))
@@ -122,7 +122,8 @@ def do_test(cfg, model, visualize=False, wandb_logger=None):
             else:
                 mapper = GTRDatasetMapper(cfg, False, augmentations=build_custom_augmentation(cfg, False))
             data_loader = build_gtr_test_loader(cfg, dataset_name, mapper)
-            #data_loader = [next(iter(data_loader))] # Debug: load only one sequence
+            if debug:
+                data_loader = [next(iter(data_loader))] # Debug: load only one sequence
             results[dataset_name] = inference_on_dataset(model, data_loader, evaluator,)
             if visualize:
                 do_visualize(cfg, model, data_loader, dataset_name, wandb_logger)
@@ -134,7 +135,7 @@ def do_test(cfg, model, visualize=False, wandb_logger=None):
     return results
 
 
-def do_train(cfg, model, resume=False, wandb_logger=None):
+def do_train(cfg, model, resume=False, debug=False, wandb_logger=None):
     model = check_if_freeze_model(model, cfg)
     model.train()
     if cfg.SOLVER.USE_CUSTOM_SOLVER:
@@ -173,7 +174,8 @@ def do_train(cfg, model, resume=False, wandb_logger=None):
         data_loader = build_gtr_train_loader(cfg, mapper=mapper)
     else:
         data_loader = build_custom_train_loader(cfg, mapper=mapper)
-
+    if debug:
+        data_loader = [next(iter(data_loader))]  # Debug: load only one sequence
     logger.info("Starting training from iteration {}".format(start_iter))
     with EventStorage(start_iter) as storage:
         step_timer = Timer()
@@ -255,7 +257,7 @@ def main(args):
         DetectionCheckpointer(model, save_dir=cfg.OUTPUT_DIR).resume_or_load(
             cfg.MODEL.WEIGHTS, resume=args.resume
         )
-        return do_test(cfg, model, visualize=args.visualize, wandb_logger=wandb_logger)
+        return do_test(cfg, model, visualize=args.visualize, debug=args.debug, wandb_logger=wandb_logger)
 
     distributed = comm.get_world_size() > 1
     if distributed:
@@ -264,13 +266,14 @@ def main(args):
             find_unused_parameters=cfg.FIND_UNUSED_PARAM
         )
 
-    do_train(cfg, model, resume=args.resume, wandb_logger=wandb_logger)
-    return do_test(cfg, model, visualize=args.visualize, wandb_logger=wandb_logger)
+    do_train(cfg, model, resume=args.resume, debug=args.debug, wandb_logger=wandb_logger)
+    return do_test(cfg, model, visualize=args.visualize, debug=args.debug, wandb_logger=wandb_logger)
 
 
 if __name__ == "__main__":
     parser = default_argument_parser()
     parser.add_argument("--visualize", action="store_true")
+    parser.add_argument("--debug", action="store_true")
     args = parser.parse_args()
     args.dist_url = "tcp://127.0.0.1:{}".format(
         torch.randint(11111, 60000, (1,))[0].item())
