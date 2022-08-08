@@ -14,10 +14,9 @@ from detectron2.data.datasets.lvis_v1_categories import LVIS_CATEGORIES as LVIS_
 from detectron2.data.datasets.lvis import get_lvis_instances_meta, register_lvis_instances
 from detectron2.data.datasets.builtin_meta import _get_builtin_metadata
 
+
 logger = logging.getLogger(__name__)
-
 __all__ = ["load_tao_json", "register_tao_instances", "get_tao_instances_meta"]
-
 tmp_data_dir = ''
 hostname = platform.node()
 if "iGpu" in hostname or "iLab" in hostname:
@@ -26,8 +25,7 @@ elif re.search("[a-z]\d\d-\d\d", hostname):
     os.environ["TMPDIR"] = "/scratch1/briannlz"
 if "TMPDIR" in os.environ.keys():
     tmp_data_dir = os.path.join(os.environ["TMPDIR"], "GTR/datasets", '')
-print(f"mot.py: HOSTNAME={hostname}")
-print(f"mot.py: TMPDIR={os.environ['TMPDIR']}")
+
 
 def register_tao_instances(name, metadata, json_file, image_root):
     """
@@ -44,6 +42,7 @@ def register_tao_instances(name, metadata, json_file, image_root):
         json_file=json_file, image_root=image_root, evaluator_type="tao", **metadata
     )
 
+
 def register_tao_v1_instances(name, metadata, json_file, image_root):
     """
     Register a dataset in TAO's json annotation format for instance detection and segmentation.
@@ -58,6 +57,7 @@ def register_tao_v1_instances(name, metadata, json_file, image_root):
     MetadataCatalog.get(name).set(
         json_file=json_file, image_root=image_root, evaluator_type="lvis", **metadata
     )
+
 
 def load_tao_json(json_file, image_root, dataset_name=None):
     from lvis import LVIS
@@ -163,6 +163,7 @@ def get_tao_instances_meta():
     meta = {"thing_classes": thing_classes}
     return meta
 
+
 def get_tao_v1_instances_meta():
     assert len(LVIS_V1_CATEGORIES) == 1203
     cat_ids = [k["id"] for k in LVIS_V1_CATEGORIES]
@@ -188,6 +189,7 @@ _PREDEFINED_SPLITS_TAO = {
          os.path.join(tmp_data_dir, "tao/annotations/test_without_annotations.json")),
 }
 
+
 for key, (image_root, json_file) in _PREDEFINED_SPLITS_TAO.items():
     register_tao_instances(
         key,
@@ -208,6 +210,7 @@ _PREDEFINED_SPLITS_TAOV1 = {
         (os.path.join(tmp_data_dir, "tao/keyframes/"),
          os.path.join(tmp_data_dir, "tao/annotations/validation_v1_mini.json")),
 }
+
 
 for key, (image_root, json_file) in _PREDEFINED_SPLITS_TAOV1.items():
     register_tao_v1_instances(

@@ -11,8 +11,13 @@ from fvcore.common.timer import Timer
 from detectron2.data import DatasetCatalog, MetadataCatalog
 from detectron2.structures import BoxMode
 
-logger = logging.getLogger(__name__)
 
+categories = [
+    {'id': 1, 'name': 'person'},
+]
+
+
+logger = logging.getLogger(__name__)
 tmp_data_dir = ''
 hostname = platform.node()
 if "iGpu" in hostname or "iLab" in hostname:
@@ -21,8 +26,7 @@ elif re.search("[a-z]\d\d-\d\d", hostname):
     os.environ["TMPDIR"] = "/scratch1/briannlz"
 if "TMPDIR" in os.environ.keys():
     tmp_data_dir = os.path.join(os.environ["TMPDIR"], "GTR/datasets", '')
-print(f"mot.py: HOSTNAME={hostname}")
-print(f"mot.py: TMPDIR={os.environ['TMPDIR']}")
+
 
 def load_video_json(
     json_file, image_root, dataset_name=None, extra_annotation_keys=None,
@@ -148,9 +152,6 @@ def register_mot_instances(name, metadata, json_file, image_root):
         evaluator_type="mot", **metadata
     )
 
-categories = [
-    {'id': 1, 'name': 'person'},
-]
 
 def _get_builtin_metadata():
     id_to_name = {x['id']: x['name'] for x in categories}
@@ -160,6 +161,7 @@ def _get_builtin_metadata():
         "thing_dataset_id_to_contiguous_id": thing_dataset_id_to_contiguous_id,
         "thing_classes": thing_classes
     }
+
 
 _PREDEFINED_SPLITS = {
     "mot17_halfval":
@@ -175,6 +177,7 @@ _PREDEFINED_SPLITS = {
         (os.path.join(tmp_data_dir, "mot/MOT17/test/"),
         os.path.join(tmp_data_dir, "mot/MOT17/annotations/test_conf0.json")),
 }
+
 
 for key, (image_root, json_file) in _PREDEFINED_SPLITS.items():
     register_mot_instances(

@@ -16,8 +16,8 @@ try:
 except:
     LVIS_V1_CATEGORY_IMAGE_COUNT = None
 
-logger = logging.getLogger(__name__)
 
+logger = logging.getLogger(__name__)
 tmp_data_dir = ''
 hostname = platform.node()
 if "iGpu" in hostname or "iLab" in hostname:
@@ -26,8 +26,7 @@ elif re.search("[a-z]\d\d-\d\d", hostname):
     os.environ["TMPDIR"] = "/scratch1/briannlz"
 if "TMPDIR" in os.environ.keys():
     tmp_data_dir = os.path.join(os.environ["TMPDIR"], "GTR/datasets", '')
-print(f"lvis_v1.py: HOSTNAME={hostname}")
-print(f"lvis_v1.py: TMPDIR={os.environ['TMPDIR']}")
+
 
 def register_lvis_v1_instances(name, metadata, json_file, image_root):
     """
@@ -123,6 +122,7 @@ def get_lvis_v1_instances_meta():
         "thing_classes": thing_classes, 
         "class_image_count": LVIS_V1_CATEGORY_IMAGE_COUNT}
     return meta
+
 
 _PREDEFINED_SPLITS_LVIS_V1 = {
     "lvis_v1_train+coco_box":
