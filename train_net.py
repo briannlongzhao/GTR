@@ -72,8 +72,6 @@ def get_total_grad_norm(parameters, norm_type=2):
 
 
 def do_visualize(cfg, model, dataloader, dataset_name, wandb_logger=None):
-    # if not wandb.run:
-    #     wandb.init(project="GTR", config=cfg)
     demo = VisualizationDemo(cfg, model)
     anno = json.load(open(MetadataCatalog.get(dataset_name).json_file))
     vid2name = {item["id"]: item["file_name"] for item in anno["videos"]}
@@ -84,7 +82,7 @@ def do_visualize(cfg, model, dataloader, dataset_name, wandb_logger=None):
         frames = [read_image(item["file_name"]) for item in video]
         vis_video = np.array(list(demo.run_on_images(frames)))
         vis_video = np.einsum("ijkl->iljk", vis_video)
-        if wandb_logger is not None:
+        if wandb_logger:
             wandb_logger.log_video(vis_video, video_name)
 
 
@@ -102,8 +100,7 @@ def do_test(cfg, model, visualize=False, wandb_logger=None):
         elif evaluator_type == "mot":
             evaluator = MOTEvaluator(dataset_name, cfg, False, output_folder)
         elif evaluator_type == "bdd":
-            # TODO: evaluator = BDDEvaluator(dataset_name, cfg, False, output_folder)
-            raise NotImplementedError()
+            evaluator = MOTEvaluator(dataset_name, cfg, False, output_folder)
         else:
             raise NotImplementedError(evaluator_type)
 
@@ -125,8 +122,7 @@ def do_test(cfg, model, visualize=False, wandb_logger=None):
             else:
                 mapper = GTRDatasetMapper(cfg, False, augmentations=build_custom_augmentation(cfg, False))
             data_loader = build_gtr_test_loader(cfg, dataset_name, mapper)
-            # TODO (Xingyi): create a new video inference pipeline
-            #data_loader = [next(iter(data_loader))] # Debug: load only one sequence
+            data_loader = [next(iter(data_loader))] # Debug: load only one sequence
             results[dataset_name] = inference_on_dataset(model, data_loader, evaluator,)
             if visualize:
                 do_visualize(cfg, model, data_loader, dataset_name, wandb_logger)
@@ -168,7 +164,9 @@ def do_train(cfg, model, resume=False, wandb_logger=None):
         ] if comm.is_main_process() else []
     )
 
-    wandb_logger.watch(model, log="all", log_graph=True)
+    if comm.is_main_process():
+        wandb_logger.watch(model, log="all", log_graph=True)
+
     DatasetMapperClass = GTRDatasetMapper if cfg.VIDEO_INPUT else CustomDatasetMapper
     mapper = DatasetMapperClass(cfg, True, augmentations=build_custom_augmentation(cfg, True))
     if cfg.VIDEO_INPUT:
@@ -252,7 +250,7 @@ def main(args):
     cfg = setup(args)
     model = build_model(cfg)
     logger.info("Model:\n{}".format(model))
-    wandb_logger = WandbWriter(project="GTR", config=cfg)
+    wandb_logger = WandbWriter(project="GTR", config=cfg) if comm.is_main_process() else None
     if args.eval_only:
         DetectionCheckpointer(model, save_dir=cfg.OUTPUT_DIR).resume_or_load(
             cfg.MODEL.WEIGHTS, resume=args.resume
