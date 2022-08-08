@@ -13,7 +13,9 @@ from detectron2.evaluation.coco_evaluation import COCOEvaluator, _evaluate_predi
 from ..tracking.naive_tracker import track
 from ..tracking import trackeval
 from gtr.predictor import VisualizationDemo
+import wandb
 from wandb_writer import WandbWriter
+
 
 tmp_dir = ''
 hostname = platform.node()
@@ -23,8 +25,7 @@ elif re.search("[a-z]\d\d-\d\d", hostname):
     os.environ["TMPDIR"] = "/scratch1/briannlz"
 if "TMPDIR" in os.environ.keys():
     tmp_dir = os.path.join(os.environ["TMPDIR"], "GTR/", '')
-print(f"mot_evaluation.py: HOSTNAME={hostname}")
-print(f"mot_evaluation.py: TMPDIR={os.environ['TMPDIR']}")
+
 
 def eval_track(out_dir, year, dataset_name):
     freeze_support()
@@ -165,12 +166,15 @@ def custom_instances_to_coco_json(instances, img_id):
     
     return results
 
+
 class MOTEvaluator(COCOEvaluator):
     def __init__(self, dataset_name, cfg, distributed, output_dir=None, *, use_fast_impl=True):
         super().__init__(dataset_name, cfg, distributed, output_dir=output_dir, use_fast_impl=use_fast_impl)
         self.dataset_name = dataset_name
         self.visualizer = VisualizationDemo(cfg)
-        self.wandb_logger = WandbWriter(project="GTR", config=cfg)
+        self.wandb_logger = None
+        if comm.is_main_process():
+            self.wandb_logger = wandb.run if wandb.run else WandbWriter(project="GTR", config=cfg)
 
     def process(self, inputs, outputs):
         """
@@ -247,4 +251,5 @@ class MOTEvaluator(COCOEvaluator):
             dataset_name=self.dataset_name
         )
         self._results.update(track_res)
-        self.wandb_logger.log_results(self._results)
+        if self.wandb_logger:
+            self.wandb_logger.log_results(self._results)

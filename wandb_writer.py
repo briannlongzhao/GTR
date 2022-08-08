@@ -6,7 +6,7 @@ from detectron2.config import CfgNode
 
 class WandbWriter(EventWriter):
     """
-    Write all scalars to a wandb tool.
+    Write scalars and results to a wandb tool.
     """
 
     def __init__(
@@ -74,6 +74,7 @@ class WandbWriter(EventWriter):
                 table = wandb.Table(rows=rows, columns=columns, data=data)
                 table.add_column(name="Sequence", data=rows)
                 self._run.log({task: table})
+
 
     def watch(self, model, log="all", log_graph=False):
         self._run.watch(model, log=log, log_graph=log_graph)
