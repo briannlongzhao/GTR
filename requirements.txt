@@ -3,4 +3,5 @@ timm
 lvis
 lap
 scipy
+imageio==2.4.1
 git+https://github.com/TAO-Dataset/tao

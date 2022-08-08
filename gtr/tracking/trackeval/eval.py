@@ -75,16 +75,20 @@ class Evaluator:
                     time_start = time.time()
                     if config['USE_PARALLEL']:
                         with Pool(config['NUM_PARALLEL_CORES']) as pool:
-                            _eval_sequence = partial(eval_sequence, dataset=dataset, tracker=tracker,
-                                                     class_list=class_list, metrics_list=metrics_list,
-                                                     metric_names=metric_names)
+                            _eval_sequence = partial(
+                                eval_sequence,
+                                dataset=dataset,
+                                tracker=tracker,
+                                class_list=class_list,
+                                metrics_list=metrics_list,
+                                metric_names=metric_names
+                            )
                             results = pool.map(_eval_sequence, seq_list)
                             res = dict(zip(seq_list, results))
                     else:
                         res = {}
                         for curr_seq in sorted(seq_list):
-                            res[curr_seq] = eval_sequence(curr_seq, dataset, tracker, class_list, metrics_list,
-                                                          metric_names)
+                            res[curr_seq] = eval_sequence(curr_seq, dataset, tracker, class_list, metrics_list, metric_names)
 
                     # Combine results over all sequences and then over all classes
 

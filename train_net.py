@@ -8,7 +8,11 @@ import datetime
 import sys
 import re
 import platform
+import wandb
+import numpy as np
 from wandb_writer import WandbWriter
+from tqdm import tqdm
+import json
 
 from fvcore.common.timer import Timer
 import detectron2.utils.comm as comm
@@ -35,6 +39,7 @@ from detectron2.utils.events import (
     TensorboardXWriter,
 )
 from detectron2.data.dataset_mapper import DatasetMapper
+from detectron2.data.detection_utils import read_image
 from detectron2.solver import build_optimizer
 from detectron2.utils.logger import setup_logger
 
@@ -52,6 +57,7 @@ from gtr.costom_solver import build_custom_optimizer
 from gtr.evaluation.custom_lvis_evaluation import CustomLVISEvaluator
 from gtr.evaluation.mot_evaluation import MOTEvaluator
 from gtr.modeling.freeze_layers import check_if_freeze_model
+from gtr.predictor import VisualizationDemo
 
 logger = logging.getLogger("detectron2")
 
@@ -65,7 +71,24 @@ def get_total_grad_norm(parameters, norm_type=2):
     return total_norm
 
 
-def do_test(cfg, model):
+def do_visualize(cfg, model, dataloader, dataset_name, wandb_logger=None):
+    # if not wandb.run:
+    #     wandb.init(project="GTR", config=cfg)
+    demo = VisualizationDemo(cfg, model)
+    anno = json.load(open(MetadataCatalog.get(dataset_name).json_file))
+    vid2name = {item["id"]: item["file_name"] for item in anno["videos"]}
+    for video in dataloader:
+        assert video[0]["video_id"] == video[-1]["video_id"], "video_id does not match"
+        video_name = vid2name[video[0]["video_id"]]
+        logger.info("Running visualization on {}".format(video_name))
+        frames = [read_image(item["file_name"]) for item in video]
+        vis_video = np.array(list(demo.run_on_images(frames)))
+        vis_video = np.einsum("ijkl->iljk", vis_video)
+        if wandb_logger is not None:
+            wandb_logger.log_video(vis_video, video_name)
+
+
+def do_test(cfg, model, visualize=False, wandb_logger=None):
     results = OrderedDict()
     for dataset_name in cfg.DATASETS.TEST:
         output_folder = os.path.join(cfg.OUTPUT_DIR, "inference_{}".format(dataset_name))
@@ -78,16 +101,19 @@ def do_test(cfg, model):
             evaluator = COCOEvaluator(dataset_name, cfg, True, output_folder)
         elif evaluator_type == "mot":
             evaluator = MOTEvaluator(dataset_name, cfg, False, output_folder)
+        elif evaluator_type == "bdd":
+            # TODO: evaluator = BDDEvaluator(dataset_name, cfg, False, output_folder)
+            raise NotImplementedError()
         else:
-            assert 0, evaluator_type
+            raise NotImplementedError(evaluator_type)
 
         if not cfg.VIDEO_INPUT:
-            mapper = None if cfg.INPUT.TEST_INPUT_TYPE == "default" else \
-                DatasetMapper(
-                    cfg, False, augmentations=build_custom_augmentation(cfg, False))
+            if cfg.INPUT.TEST_INPUT_TYPE == "default":
+                mapper = None
+            else:
+                mapper = DatasetMapper(cfg, False, augmentations=build_custom_augmentation(cfg, False))
             data_loader = build_detection_test_loader(cfg, dataset_name, mapper=mapper)
-            results[dataset_name] = inference_on_dataset(
-                model, data_loader, evaluator)
+            results[dataset_name] = inference_on_dataset(model, data_loader, evaluator)
         else:
             if not comm.is_main_process():
                 continue
@@ -97,20 +123,22 @@ def do_test(cfg, model):
             if cfg.INPUT.TEST_INPUT_TYPE == "default":
                 mapper = GTRDatasetMapper(cfg, False)
             else:
-                mapper = GTRDatasetMapper(
-                    cfg, False, augmentations=build_custom_augmentation(cfg, False))
+                mapper = GTRDatasetMapper(cfg, False, augmentations=build_custom_augmentation(cfg, False))
             data_loader = build_gtr_test_loader(cfg, dataset_name, mapper)
             # TODO (Xingyi): create a new video inference pipeline
-            results[dataset_name] = inference_on_dataset(model, data_loader, evaluator, )
-        
-        if comm.is_main_process():
-            logger.info("Evaluation results for {} in csv format:".format(dataset_name))
-            print_csv_format(results[dataset_name])
+            #data_loader = [next(iter(data_loader))] # Debug: load only one sequence
+            results[dataset_name] = inference_on_dataset(model, data_loader, evaluator,)
+            if visualize:
+                do_visualize(cfg, model, data_loader, dataset_name, wandb_logger)
+        # if comm.is_main_process():
+        #     logger.info("Evaluation results for {} in csv format:".format(dataset_name))
+        #     print_csv_format(results[dataset_name])
     if len(results) == 1:
         results = list(results.values())[0]
     return results
 
-def do_train(cfg, model, resume=False):
+
+def do_train(cfg, model, resume=False, wandb_logger=None):
     model = check_if_freeze_model(model, cfg)
     model.train()
     if cfg.SOLVER.USE_CUSTOM_SOLVER:
@@ -122,34 +150,25 @@ def do_train(cfg, model, resume=False):
         optimizer = build_optimizer(cfg, model)
     scheduler = build_lr_scheduler(cfg, optimizer)
 
-    checkpointer = DetectionCheckpointer(
-        model, cfg.OUTPUT_DIR, optimizer=optimizer, scheduler=scheduler
-    )
+    checkpointer = DetectionCheckpointer(model, cfg.OUTPUT_DIR, optimizer=optimizer, scheduler=scheduler)
 
-    start_iter = (
-        checkpointer.resume_or_load(
-            cfg.MODEL.WEIGHTS, resume=resume,
-            ).get("iteration", -1) + 1
-    )
+    start_iter = (checkpointer.resume_or_load(cfg.MODEL.WEIGHTS, resume=resume,).get("iteration", -1) + 1)
     if not resume:
         start_iter = 0
     max_iter = cfg.SOLVER.MAX_ITER if cfg.SOLVER.TRAIN_ITER < 0 else cfg.SOLVER.TRAIN_ITER
 
-    periodic_checkpointer = PeriodicCheckpointer(
-        checkpointer, cfg.SOLVER.CHECKPOINT_PERIOD, max_iter=max_iter
-    )
+    periodic_checkpointer = PeriodicCheckpointer(checkpointer, cfg.SOLVER.CHECKPOINT_PERIOD, max_iter=max_iter)
 
     writers = (
         [
             CommonMetricPrinter(max_iter),
             JSONWriter(os.path.join(cfg.OUTPUT_DIR, "metrics.json")),
             TensorboardXWriter(cfg.OUTPUT_DIR),
-            WandbWriter(project="GTR", config=cfg)
-        ]
-        if comm.is_main_process()
-        else []
+            wandb_logger
+        ] if comm.is_main_process() else []
     )
 
+    wandb_logger.watch(model, log="all", log_graph=True)
     DatasetMapperClass = GTRDatasetMapper if cfg.VIDEO_INPUT else CustomDatasetMapper
     mapper = DatasetMapperClass(cfg, True, augmentations=build_custom_augmentation(cfg, True))
     if cfg.VIDEO_INPUT:
@@ -196,13 +215,14 @@ def do_train(cfg, model, resume=False):
                 do_test(cfg, model)
                 comm.synchronize()
 
-            if iteration - start_iter > 5 and (iteration % 20 == 0 or iteration == max_iter):
+            if iteration - start_iter > 5 and (iteration % 50 == 0 or iteration == max_iter):
                 for writer in writers:
                     writer.write(step=iteration) if type(writer) is WandbWriter else writer.write()
             periodic_checkpointer.step(iteration)
 
         total_time = time.perf_counter() - start_time
         logger.info("Total training time: {}".format(str(datetime.timedelta(seconds=int(total_time)))))
+
 
 def setup(args):
     """
@@ -232,11 +252,12 @@ def main(args):
     cfg = setup(args)
     model = build_model(cfg)
     logger.info("Model:\n{}".format(model))
+    wandb_logger = WandbWriter(project="GTR", config=cfg)
     if args.eval_only:
         DetectionCheckpointer(model, save_dir=cfg.OUTPUT_DIR).resume_or_load(
             cfg.MODEL.WEIGHTS, resume=args.resume
         )
-        return do_test(cfg, model)
+        return do_test(cfg, model, visualize=args.visualize, wandb_logger=wandb_logger)
 
     distributed = comm.get_world_size() > 1
     if distributed:
@@ -245,13 +266,14 @@ def main(args):
             find_unused_parameters=cfg.FIND_UNUSED_PARAM
         )
 
-    do_train(cfg, model, resume=args.resume)
-    return do_test(cfg, model)
+    do_train(cfg, model, resume=args.resume, wandb_logger=wandb_logger)
+    return do_test(cfg, model, visualize=args.visualize, wandb_logger=wandb_logger)
 
 
 if __name__ == "__main__":
-    args = default_argument_parser()
-    args = args.parse_args()
+    parser = default_argument_parser()
+    parser.add_argument("--visualize", action="store_true")
+    args = parser.parse_args()
     args.dist_url = "tcp://127.0.0.1:{}".format(
         torch.randint(11111, 60000, (1,))[0].item())
     print("Command Line Args:", args)

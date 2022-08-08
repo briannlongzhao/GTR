@@ -16,7 +16,7 @@ class MotChallenge2DBox(_BaseDataset):
     def get_default_dataset_config():
         """Default class config values"""
         code_path = utils.get_code_path()
-        print("code_path:", code_path)
+        print("MOT17 eval code_path:", code_path)
         default_config = {
             'GT_FOLDER': os.path.join(code_path, 'data/gt/mot_challenge/'),  # Location of GT data
             'TRACKERS_FOLDER': os.path.join(code_path, 'data/trackers/mot_challenge/'),  # Trackers location

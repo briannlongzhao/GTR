@@ -12,6 +12,8 @@ from fvcore.common.file_io import PathManager
 from detectron2.evaluation.coco_evaluation import COCOEvaluator, _evaluate_predictions_on_coco
 from ..tracking.naive_tracker import track
 from ..tracking import trackeval
+from gtr.predictor import VisualizationDemo
+from wandb_writer import WandbWriter
 
 tmp_dir = ''
 hostname = platform.node()
@@ -33,8 +35,7 @@ def eval_track(out_dir, year, dataset_name):
     default_dataset_config = trackeval.datasets.MotChallenge2DBox.get_default_dataset_config()
 
     default_metrics_config = {'METRICS': ['HOTA', 'CLEAR', 'Identity']}
-    config = {
-        **default_eval_config, **default_dataset_config, **default_metrics_config}  # Merge default configs
+    config = {**default_eval_config, **default_dataset_config, **default_metrics_config}  # Merge default configs
     config['GT_FOLDER'] = os.path.join(tmp_dir, 'datasets/mot/MOT{}/'.format(year))
     config['SPLIT_TO_EVAL'] = 'half_val'
     #config['SPLIT_TO_EVAL'] = "test" if "test" in dataset_name else "half_val"
@@ -50,7 +51,7 @@ def eval_track(out_dir, year, dataset_name):
     for metric in [trackeval.metrics.HOTA, trackeval.metrics.CLEAR, trackeval.metrics.Identity, trackeval.metrics.VACE]:
         if metric.get_name() in metrics_config['METRICS']:
             metrics_list.append(metric())
-    evaluator.evaluate(dataset_list, metrics_list)
+    return evaluator.evaluate(dataset_list, metrics_list)
 
 
 def save_cocojson_as_mottxt(out_dir, videos, video2images, per_image_preds):
@@ -111,7 +112,7 @@ def track_and_eval_mot(out_dir, data, preds, dataset_name):
             preds = [per_image_preds[x['id']] for x in images]
             preds = track(preds)
     save_cocojson_as_mottxt(mot_out_dir, videos, video2images, per_image_preds)
-    eval_track(out_dir + '/moteval', year, dataset_name)
+    return eval_track(out_dir + '/moteval', year, dataset_name)
 
 
 def custom_instances_to_coco_json(instances, img_id):
@@ -168,7 +169,8 @@ class MOTEvaluator(COCOEvaluator):
     def __init__(self, dataset_name, cfg, distributed, output_dir=None, *, use_fast_impl=True):
         super().__init__(dataset_name, cfg, distributed, output_dir=output_dir, use_fast_impl=use_fast_impl)
         self.dataset_name = dataset_name
-
+        self.visualizer = VisualizationDemo(cfg)
+        self.wandb_logger = WandbWriter(project="GTR", config=cfg)
 
     def process(self, inputs, outputs):
         """
@@ -178,12 +180,10 @@ class MOTEvaluator(COCOEvaluator):
             prediction = {"image_id": input["image_id"]}
             if "instances" in output:
                 instances = output["instances"].to(self._cpu_device)
-                prediction["instances"] = custom_instances_to_coco_json(
-                    instances, input["image_id"])
+                prediction["instances"] = custom_instances_to_coco_json(instances, input["image_id"])
             if "proposals" in output:
                 prediction["proposals"] = output["proposals"].to(self._cpu_device)
             self._predictions.append(prediction)
-
 
     def _eval_predictions(self, predictions, img_ids=None):
         """
@@ -240,6 +240,11 @@ class MOTEvaluator(COCOEvaluator):
             )
             self._results[task] = res
 
-        track_and_eval_mot(
-            self._output_dir, self._coco_api.dataset, coco_results,
-            dataset_name=self.dataset_name)
+        track_res, track_msg = track_and_eval_mot(
+            self._output_dir,
+            self._coco_api.dataset,
+            coco_results,
+            dataset_name=self.dataset_name
+        )
+        self._results.update(track_res)
+        self.wandb_logger.log_results(self._results)

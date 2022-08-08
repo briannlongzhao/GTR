@@ -126,19 +126,19 @@ class MultiDatasetSampler(Sampler):
         self._world_size = comm.get_world_size()
         
         self._ims_per_gpu = self._batch_size // self._world_size
-        self.dataset_ids =  torch.tensor(
-            [d['dataset_source'] for d in dataset_dicts], dtype=torch.long)
+        self.dataset_ids =  torch.tensor([d['dataset_source'] for d in dataset_dicts], dtype=torch.long)
 
-        dataset_weight = [torch.ones(s) * max(sizes) / s * r / sum(dataset_ratio) \
-            for i, (r, s) in enumerate(zip(dataset_ratio, sizes))]
+        dataset_weight = [
+            torch.ones(s) * max(sizes) / s * r / sum(dataset_ratio) \
+            for i, (r, s) in enumerate(zip(dataset_ratio, sizes))
+        ]
         dataset_weight = torch.cat(dataset_weight)
         self.weights = dataset_weight
         self.sample_epoch_size = len(self.weights)
 
     def __iter__(self):
         start = self._rank
-        yield from itertools.islice(
-            self._infinite_indices(), start, None, self._world_size)
+        yield from itertools.islice(self._infinite_indices(), start, None, self._world_size)
 
 
     def _infinite_indices(self):
@@ -147,5 +147,6 @@ class MultiDatasetSampler(Sampler):
         while True:
             ids = torch.multinomial(
                 self.weights, self.sample_epoch_size, generator=g, 
-                replacement=True)
+                replacement=True
+            )
             yield from ids

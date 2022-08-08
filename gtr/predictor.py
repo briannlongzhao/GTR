@@ -2,6 +2,7 @@ import cv2
 import numpy as np
 import torch
 
+import detectron2.data.transforms as T
 from detectron2.data import MetadataCatalog
 from detectron2.engine.defaults import DefaultPredictor
 from detectron2.utils.video_visualizer import VideoVisualizer, random_color
@@ -80,46 +81,59 @@ class TrackingVisualizer(VideoVisualizer):
         return colors
 
 class GTRPredictor(DefaultPredictor):
+    def __init__(self, cfg, model=None):
+        if model is None:
+            super().__init__(cfg)
+        else:
+            self.model = model
+            self.model.eval()
+            self.input_format = cfg.INPUT.FORMAT
+            self.aug = T.ResizeShortestEdge(
+                [cfg.INPUT.MIN_SIZE_TEST, cfg.INPUT.MIN_SIZE_TEST], cfg.INPUT.MAX_SIZE_TEST
+            )
+            if len(cfg.DATASETS.TEST):
+                self.metadata = MetadataCatalog.get(cfg.DATASETS.TEST[0])
+            assert self.input_format in ["RGB", "BGR"], self.input_format
+
     @torch.no_grad()
     def __call__(self, original_frames):
         """
         Args:
-            original_image (np.ndarray): an image of shape (H, W, C) (in BGR order).
+            original_image (np.ndarray):
+                An image of shape (H, W, C) (in BGR order).
 
         Returns:
             predictions (dict):
-                the output of the model for one image only.
+                The output of the model for one image only.
         """
         if self.input_format == "RGB":
-            original_frames = \
-                [x[:, :, ::-1] for x in original_frames]
+            original_frames = [x[:, :, ::-1] for x in original_frames]
         height, width = original_frames[0].shape[:2]
-        frames = [self.aug.get_transform(x).apply_image(x) \
-            for x in original_frames]
-        frames = [torch.as_tensor(x.astype("float32").transpose(2, 0, 1))\
-            for x in frames]
-        inputs = [{"image": x, "height": height, "width": width, "video_id": 0} \
-            for x in frames]
+        frames = [self.aug.get_transform(x).apply_image(x) for x in original_frames]
+        frames = [torch.as_tensor(x.astype("float32").transpose(2, 0, 1)) for x in frames]
+        inputs = [{"image": x, "height": height, "width": width, "video_id": 0} for x in frames]
         predictions = self.model(inputs)
         return predictions
 
 
 class VisualizationDemo(object):
-    def __init__(self, cfg, instance_mode=ColorMode.IMAGE):
+    def __init__(self, cfg, model=None, instance_mode=ColorMode.IMAGE):
         """
         Args:
             cfg (CfgNode):
             instance_mode (ColorMode):
-            parallel (bool): whether to run the model in different processes from visualization.
+            parallel (bool):
+                Whether to run the model in different processes from visualization.
                 Useful since the visualization logic can be slow.
+            model (nn.Module):
+                A trained model, or None if pretrained model weights specified in config.
         """
         self.metadata = MetadataCatalog.get(
             cfg.DATASETS.TEST[0] if len(cfg.DATASETS.TEST) else "__unused"
         )
         self.cpu_device = torch.device("cpu")
         self.instance_mode = instance_mode
-        self.video_predictor = GTRPredictor(cfg)
-
+        self.video_predictor = GTRPredictor(cfg, model)
 
     def _frame_from_video(self, video):
         while video.isOpened():
@@ -129,7 +143,6 @@ class VisualizationDemo(object):
             else:
                 break
 
-
     def _process_predictions(self, tracker_visualizer, frame, predictions):
         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         predictions = predictions["instances"].to(self.cpu_device)
@@ -137,7 +150,6 @@ class VisualizationDemo(object):
             frame, predictions)
         vis_frame = cv2.cvtColor(vis_frame.get_image(), cv2.COLOR_RGB2BGR)
         return vis_frame
-
 
     def run_on_video(self, video):
         """
@@ -147,7 +159,6 @@ class VisualizationDemo(object):
         outputs = self.video_predictor(frames)
         for frame, instances in zip(frames, outputs):
             yield self._process_predictions(tracker_visualizer, frame, instances)
-
 
     def run_on_images(self, frames):
         """
