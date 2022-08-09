@@ -9,6 +9,7 @@ import argparse
 import wandb
 from collections import defaultdict
 from multiprocessing import freeze_support
+from pathlib import Path
 import pycocotools.mask as mask_util
 from detectron2.structures import BoxMode
 from fvcore.common.file_io import PathManager
@@ -75,6 +76,7 @@ def save_cocojson(json_path, videos, images, categories, preds):
     coco_json["categories"] = categories
     annotations = [{**item, **{"instance_id": item["track_id"]}} for item in preds]
     coco_json["annotations"] = annotations
+    Path(json_path).parent.mkdir(exist_ok=True, parents=True)
     with open(json_path, 'w') as f:
         json.dump(coco_json, f)
 
