@@ -10,6 +10,7 @@ import pycocotools.mask as mask_util
 from detectron2.structures import Boxes, BoxMode, pairwise_iou
 from fvcore.common.file_io import PathManager
 from detectron2.evaluation.coco_evaluation import COCOEvaluator, _evaluate_predictions_on_coco
+import detectron2.utils.comm as comm
 from ..tracking.naive_tracker import track
 from ..tracking import trackeval
 from gtr.predictor import VisualizationDemo
@@ -29,12 +30,9 @@ if "TMPDIR" in os.environ.keys():
 
 def eval_track(out_dir, year, dataset_name):
     freeze_support()
-
     default_eval_config = trackeval.Evaluator.get_default_eval_config()
     default_eval_config['DISPLAY_LESS_PROGRESS'] = True
-    
     default_dataset_config = trackeval.datasets.MotChallenge2DBox.get_default_dataset_config()
-
     default_metrics_config = {'METRICS': ['HOTA', 'CLEAR', 'Identity']}
     config = {**default_eval_config, **default_dataset_config, **default_metrics_config}  # Merge default configs
     config['GT_FOLDER'] = os.path.join(tmp_dir, 'datasets/mot/MOT{}/'.format(year))

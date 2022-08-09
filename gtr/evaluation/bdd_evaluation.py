@@ -5,6 +5,7 @@ import os
 import platform
 import re
 import sys
+import argparse
 import wandb
 from collections import defaultdict
 from multiprocessing import freeze_support
@@ -16,11 +17,11 @@ from detectron2.utils import comm
 from ..tracking.naive_tracker import track
 from ..tracking import trackeval
 from gtr.predictor import VisualizationDemo
-from scalabel.label.from_coco import run
+from scalabel.label import from_coco
 from wandb_writer import WandbWriter
 
 sys.path.insert(0, os.path.join(os.getcwd(),"tools"))
-from bdd100k import eval
+from bdd100k.eval import run as bdd_eval
 
 tmp_dir = ''
 hostname = platform.node()
@@ -32,50 +33,60 @@ if "TMPDIR" in os.environ.keys():
     tmp_dir = os.path.join(os.environ["TMPDIR"], "GTR/", '')
 
 
-def eval_track(out_dir, year, dataset_name):
+def eval_track(out_dir, dataset_name):
     freeze_support()
-
     default_eval_config = trackeval.Evaluator.get_default_eval_config()
     default_eval_config['DISPLAY_LESS_PROGRESS'] = True
-    
     default_dataset_config = trackeval.datasets.BDD100K.get_default_dataset_config()
-
     default_metrics_config = {'METRICS': ['HOTA', 'CLEAR', 'Identity']}
     config = {**default_eval_config, **default_dataset_config, **default_metrics_config}  # Merge default configs
-    config['GT_FOLDER'] = os.path.join(tmp_dir, 'datasets/bdd/BDD100K/')
-    config['SPLIT_TO_EVAL'] = 'val'
-    config['TRACKERS_FOLDER'] = out_dir
-    eval_config = {k: v for k, v in config.items() if k in default_eval_config.keys()}
+    config['SPLIT_TO_EVAL'] = "val" if "val" in dataset_name else "train"
+    config['GT_FOLDER'] = os.path.join(tmp_dir, 'datasets/bdd/BDD100K/labels/box_track_20', config['SPLIT_TO_EVAL'])
+    config['TRACKERS_FOLDER'] = os.path.join(out_dir,"bddeval",config["SPLIT_TO_EVAL"],"pred/data/preds_bdd")
+    config["OUTPUT_FOLDER"] = os.path.join(out_dir,"bddeval",config['SPLIT_TO_EVAL'],"eval_results.json")
+    '''eval_config = {k: v for k, v in config.items() if k in default_eval_config.keys()}
     dataset_config = {k: v for k, v in config.items() if k in default_dataset_config.keys()}
     metrics_config = {k: v for k, v in config.items() if k in default_metrics_config.keys()}
     print('config', config)
-    # Run code
     evaluator = trackeval.Evaluator(eval_config)
     dataset_list = [trackeval.datasets.BDD100K(dataset_config)]
     metrics_list = []
     for metric in [trackeval.metrics.HOTA, trackeval.metrics.CLEAR, trackeval.metrics.Identity, trackeval.metrics.VACE]:
         if metric.get_name() in metrics_config['METRICS']:
-            metrics_list.append(metric())
-    return evaluator.evaluate(dataset_list, metrics_list)
+            metrics_list.append(metric())'''
+    # args = argparse.Namespace()
+    # args.config = None
+    # args.task = "box_track"
+    # args.gt = config["GT_FOLDER"]
+    # args.result = config["TRACKERS_FOLDER"]
+    # args.out_file = config["OUTPUT_FOLDER"]
+    # args.nproc = 4
+    args = [
+        "--task", "box_track",
+        "--gt", config["GT_FOLDER"],
+        "--result", config["TRACKERS_FOLDER"],
+        "--out-file", config["OUTPUT_FOLDER"]
+    ]
+    return bdd_eval.run(args)
 
 
 def save_cocojson(json_path, videos, images, categories, preds):
-    if os.path.exists(out_dir):
-        print('removing', out_dir)
-        os.system('rm -rf {}'.format(out_dir))
-    os.makedirs(out_dir, exist_ok=True)
     coco_json = {}
     coco_json["videos"] = videos
     coco_json["images"] = images
     coco_json["categories"] = categories
     annotations = [{**item, **{"instance_id": item["track_id"]}} for item in preds]
     coco_json["annotations"] = annotations
-    with open(json_path, "wb") as f:
+    with open(json_path, 'w') as f:
         json.dump(coco_json, f)
 
 
 def convert_coco_to_bdd(coco_path, bdd_dir):
-    pass
+    args = argparse.Namespace()
+    args.input = coco_path
+    args.output = bdd_dir
+    args.nproc = 4
+    from_coco.run(args)
 
 
 def track_and_eval_bdd(out_dir, data, preds, dataset_name):
@@ -106,7 +117,7 @@ def track_and_eval_bdd(out_dir, data, preds, dataset_name):
     bdd_json_dir = os.path.join(bdd_out_dir, "preds_bdd")
     save_cocojson(coco_json_path, videos, images, categories, preds)
     convert_coco_to_bdd(coco_json_path, bdd_json_dir)
-    return eval_track(out_dir + '/bddeval', year, dataset_name)
+    return eval_track(out_dir, dataset_name)
 
 
 def custom_instances_to_coco_json(instances, img_id):
@@ -236,11 +247,13 @@ class BDDEvaluator(COCOEvaluator):
             )
             self._results[task] = res
 
-        track_res, track_msg = track_and_eval_bdd(
+        track_res = track_and_eval_bdd(
             self._output_dir,
             self._coco_api.dataset,  # gt json coco format
             coco_results,
             dataset_name=self.dataset_name
         )
+        track_res_dict = track_res.dict()
+        track_res_sum = track_res.summary()
         self._results.update(track_res)
         self.wandb_logger.log_results(self._results)

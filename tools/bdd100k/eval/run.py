@@ -34,7 +34,7 @@ from .pan_seg import evaluate_pan_seg
 from .seg import evaluate_drivable, evaluate_sem_seg
 
 
-def parse_args() -> argparse.Namespace:
+def parse_args(args=None) -> argparse.Namespace:
     """Use argparse to get command line arguments."""
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -93,7 +93,7 @@ def parse_args() -> argparse.Namespace:
         "--quiet", "-q", action="store_true", help="without logging"
     )
 
-    return parser.parse_args()
+    return parser.parse_args(args) if args else parser.parse_args()
 
 
 def run_bitmask(
@@ -200,24 +200,20 @@ def _load_frames(
 ) -> Tuple[List[Frame], List[Frame]]:
     """Load ground truth and prediction frames."""
     gt_frames = bdd100k_to_scalabel(load(gt_base, nproc).frames, config)
-    result_frames = bdd100k_to_scalabel(
-        load(result_path, nproc).frames, config
-    )
+    result_frames = bdd100k_to_scalabel(load(result_path, nproc).frames, config)
     return gt_frames, result_frames
 
 
-def run() -> None:
+def run(arguments=None) -> None:
     """Main."""
-    args = parse_args()
+    args = parse_args(arguments)
     if args.config is not None:
         bdd100k_config = load_bdd100k_config(args.config)
     else:
         bdd100k_config = load_bdd100k_config(args.task)
 
     if args.task in ["det", "box_track", "pose"]:
-        gt_frames, result_frames = _load_frames(
-            args.gt, args.result, bdd100k_config, args.nproc
-        )
+        gt_frames, result_frames = _load_frames(args.gt, args.result, bdd100k_config, args.nproc)
         if args.task == "det":
             results: Result = evaluate_det(
                 gt_frames,
@@ -289,6 +285,7 @@ def run() -> None:
             os.makedirs(out_folder)
         with open(args.out_file, "w", encoding="utf-8") as fp:
             json.dump(dict(results), fp, indent=2)
+    return results
 
 
 if __name__ == "__main__":

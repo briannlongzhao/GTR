@@ -74,6 +74,8 @@ class WandbWriter(EventWriter):
                 table = wandb.Table(rows=rows, columns=columns, data=data)
                 table.add_column(name="Sequence", data=rows)
                 self._run.log({task: table})
+            elif task == "":
+                pass
 
 
     def watch(self, model, log="all", log_graph=False):
