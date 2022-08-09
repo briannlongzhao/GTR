@@ -110,7 +110,8 @@ def track_and_eval_bdd(out_dir, data, preds, dataset_name):
         bdd_out_dir = out_dir + '/bddeval/{}/naive/data/'.format(split)
         for video in videos:
             images = video2images[video['id']]
-            print('Runing tracking ...', video['file_name'], len(images))
+            file_name = video['name'] if "bdd" in dataset_name else video['file_name']
+            print('Runing tracking ...', file_name, len(images))
             preds = [per_image_preds[x['id']] for x in images]
             preds = track(preds)
     coco_json_path = os.path.join(bdd_out_dir,"preds_coco.json")
