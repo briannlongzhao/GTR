@@ -166,13 +166,12 @@ def custom_instances_to_coco_json(instances, img_id):
 
 
 class MOTEvaluator(COCOEvaluator):
-    def __init__(self, dataset_name, cfg, distributed, output_dir=None, *, use_fast_impl=True):
+    def __init__(self, dataset_name, cfg, distributed, output_dir=None, *, use_fast_impl=True, wandb_logger=None):
         super().__init__(dataset_name, cfg, distributed, output_dir=output_dir, use_fast_impl=use_fast_impl)
         self.dataset_name = dataset_name
         self.visualizer = VisualizationDemo(cfg)
         self.wandb_logger = None
-        if comm.is_main_process():
-            self.wandb_logger = wandb.run if wandb.run else WandbWriter(project="GTR", config=cfg)
+        self.wandb_logger = wandb_logger if comm.is_main_process() else None
 
     def process(self, inputs, outputs):
         """

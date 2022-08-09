@@ -74,7 +74,13 @@ def get_total_grad_norm(parameters, norm_type=2):
 def do_visualize(cfg, model, dataloader, dataset_name, wandb_logger=None):
     demo = VisualizationDemo(cfg, model)
     anno = json.load(open(MetadataCatalog.get(dataset_name).json_file))
-    vid2name = {item["id"]: item["file_name"] for item in anno["videos"]}
+    if "bdd" in dataset_name:
+        vid2name = {item["id"]: item["name"] for item in anno["videos"]}
+    elif "mot" in dataset_name:
+        vid2name = {item["id"]: item["file_name"] for item in anno["videos"]}
+    else:
+        raise NotImplementedError
+
     for video in dataloader:
         assert video[0]["video_id"] == video[-1]["video_id"], "video_id does not match"
         video_name = vid2name[video[0]["video_id"]]
@@ -98,9 +104,9 @@ def do_test(cfg, model, visualize=False, debug=False, wandb_logger=None):
         elif evaluator_type == "coco":
             evaluator = COCOEvaluator(dataset_name, cfg, True, output_folder)
         elif evaluator_type == "mot":
-            evaluator = MOTEvaluator(dataset_name, cfg, False, output_folder)
+            evaluator = MOTEvaluator(dataset_name, cfg, False, output_folder, wandb_logger=wandb_logger)
         elif evaluator_type == "bdd":
-            evaluator = BDDEvaluator(dataset_name, cfg, False, output_folder)
+            evaluator = BDDEvaluator(dataset_name, cfg, False, output_folder, wandb_logger=wandb_logger)
         else:
             raise NotImplementedError(evaluator_type)
 
@@ -122,8 +128,8 @@ def do_test(cfg, model, visualize=False, debug=False, wandb_logger=None):
             else:
                 mapper = GTRDatasetMapper(cfg, False, augmentations=build_custom_augmentation(cfg, False))
             data_loader = build_gtr_test_loader(cfg, dataset_name, mapper)
-            if debug:
-                data_loader = [next(iter(data_loader))] # Debug: load only one sequence
+            if debug: # Debug: load only one sequence
+                data_loader = [next(iter(data_loader))]
             results[dataset_name] = inference_on_dataset(model, data_loader, evaluator,)
             if visualize:
                 do_visualize(cfg, model, data_loader, dataset_name, wandb_logger)
@@ -175,7 +181,7 @@ def do_train(cfg, model, resume=False, debug=False, wandb_logger=None):
     else:
         data_loader = build_custom_train_loader(cfg, mapper=mapper)
 
-    if debug:
+    if debug: # Debug: only run 100 iterations for training
         max_iter = 100
 
     logger.info("Starting training from iteration {}".format(start_iter))

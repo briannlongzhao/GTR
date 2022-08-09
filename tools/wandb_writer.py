@@ -74,7 +74,7 @@ class WandbWriter(EventWriter):
                     columns.append(metric)
                     data.append(value)
                 data = [data]
-                table = wandb.Table(columns=columns, data=[data])
+                table = wandb.Table(columns=columns, data=data)
             else:
                 raise NotImplementedError
             self._run.log({task: table})

@@ -48,8 +48,8 @@ VIDEO_TEST:
   WITH_IOU: True
   NOT_MULT_THRESH: True
 DATASETS:
-  TRAIN: ("bdd100k_train","crowdhuman_train")
-  TEST: ("mot17_halfval",)
+  TRAIN: ("bdd100k_train",)
+  TEST: ("bdd100k_val",)
 FIND_UNUSED_PARAM: True
 DATALOADER:
   SAMPLER_TRAIN: "MultiDatasetSampler"
