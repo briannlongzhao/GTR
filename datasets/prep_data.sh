@@ -140,7 +140,8 @@ if [[ -v TMPDIR ]]; then
 	MOT17 $GTR_DIR_TMP
 	CrowdHuman $GTR_DIR_TMP
 	BDD100K $GTR_DIR_TMP
+	echo "Done prepare datasets"
 else
-    echo "Error: TMPDIR not set, "
+    echo "Error: TMPDIR not set"
     exit
 fi
