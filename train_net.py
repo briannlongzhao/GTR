@@ -120,7 +120,7 @@ def do_test(cfg, model, visualize=False, debug=False, wandb_logger=None):
         else:
             if not comm.is_main_process():
                 continue
-            # TODO (Xingyi): currently holistic test only works on 1 gpus 
+            # TODO (Xingyi): currently holistic test only works on 1 gpus
             #   due to unknown system issue. Try to fix.
             torch.multiprocessing.set_sharing_strategy("file_system")
             if cfg.INPUT.TEST_INPUT_TYPE == "default":
@@ -171,8 +171,8 @@ def do_train(cfg, model, resume=False, debug=False, wandb_logger=None):
         ] if comm.is_main_process() else []
     )
 
-    if comm.is_main_process():
-        wandb_logger.watch(model, log="all", log_graph=True)
+    #if comm.is_main_process():
+    #    wandb_logger.watch(model, log="all", log_graph=True)
 
     DatasetMapperClass = GTRDatasetMapper if cfg.VIDEO_INPUT else CustomDatasetMapper
     mapper = DatasetMapperClass(cfg, True, augmentations=build_custom_augmentation(cfg, True))
