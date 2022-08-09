@@ -253,7 +253,7 @@ class BDDEvaluator(COCOEvaluator):
             coco_results,
             dataset_name=self.dataset_name
         )
-        track_res_dict = track_res.dict()
-        track_res_sum = track_res.summary()
-        self._results.update(track_res)
+        track_res = track_res.summary()
+        track_res_full = track_res.dict()
+        self._results.update({"BDD100K": track_res})
         self.wandb_logger.log_results(self._results)

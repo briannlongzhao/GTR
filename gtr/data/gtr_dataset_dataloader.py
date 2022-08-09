@@ -4,7 +4,7 @@ import torch
 import torch.utils.data
 from detectron2.utils.comm import get_world_size
 
-
+from torch.utils.data import Subset
 from torch.utils.data.sampler import Sampler
 from detectron2.data.common import DatasetFromList, MapDataset
 from detectron2.data.samplers import TrainingSampler, RepeatFactorTrainingSampler
@@ -24,7 +24,7 @@ def single_batch_collator(batch):
     return batch[0]
 
 
-def build_gtr_train_loader(cfg, mapper):
+def build_gtr_train_loader(cfg, mapper, debug=False):
     """
     Modified from detectron2.data.build.build_custom_train_loader, but supports
     different samplers
@@ -37,6 +37,10 @@ def build_gtr_train_loader(cfg, mapper):
     for d in dataset_dicts:
         sizes[d['dataset_source']] += 1
     dataset = DatasetFromList(dataset_dicts, copy=False)
+    if debug:
+        subset_mask = [0]*len(dataset)
+        subset_mask[:max(cfg.SOLVER.IMS_PER_BATCH,2)] = [1]*max(cfg.SOLVER.IMS_PER_BATCH,2)
+        dataset = Subset(dataset, subset_mask)
     dataset = MapDataset(dataset, mapper)
 
     sampler_name = cfg.DATALOADER.SAMPLER_TRAIN

@@ -172,11 +172,10 @@ def do_train(cfg, model, resume=False, debug=False, wandb_logger=None):
     DatasetMapperClass = GTRDatasetMapper if cfg.VIDEO_INPUT else CustomDatasetMapper
     mapper = DatasetMapperClass(cfg, True, augmentations=build_custom_augmentation(cfg, True))
     if cfg.VIDEO_INPUT:
-        data_loader = build_gtr_train_loader(cfg, mapper=mapper)
+        data_loader = build_gtr_train_loader(cfg, mapper=mapper, debug=debug)
     else:
         data_loader = build_custom_train_loader(cfg, mapper=mapper)
-    if debug:
-        data_loader = [next(iter(data_loader))]  # Debug: load only one sequence
+
     logger.info("Starting training from iteration {}".format(start_iter))
     with EventStorage(start_iter) as storage:
         step_timer = Timer()
