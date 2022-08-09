@@ -8,10 +8,8 @@ import datetime
 import sys
 import re
 import platform
-import wandb
 import numpy as np
-from wandb_writer import WandbWriter
-from tqdm import tqdm
+
 import json
 
 from fvcore.common.timer import Timer
@@ -26,7 +24,6 @@ from detectron2.engine import default_argument_parser, default_setup, launch
 
 from detectron2.evaluation import (
     inference_on_dataset,
-    print_csv_format,
     COCOEvaluator,
 )
 
@@ -44,7 +41,9 @@ from detectron2.solver import build_optimizer
 from detectron2.utils.logger import setup_logger
 
 sys.path.insert(0, "third_party/CenterNet2/")
+sys.path.insert(0, "tools/")
 from centernet.config import add_centernet_config
+from wandb_writer import WandbWriter
 
 from gtr.config import add_gtr_config
 from gtr.data.custom_build_augmentation import build_custom_augmentation
@@ -172,9 +171,12 @@ def do_train(cfg, model, resume=False, debug=False, wandb_logger=None):
     DatasetMapperClass = GTRDatasetMapper if cfg.VIDEO_INPUT else CustomDatasetMapper
     mapper = DatasetMapperClass(cfg, True, augmentations=build_custom_augmentation(cfg, True))
     if cfg.VIDEO_INPUT:
-        data_loader = build_gtr_train_loader(cfg, mapper=mapper, debug=debug)
+        data_loader = build_gtr_train_loader(cfg, mapper=mapper)
     else:
         data_loader = build_custom_train_loader(cfg, mapper=mapper)
+
+    if debug:
+        max_iter = 100
 
     logger.info("Starting training from iteration {}".format(start_iter))
     with EventStorage(start_iter) as storage:

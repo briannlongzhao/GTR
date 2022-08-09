@@ -7,7 +7,7 @@ import re
 from collections import defaultdict
 from multiprocessing import freeze_support
 import pycocotools.mask as mask_util
-from detectron2.structures import Boxes, BoxMode, pairwise_iou
+from detectron2.structures import BoxMode
 from fvcore.common.file_io import PathManager
 from detectron2.evaluation.coco_evaluation import COCOEvaluator, _evaluate_predictions_on_coco
 import detectron2.utils.comm as comm

@@ -10,7 +10,7 @@ import wandb
 from collections import defaultdict
 from multiprocessing import freeze_support
 import pycocotools.mask as mask_util
-from detectron2.structures import Boxes, BoxMode, pairwise_iou
+from detectron2.structures import BoxMode
 from fvcore.common.file_io import PathManager
 from detectron2.evaluation.coco_evaluation import COCOEvaluator, _evaluate_predictions_on_coco
 from detectron2.utils import comm
@@ -19,8 +19,6 @@ from ..tracking import trackeval
 from gtr.predictor import VisualizationDemo
 from scalabel.label import from_coco
 from wandb_writer import WandbWriter
-
-sys.path.insert(0, os.path.join(os.getcwd(),"tools"))
 from bdd100k.eval import run as bdd_eval
 
 tmp_dir = ''
@@ -253,7 +251,7 @@ class BDDEvaluator(COCOEvaluator):
             coco_results,
             dataset_name=self.dataset_name
         )
-        track_res = track_res.summary()
+        track_res_dict = track_res.summary()
         track_res_full = track_res.dict()
-        self._results.update({"BDD100K": track_res})
+        self._results.update({"BDD100K": track_res_dict})
         self.wandb_logger.log_results(self._results)
