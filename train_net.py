@@ -81,10 +81,10 @@ def do_visualize(cfg, model, dataloader, dataset_name, wandb_logger=None):
     else:
         raise NotImplementedError
 
-    for video in dataloader:
+    for count, video in enumerate(dataloader):
         assert video[0]["video_id"] == video[-1]["video_id"], "video_id does not match"
         video_name = vid2name[video[0]["video_id"]]
-        logger.info("Running visualization on {}".format(video_name))
+        logger.info("Running visualization on {}, {}/{}".format(video_name, count+1, len(dataloader)))
         frames = [read_image(item["file_name"]) for item in video]
         vis_video = np.array(list(demo.run_on_images(frames)))
         vis_video = np.einsum("ijkl->iljk", vis_video)
@@ -181,8 +181,8 @@ def do_train(cfg, model, resume=False, debug=False, wandb_logger=None):
     else:
         data_loader = build_custom_train_loader(cfg, mapper=mapper)
 
-    if debug: # Debug: only run 100 iterations for training
-        max_iter = 100
+    if debug: # Debug: only run 1000 iterations for training
+        max_iter = 1000
 
     logger.info("Starting training from iteration {}".format(start_iter))
     with EventStorage(start_iter) as storage:

@@ -50,8 +50,14 @@ class WandbWriter(EventWriter):
 
     def log_results(self, results):
         for task, result in results.items():
-            row, columns, data = [], [], []
-            if task == "MotChallenge2DBox":
+            rows, columns, data = [], [], []
+            if task == "bbox":
+                for metric, value in result.items():
+                    columns.append(metric)
+                    data.append(value)
+                data = [data]
+                table = wandb.Table(columns=columns, data=data)
+            elif task == "MotChallenge2DBox":
                 num_metrics = 0
                 for metric_group, metrics in result["pred"]["COMBINED_SEQ"]["pedestrian"].items():
                     num_metrics += len(metrics)
@@ -69,12 +75,25 @@ class WandbWriter(EventWriter):
                     data.append(data_row)
                 table = wandb.Table(rows=rows, columns=columns, data=data)
                 table.add_column(name="Sequence", data=rows)
-            elif task in ["BDD100K", "bbox"]:
+            elif task == "BDD100K":
+                num_metrics = 0
+                num_class = 0
                 for metric, value in result.items():
-                    columns.append(metric)
-                    data.append(value)
-                data = [data]
-                table = wandb.Table(columns=columns, data=data)
+                    if type(value) is list:
+                        num_metrics += 1
+                        columns.append(metric)
+                for item in result["MOTA"]:
+                    num_class += len(item.keys())
+                    rows += item.keys()
+                data = np.zeros((num_class,num_metrics))
+                for metric, value in result.items():
+                    if type(value) is not list:
+                        continue
+                    for item in value:
+                        for cls, v in item.items():
+                            data[rows.index(cls)][columns.index(metric)] = v
+                table = wandb.Table(rows=rows, columns=columns, data=data)
+                table.add_column(name="Class", data=rows)
             else:
                 raise NotImplementedError
             self._run.log({task: table})
