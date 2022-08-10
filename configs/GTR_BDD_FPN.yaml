@@ -7,7 +7,10 @@ MODEL:
   ROI_HEADS:
     NAME: GTRROIHeads
     PROPOSAL_APPEND_GT: False
-    NO_BOX_HEAD: True
+  ROI_BOX_HEAD:
+    USE_SIGMOID_CE: True
+    USE_FED_LOSS: True
+    DELAY_CLS: True
   WEIGHTS: 'models/CH_FPN_1x.pth'
   ASSO_ON: True
   ASSO_HEAD:
