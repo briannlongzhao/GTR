@@ -275,7 +275,9 @@ def main(args):
         )
 
     do_train(cfg, model, resume=args.resume, debug=args.debug, wandb_logger=wandb_logger)
-    return do_test(cfg, model, visualize=args.visualize, debug=args.debug, wandb_logger=wandb_logger)
+    do_test(cfg, model, visualize=args.visualize, debug=args.debug, wandb_logger=wandb_logger)
+    wandb_logger.finish()
+    return
 
 
 if __name__ == "__main__":
