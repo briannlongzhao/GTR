@@ -4,7 +4,7 @@ MODEL:
   META_ARCHITECTURE: "GTRRCNN"
   BACKBONE:
     NAME: "build_p67_res2net_fpn_backbone"
-  WEIGHTS: "output/C2_LVISCOCO_DR2101_4x.pth"
+  WEIGHTS: "models/C2_LVISCOCO_DR2101_4x.pth"
   RESNETS:
     DEPTH: 101
     WIDTH_PER_GROUP: 26
