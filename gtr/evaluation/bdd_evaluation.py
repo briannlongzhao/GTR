@@ -204,6 +204,7 @@ class BDDEvaluator(COCOEvaluator):
             reverse_id_mapping = {
                 v: k for k, v in self._metadata.thing_dataset_id_to_contiguous_id.items()
             }
+            # TODO: add new reverse_id_mapping from lvis 0-idxed bdd 1-idxed
             for result in coco_results:
                 category_id = result["category_id"]
                 assert (
