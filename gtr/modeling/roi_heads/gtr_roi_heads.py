@@ -135,7 +135,7 @@ class GTRROIHeads(CascadeROIHeads):
         fg_inds = [x.objectness_logits > asso_thresh for x in instances]
         # fg proposals according to fg indicators
         proposals = [x[inds] for (x, inds) in zip(instances, fg_inds)]
-        # specific set of features from FPN accordign to config
+        # specific set of features from FPN according to config
         features = [features[f] for f in self.asso_in_features]
         # bboxes from fg proposals
         proposal_boxes = [x.proposal_boxes for x in proposals] #
