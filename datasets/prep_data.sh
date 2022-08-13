@@ -231,7 +231,7 @@ TAO() {
         python tools/tao/download/download_annotations.py "$DATASETS_DIR/tao/" --split train
         python tools/tao/download/verify.py "$DATASETS_DIR/tao/" --split train
         echo "Processing TAO dataset..."
-        python tools/move_tao_keyframes.py --gt datasets/tao/annotations/validation.json --img_dir datasets/tao/frames --img_dir datasets/tao/keyframes
+        python tools/move_tao_keyframes.py --gt datasets/tao/annotations/validation.json --img_dir datasets/tao/frames --out_dir datasets/tao/keyframes
         python tools/create_tao_v1.py datasets/tao/annotations/validation.json
 	else
 	    echo "lvis/ already exists"
