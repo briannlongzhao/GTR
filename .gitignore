@@ -10,6 +10,7 @@ slurm-output
 
 # output dir
 output/
+output_log/
 instant_test_output
 inference_test_output
 wandb/
