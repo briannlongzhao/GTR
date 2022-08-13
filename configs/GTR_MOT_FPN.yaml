@@ -55,3 +55,4 @@ DATALOADER:
   SAMPLER_TRAIN: "MultiDatasetSampler"
   SOURCE_AWARE: True
   DATASET_RATIO: [1, 1]
+OUTPUT_DIR: ./output/GTR_MOT/auto

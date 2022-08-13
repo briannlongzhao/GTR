@@ -29,7 +29,7 @@ MODEL:
     CLS_AGNOSTIC_BBOX_REG: True
     MULT_PROPOSAL_SCORE: True
   CENTERNET:
-    NUM_CLASSES: 8
+    NUM_CLASSES: 1
     REG_WEIGHT: 1.
     NOT_NORM_REG: True
     ONLY_PROPOSAL: True
@@ -63,4 +63,4 @@ INPUT:
   CUSTOM_AUG: EfficientDetResizeCrop
   TRAIN_SIZE: 896
   NOT_CLAMP_BOX: True
-OUTPUT_DIR: ./output/GTR_MOT/auto
+OUTPUT_DIR: ./output/GTR_C1/auto

@@ -8,6 +8,7 @@ import datetime
 import sys
 import re
 import platform
+import argparse
 import numpy as np
 
 import json
@@ -162,14 +163,23 @@ def do_train(cfg, model, resume=False, debug=False, wandb_logger=None):
 
     periodic_checkpointer = PeriodicCheckpointer(checkpointer, cfg.SOLVER.CHECKPOINT_PERIOD, max_iter=max_iter)
 
-    writers = (
-        [
-            CommonMetricPrinter(max_iter),
-            JSONWriter(os.path.join(cfg.OUTPUT_DIR, "metrics.json")),
-            TensorboardXWriter(cfg.OUTPUT_DIR),
-            wandb_logger
-        ] if comm.is_main_process() else []
-    )
+    writers = [
+        CommonMetricPrinter(max_iter),
+        JSONWriter(os.path.join(cfg.OUTPUT_DIR, "metrics.json")),
+        TensorboardXWriter(cfg.OUTPUT_DIR),
+    ] if comm.is_main_process() else []
+    if wandb_logger is not None:
+        writers.append(wandb_logger)
+
+
+    # writers = (
+    #     [
+    #         CommonMetricPrinter(max_iter),
+    #         JSONWriter(os.path.join(cfg.OUTPUT_DIR, "metrics.json")),
+    #         TensorboardXWriter(cfg.OUTPUT_DIR),
+    #         wandb_logger
+    #     ] if comm.is_main_process() else []
+    # )
 
     #if comm.is_main_process():
     #    wandb_logger.watch(model, log="all", log_graph=True)
@@ -260,7 +270,7 @@ def main(args):
     cfg = setup(args)
     model = build_model(cfg)
     logger.info("Model:\n{}".format(model))
-    wandb_logger = WandbWriter(project="GTR", config=cfg) if comm.is_main_process() else None
+    wandb_logger = WandbWriter(project="GTR", config=cfg) if (comm.is_main_process() and args.wandb) else None
     if args.eval_only:
         DetectionCheckpointer(model, save_dir=cfg.OUTPUT_DIR).resume_or_load(
             cfg.MODEL.WEIGHTS, resume=args.resume
@@ -285,6 +295,7 @@ if __name__ == "__main__":
     parser = default_argument_parser()
     parser.add_argument("--visualize", action="store_true")
     parser.add_argument("--debug", action="store_true")
+    parser.add_argument("--wandb", default=True, action=argparse.BooleanOptionalAction)
     args = parser.parse_args()
     args.dist_url = "tcp://127.0.0.1:{}".format(
         torch.randint(11111, 60000, (1,))[0].item())
