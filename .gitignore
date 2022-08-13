@@ -3,8 +3,8 @@ backup
 GTR_models
 GTR_models_TAO
 *.pth
-datasets/*.zip
-datasets/*.tar
+*.zip
+*.tar
 slurm-*.out
 slurm-output
 
@@ -14,6 +14,8 @@ output_log/
 instant_test_output
 inference_test_output
 wandb/
+output*txt
+error*txt
 
 *.png
 # *.json
