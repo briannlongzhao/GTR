@@ -2,7 +2,7 @@ _BASE_: "Base-CenterNet2.yaml"
 MODEL:
   BACKBONE:
     NAME: "build_p67_res2net_fpn_backbone"
-  WEIGHTS: "output/r2_101.pkl"
+  WEIGHTS: "models/r2_101.pkl"
   RESNETS:
     DEPTH: 101
     WIDTH_PER_GROUP: 26
