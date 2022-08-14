@@ -10,7 +10,7 @@ parameters:
   SOLVER.OPTIMIZER:
     values: ["ADAMW", "SGD"]
 command:
-  - ~/anaconda3/envs/gtr/bin/
+  - ${env}
   - python
   - ${program}
   - "--config"
