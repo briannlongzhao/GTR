@@ -287,7 +287,7 @@ def main(args):
     do_train(cfg, model, resume=args.resume, debug=args.debug, wandb_logger=wandb_logger)
     do_test(cfg, model, visualize=args.visualize, debug=args.debug, wandb_logger=wandb_logger)
     if comm.is_main_process():
-        wandb_logger.finish()
+        wandb_logger.close()
     return
 
 
