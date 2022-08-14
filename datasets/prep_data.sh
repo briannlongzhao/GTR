@@ -179,10 +179,10 @@ LVIS() {
 		    wget -q https://s3-us-west-2.amazonaws.com/dl.fbaipublicfiles.com/LVIS/lvis_v1_train.json.zip
 		fi
 		if [[ -f $GTR_DIR/datasets/lvis/lvis_v1_val.json.zip ]]; then
-		    echo "Copying LVIS train annotations..."
+		    echo "Copying LVIS val annotations..."
 		    cp $GTR_DIR/datasets/lvis/lvis_v1_val.json.zip ./
 		else
-		    echo "Downloading LVIS train annotations..."
+		    echo "Downloading LVIS val annotations..."
 		    wget -q https://s3-us-west-2.amazonaws.com/dl.fbaipublicfiles.com/LVIS/lvis_v1_val.json.zip
 		fi
 		echo "Extracting LVIS dataset..."
@@ -204,7 +204,7 @@ TAO() {
 	    if [[ -d $GTR_DIR/datasets/tao/ ]]; then
 	        echo "Copying TAO dataset..."
 	        cp $GTR_DIR/datasets/tao/*.zip ./
-	        if [[ $(ls -1 | wc -l) == 6 ]]; then
+	        if [[ $(ls -1 | wc -l) -ge 2 ]]; then
 		        TAO_SUCCESS=1
             else
                 echo "Failed copying TAO dataset"
@@ -213,13 +213,13 @@ TAO() {
         fi
         if [[ $TAO_SUCCESS == 0 ]]; then
             echo "Downloading TAO dataset..."
-            wget -q "https://motchallenge.net/data/1-TAO_TRAIN.zip"
+            #wget -q "https://motchallenge.net/data/1-TAO_TRAIN.zip"
             wget -q "https://motchallenge.net/data/2-TAO_VAL.zip"
-            wget -q "https://motchallenge.net/data/3-TAO_TEST.zip"
-            wget -q "https://motchallenge.net/data/1_AVA_HACS_TRAIN_67214e7e7fc77341d6eb3bc54d4d3e68.zip"
+            #wget -q "https://motchallenge.net/data/3-TAO_TEST.zip"
+            #wget -q "https://motchallenge.net/data/1_AVA_HACS_TRAIN_67214e7e7fc77341d6eb3bc54d4d3e68.zip"
             wget -q "https://motchallenge.net/data/2_AVA_HACS_VAL_67214e7e7fc77341d6eb3bc54d4d3e68.zip"
-            wget -q "https://motchallenge.net/data/3_AVA_HACS_TEST_67214e7e7fc77341d6eb3bc54d4d3e68.zip"
-            if [[ $(ls -1 | wc -l) != 6 ]]; then
+            #wget -q "https://motchallenge.net/data/3_AVA_HACS_TEST_67214e7e7fc77341d6eb3bc54d4d3e68.zip"
+            if [[ $(ls -1 | wc -l) -lt 2 ]]; then
 		        echo "Error: Incomplete TAO dataset, go to MOT website for TAO AVA and HACS dataset"
 		        exit
             fi
@@ -234,7 +234,7 @@ TAO() {
         python tools/move_tao_keyframes.py --gt datasets/tao/annotations/validation.json --img_dir datasets/tao/frames --out_dir datasets/tao/keyframes
         python tools/create_tao_v1.py datasets/tao/annotations/validation.json
 	else
-	    echo "lvis/ already exists"
+	    echo "tao/ already exists"
     fi
 }
 
@@ -266,12 +266,12 @@ if [[ -v TMPDIR ]]; then
 	rm -rf $GTR_DIR_TMP/models/
 	cp -r $GTR_DIR/models/ $GTR_DIR_TMP/models/
 
-	MOT17 $GTR_DIR_TMP
-	CrowdHuman $GTR_DIR_TMP
+	#MOT17 $GTR_DIR_TMP
+	#CrowdHuman $GTR_DIR_TMP
 	BDD100K $GTR_DIR_TMP
-	COCO2017 $GTR_DIR_TMP
-	LVIS $GTR_DIR_TMP
-	TAO $GTR_DIR_TMP
+	#COCO2017 $GTR_DIR_TMP
+	#LVIS $GTR_DIR_TMP
+	#TAO $GTR_DIR_TMP
 	echo "Done prepare datasets"
 else
     echo "Error: TMPDIR not set"

@@ -191,8 +191,8 @@ def do_train(cfg, model, resume=False, debug=False, wandb_logger=None):
     else:
         data_loader = build_custom_train_loader(cfg, mapper=mapper)
 
-    if debug: # Debug: only run 1000 iterations for training
-        max_iter = 1000
+    if debug: # Debug: only run few iterations for training
+        max_iter = 2000
 
     logger.info("Starting training from iteration {}".format(start_iter))
     with EventStorage(start_iter) as storage:
