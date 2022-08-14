@@ -1,0 +1,20 @@
+program: train_net.py
+method: random
+metric:
+  name: total_loss
+  goal: minimize
+parameters:
+  SOLVER.BASE_LR:
+    min: 0.00001
+    max: 0.1
+  SOLVER.OPTIMIZER:
+    values: ["ADAMW", "SGD"]
+command:
+  - ~/anaconda3/envs/gtr/bin/
+  - python
+  - ${program}
+  - "--config"
+  - "configs/GTR_BDD_DR2101_C2.yaml"
+  - "--num-gpus"
+  - "4"
+  - ${args}
