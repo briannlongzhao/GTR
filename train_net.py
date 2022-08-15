@@ -253,6 +253,10 @@ def setup(args):
     cfg.merge_from_list(args.opts)
     if args.num_gpus:
         cfg.SOLVER.IMS_PER_BATCH = args.num_gpus
+    if args.lr:
+        cfg.SOLVER.BASE_LR = args.lr
+    if args.optimizer:
+        cfg.SOLVER.OPTIMIZER = args.optimizer
     if "TMPDIR" in os.environ.keys():
         cfg.OUTPUT_DIR = (cfg.OUTPUT_DIR).replace('.', os.path.join(os.environ["TMPDIR"], "GTR"))
         cfg.MODEL.WEIGHTS = os.path.join(os.environ["TMPDIR"], "GTR" ,cfg.MODEL.WEIGHTS)
@@ -296,6 +300,8 @@ if __name__ == "__main__":
     parser.add_argument("--visualize", action="store_true")
     parser.add_argument("--debug", action="store_true")
     parser.add_argument("--wandb", default=True, action=argparse.BooleanOptionalAction)
+    parser.add_argument("--lr")
+    parser.add_argument("--optimizer")
     args = parser.parse_args()
     args.dist_url = "tcp://127.0.0.1:{}".format(
         torch.randint(11111, 60000, (1,))[0].item())

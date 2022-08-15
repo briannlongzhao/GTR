@@ -4,10 +4,10 @@ metric:
   name: total_loss
   goal: minimize
 parameters:
-  SOLVER.BASE_LR:
+  lr:
     min: 0.00001
     max: 0.1
-  SOLVER.OPTIMIZER:
+  optimizer:
     values: ["ADAMW", "SGD"]
 command:
   - ${env}
@@ -17,4 +17,4 @@ command:
   - "configs/GTR_BDD_DR2101_C2.yaml"
   - "--num-gpus"
   - "4"
-  - ${args_no_hyphens}
+  - ${args}
