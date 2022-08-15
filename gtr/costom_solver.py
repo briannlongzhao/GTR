@@ -35,6 +35,7 @@ def build_custom_optimizer(cfg: CfgNode, model: torch.nn.Module) -> torch.optim.
         lr = cfg.SOLVER.BASE_LR
         weight_decay = cfg.SOLVER.WEIGHT_DECAY
         if "backbone" in key:
+            print(type(lr), type(cfg.SOLVER.BACKBONE_MULTIPLIER))
             lr = lr * cfg.SOLVER.BACKBONE_MULTIPLIER
         if match_name_keywords(key, custom_multiplier_name):
             lr = lr * cfg.SOLVER.CUSTOM_MULTIPLIER
