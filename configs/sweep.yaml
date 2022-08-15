@@ -1,12 +1,12 @@
 program: train_net.py
-method: random
+method: bayes
 metric:
   name: total_loss
   goal: minimize
 parameters:
   lr:
     min: 0.00001
-    max: 0.1
+    max: 0.05
   optimizer:
     values: ["ADAMW", "SGD"]
 command:

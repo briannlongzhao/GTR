@@ -224,7 +224,7 @@ TAO() {
 		        exit
             fi
         fi
-        echo "Extracting LVIS dataset..."
+        echo "Extracting TAO dataset..."
         ls -1 | xargs -n 1 -P 0 unzip -q
         cd "$1" || exit
         echo "Downloading TAO annotations"
@@ -240,7 +240,7 @@ TAO() {
 
 # Set TMPDIR if on iLab or Discovery
 if [[ $HOSTNAME =~ iGpu || $HOSTNAME =~ iLab ]]; then
-	export TMPDIR=/lab/tmpig8e/u/brian-data
+	export TMPDIR=/lab/tmpig8b/u/brian-data
 elif [[ $HOSTNAME =~ "discovery" || $HOSTNAME =~ "hpc" || $HOSTNAME =~ [a-z][0-9][0-9]-[0-9][0-9] ]]; then
     export TMPDIR=/scratch1/briannlz
     module load gcc
