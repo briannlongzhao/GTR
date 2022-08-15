@@ -267,12 +267,12 @@ if [[ -v TMPDIR ]]; then
 	rm -rf $GTR_DIR_TMP/models/
 	cp -r $GTR_DIR/models/ $GTR_DIR_TMP/models/
 
-	#MOT17 $GTR_DIR_TMP
-	#CrowdHuman $GTR_DIR_TMP
+	MOT17 $GTR_DIR_TMP
+	CrowdHuman $GTR_DIR_TMP
 	BDD100K $GTR_DIR_TMP
-	#COCO2017 $GTR_DIR_TMP
-	#LVIS $GTR_DIR_TMP
-	#TAO $GTR_DIR_TMP
+	COCO2017 $GTR_DIR_TMP
+	LVIS $GTR_DIR_TMP
+	TAO $GTR_DIR_TMP
 	echo "Done prepare datasets"
 else
     echo "Error: TMPDIR not set"
