@@ -8,8 +8,8 @@
 #SBATCH --qos=premium_memory
 #SBATCH --mem=128GB
 #SBATCH --time=5-00:00:00
-#SBATCH --output=sweep_%j_output.txt
-#SBATCH --error=sweep_%j_error.txt
+#SBATCH --output=sweep_output_%j.txt
+#SBATCH --error=sweep_error_%j.txt
 #SBATCH --open-mode=truncate
 #SBATCH --gres=gpu:4
 
