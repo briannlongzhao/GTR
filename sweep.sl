@@ -38,6 +38,6 @@ fi
 wandb login --relogin da75e98d29ae627bc5e000d68b033fda0155fc79
 
 # Sweep
-wandb agent --count 1 briannlongzhao/uncategorized/5bkbj00e
+wandb agent --count 1 briannlongzhao/uncategorized/gche9pj6
 
 echo Done
