@@ -10,11 +10,11 @@ parameters:
   SOLVER.OPTIMIZER:
     values: ["ADAMW", "SGD"]
 command:
-  - ${env}
+  - /nas/home/briannlz/anaconda3/envs/gtr/bin
   - python
   - ${program}
   - "--config"
   - "configs/GTR_BDD_DR2101_C2.yaml"
   - "--num-gpus"
   - "4"
-  - ${args}
+  - ${args_no_hyphens}
