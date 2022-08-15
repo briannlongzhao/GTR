@@ -254,7 +254,7 @@ def setup(args):
     if args.num_gpus:
         cfg.SOLVER.IMS_PER_BATCH = args.num_gpus
     if args.lr:
-        cfg.SOLVER.BASE_LR = args.lr
+        cfg.SOLVER.BASE_LR = float(args.lr)
     if args.optimizer:
         cfg.SOLVER.OPTIMIZER = args.optimizer
     if "TMPDIR" in os.environ.keys():
