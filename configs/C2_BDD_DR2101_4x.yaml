@@ -2,7 +2,7 @@ _BASE_: "Base-CenterNet2.yaml"
 MODEL:
   BACKBONE:
     NAME: "build_p67_res2net_fpn_backbone"
-  WEIGHTS: "models/C2_LVISCOCO_DR2101_4x.yaml"
+  WEIGHTS: "models/C2_LVISCOCO_DR2101_4x.pth"
   RESNETS:
     DEPTH: 101
     WIDTH_PER_GROUP: 26
