@@ -254,6 +254,8 @@ fi
 
 # Download to data directory specified by $TMPDIR if set
 if [[ -v TMPDIR ]]; then
+    conda init
+    source ~/.bashrc
     conda activate gtr
 	echo "Preparing data in TMPDIR=$TMPDIR"
 	GTR_DIR_TMP=$TMPDIR/GTR
@@ -267,7 +269,7 @@ if [[ -v TMPDIR ]]; then
 	rm -rf $GTR_DIR_TMP/models/
 	cp -r $GTR_DIR/models/ $GTR_DIR_TMP/models/
 
-    if [[ -v $1 ]]; then
+    if [[ $# -eq 1 ]]; then
         echo "preparing $1 only"
         $1 $GTR_DIR_TMP
         exit
