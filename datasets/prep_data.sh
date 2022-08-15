@@ -254,6 +254,7 @@ fi
 
 # Download to data directory specified by $TMPDIR if set
 if [[ -v TMPDIR ]]; then
+    conda activate gtr
 	echo "Preparing data in TMPDIR=$TMPDIR"
 	GTR_DIR_TMP=$TMPDIR/GTR
 	if ! [[ -d $GTR_DIR_TMP/datasets ]]; then
