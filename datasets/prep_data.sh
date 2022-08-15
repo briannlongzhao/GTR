@@ -267,6 +267,11 @@ if [[ -v TMPDIR ]]; then
 	rm -rf $GTR_DIR_TMP/models/
 	cp -r $GTR_DIR/models/ $GTR_DIR_TMP/models/
 
+    if [[ -v $1 ]]; then
+        echo "preparing $1 only"
+        $1 $GTR_DIR_TMP
+        exit
+    fi
 	MOT17 $GTR_DIR_TMP
 	CrowdHuman $GTR_DIR_TMP
 	BDD100K $GTR_DIR_TMP

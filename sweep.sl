@@ -32,7 +32,7 @@ then
 fi
 
 # Prepare datasets in $TMPDIR
-./datasets/prep_data.sh
+./datasets/prep_data.sh BDD100K
 
 # Login wandb
 wandb login --relogin da75e98d29ae627bc5e000d68b033fda0155fc79
