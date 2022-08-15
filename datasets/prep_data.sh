@@ -254,8 +254,7 @@ fi
 
 # Download to data directory specified by $TMPDIR if set
 if [[ -v TMPDIR ]]; then
-    conda init
-    source ~/.bashrc
+    conda init bash
     conda activate gtr
 	echo "Preparing data in TMPDIR=$TMPDIR"
 	GTR_DIR_TMP=$TMPDIR/GTR
