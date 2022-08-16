@@ -229,7 +229,7 @@ TAO() {
         cd "$1" || exit
         echo "Downloading TAO annotations"
         python tools/tao/download/download_annotations.py "$DATASETS_DIR/tao/" --split train
-        python tools/tao/download/verify.py "$DATASETS_DIR/tao/" --split train
+        #python tools/tao/download/verify.py "$DATASETS_DIR/tao/" --split train
         echo "Processing TAO dataset..."
         python tools/move_tao_keyframes.py --gt datasets/tao/annotations/validation.json --img_dir datasets/tao/frames --out_dir datasets/tao/keyframes
         python tools/create_tao_v1.py datasets/tao/annotations/validation.json
@@ -246,7 +246,7 @@ elif [[ $HOSTNAME =~ "discovery" || $HOSTNAME =~ "hpc" || $HOSTNAME =~ [a-z][0-9
     module load gcc
     module load unzip
 elif [[ $HOSTNAME =~ "turing" || $HOSTNAME =~ "vista" ]]; then
-    :
+    GTR_DIR=/nas/vista-ssd03/users/briannlz/GTR
 else
     echo "Error: Unknown host: $HOSTNAME"
     exit
