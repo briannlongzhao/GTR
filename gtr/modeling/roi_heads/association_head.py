@@ -84,6 +84,8 @@ class FCHead(nn.Module):
                 x = torch.flatten(x, start_dim=1)
             for layer in self.fcs:
                 x = F.relu(layer(x))
+        if not self.training:
+            x = x.detach()
         return x
 
     @property

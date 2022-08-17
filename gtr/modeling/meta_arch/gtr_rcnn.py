@@ -8,7 +8,7 @@ from detectron2.structures import Boxes, pairwise_iou, Instances
 
 from detectron2.modeling.meta_arch.build import META_ARCH_REGISTRY
 from .custom_rcnn import CustomRCNN
-from ..roi_heads.custom_fast_rcnn import custom_fast_rcnn_inference
+from ..roi_heads.custom_fast_rcnn import custom_fast_rcnn_inference, fast_rcnn_inference_single_image
 
 @META_ARCH_REGISTRY.register()
 class GTRRCNN(CustomRCNN):
@@ -68,7 +68,8 @@ class GTRRCNN(CustomRCNN):
         losses = {}
         losses.update(detector_losses)
         losses.update(proposal_losses)
-        return losses
+        cls_acc = self.eval_cls_acc(batched_inputs)
+        return losses, cls_acc
 
 
     def sliding_inference(self, batched_inputs):
@@ -282,3 +283,56 @@ class GTRRCNN(CustomRCNN):
                     (0, 0) for _ in range(len(batched_inputs))],
                 not_clamp_box=self.not_clamp_box)
         return instances
+
+    def eval_cls_acc(self, batched_inputs):
+        self.eval()
+        self.proposal_generator.eval()
+        self.backbone.eval()
+        self.roi_heads.eval()
+        self.roi_heads.asso_head.eval()
+        self.roi_heads.asso_pooler.eval()
+        gt_instances = [x["instances"].to(self.device) for x in batched_inputs]
+        pred_instances = []
+        for frame_id in range(len(batched_inputs)):
+            gt_instances_image = batched_inputs[frame_id]["instances"].to(self.device)
+            image = self.preprocess_image(batched_inputs[frame_id:frame_id + 1])
+            feature = {k: v.detach() for k, v in self.backbone(image.tensor).items()}
+            proposals, _ = self.proposal_generator(image, feature, None)
+            results, _ = self.roi_heads(image, feature, proposals, None)
+            pred_instances_image, _ = fast_rcnn_inference_single_image(
+                results[0].pred_boxes.tensor,
+                results[0].cls_scores,
+                None,
+                results[0].reid_features,
+                results[0].image_size,
+                self.roi_heads.box_predictor[-1].test_score_thresh,
+                self.roi_heads.box_predictor[-1].test_nms_thresh,
+                self.roi_heads.box_predictor[-1].test_topk_per_image,
+                self.not_clamp_box
+            )
+            pred_instances.append(pred_instances_image)
+        gt_labels = [instance.gt_classes.tolist() for instance in gt_instances]
+        pred_labels = [instance.pred_classes.tolist() for instance in pred_instances]
+        acc = []
+        for frame_id in range(len(batched_inputs)):
+            correct_count = 0
+            gt_labels_image = gt_labels[frame_id]
+            pred_labels_image = pred_labels[frame_id]
+            total = max(len(gt_labels_image), len(pred_labels_image))
+            for gt_label in gt_labels_image:
+                if gt_label in pred_labels_image:
+                    correct_count += 1
+                    pred_labels_image.remove(gt_label)
+            try:
+                acc_image = correct_count/total
+            except ZeroDivisionError:
+                acc_image = 1
+            acc.append(acc_image)
+        acc = sum(acc)/len(acc)
+        self.train()
+        self.proposal_generator.train()
+        self.backbone.train()
+        self.roi_heads.train()
+        self.roi_heads.asso_head.train()
+        self.roi_heads.asso_pooler.train()
+        return acc

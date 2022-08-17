@@ -77,6 +77,8 @@ def do_visualize(cfg, model, dataloader, dataset_name, wandb_logger=None):
     anno = json.load(open(MetadataCatalog.get(dataset_name).json_file))
     if "bdd" in dataset_name:
         vid2name = {item["id"]: item["name"] for item in anno["videos"]}
+    elif "tao" in dataset_name:
+        vid2name = {item["id"]: item["name"] for item in anno["videos"]}
     elif "mot" in dataset_name:
         vid2name = {item["id"]: item["file_name"] for item in anno["videos"]}
     else:
@@ -171,16 +173,6 @@ def do_train(cfg, model, resume=False, debug=False, wandb_logger=None):
     if wandb_logger is not None:
         writers.append(wandb_logger)
 
-
-    # writers = (
-    #     [
-    #         CommonMetricPrinter(max_iter),
-    #         JSONWriter(os.path.join(cfg.OUTPUT_DIR, "metrics.json")),
-    #         TensorboardXWriter(cfg.OUTPUT_DIR),
-    #         wandb_logger
-    #     ] if comm.is_main_process() else []
-    # )
-
     #if comm.is_main_process():
     #    wandb_logger.watch(model, log="all", log_graph=True)
 
@@ -192,7 +184,7 @@ def do_train(cfg, model, resume=False, debug=False, wandb_logger=None):
         data_loader = build_custom_train_loader(cfg, mapper=mapper)
 
     if debug: # Debug: only run few iterations for training
-        max_iter = 2000
+        max_iter = 500
 
     logger.info("Starting training from iteration {}".format(start_iter))
     with EventStorage(start_iter) as storage:
@@ -205,7 +197,7 @@ def do_train(cfg, model, resume=False, debug=False, wandb_logger=None):
             step_timer.reset()
             iteration = iteration + 1
             storage.step()
-            loss_dict = model(data)
+            loss_dict, cls_acc = model(data)
             
             losses = sum(loss for k, loss in loss_dict.items() if "loss" in k)
             assert torch.isfinite(losses).all(), loss_dict
@@ -213,7 +205,7 @@ def do_train(cfg, model, resume=False, debug=False, wandb_logger=None):
             loss_dict_reduced = {k: v.item() for k, v in comm.reduce_dict(loss_dict).items()}
             losses_reduced = sum(loss for k, loss in loss_dict_reduced.items() if "loss" in k)
             if comm.is_main_process():
-                storage.put_scalars(total_loss=losses_reduced, **loss_dict_reduced)
+                storage.put_scalars(total_loss=losses_reduced, **loss_dict_reduced, cls_acc=cls_acc)
 
             optimizer.zero_grad()
             losses.backward()
