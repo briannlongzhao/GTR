@@ -2,13 +2,7 @@ ENV_PATH=~/anaconda3/envs/gtr/bin/python
 
 TEST_CUDA_PYTORCH () {
     echo Test CUDA and Pytorch
-    $ENV_PATH -c "
-        import torch
-        print('Pytorch version:', torch.__version__)
-        print('CUDA available:', torch.cuda.is_available())
-        print('CUDA version:', torch.version.cuda)
-        print(torch.randn(5).cuda())
-    "
+    $ENV_PATH -c "import torch; print('Pytorch version:', torch.__version__); print('CUDA available:', torch.cuda.is_available()); print('CUDA version:', torch.version.cuda); print(torch.randn(5).cuda())"
 }
 
 TEST_D2 () {
@@ -26,9 +20,10 @@ TEST_GTR () {
     GTR_PATH=~/GTR
     cd $GTR_PATH || exit
     $ENV_PATH $GTR_PATH/demo.py \
-    --config-file $GTR_PATH/configs/GTR_MOT_FPN.yaml \
+    --config-file $GTR_PATH/configs/GTR_TAO_DR2101.yaml \
     --video-input $GTR_PATH/docs/yfcc_v_acef1cb6d38c2beab6e69e266e234f.mp4 \
-    --output $GTR_PATH/output_demo/demo_yfcc.mp4 --opts MODEL.WEIGHTS models/GTR_MOT_FPN.pth
+    --output $GTR_PATH/output_demo/demo_yfcc.mp4 \
+    --opts MODEL.WEIGHTS models/GTR_TAO_DR2101.pth
 }
 
 TEST_CUDA_PYTORCH

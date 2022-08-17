@@ -255,4 +255,5 @@ class BDDEvaluator(COCOEvaluator):
         track_res_dict = track_res.summary()
         track_res_full = track_res.dict()
         self._results.update({"BDD100K": track_res_full})
-        self.wandb_logger.log_results(self._results)
+        if self.wandb_logger is not None:
+            self.wandb_logger.log_results(self._results)
