@@ -71,7 +71,7 @@ def build_custom_train_loader(cfg, mapper=None):
         cfg.SOLVER.IMS_PER_BATCH,
         aspect_ratio_grouping=cfg.DATALOADER.ASPECT_RATIO_GROUPING,
         num_workers=cfg.DATALOADER.NUM_WORKERS,
-    )
+    ), dataset_dicts
 
 
 def get_detection_dataset_dicts_with_source(

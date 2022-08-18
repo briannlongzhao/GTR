@@ -65,7 +65,7 @@ def build_gtr_train_loader(cfg, mapper):
         batch_sampler=batch_sampler,
         collate_fn=single_batch_collator,
         worker_init_fn=worker_init_reset_seed,
-    )
+    ), dataset_dicts
 
 
 def build_gtr_test_loader(cfg, dataset_name, mapper):

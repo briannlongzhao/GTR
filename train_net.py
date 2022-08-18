@@ -179,9 +179,11 @@ def do_train(cfg, model, resume=False, debug=False, wandb_logger=None):
     DatasetMapperClass = GTRDatasetMapper if cfg.VIDEO_INPUT else CustomDatasetMapper
     mapper = DatasetMapperClass(cfg, True, augmentations=build_custom_augmentation(cfg, True))
     if cfg.VIDEO_INPUT:
-        data_loader = build_gtr_train_loader(cfg, mapper=mapper)
+        data_loader, dataset_dicts = build_gtr_train_loader(cfg, mapper=mapper)
     else:
-        data_loader = build_custom_train_loader(cfg, mapper=mapper)
+        data_loader, dataset_dicts = build_custom_train_loader(cfg, mapper=mapper)
+    num_frames = [len(video["images"]) for video in dataset_dicts]
+    total_frames = sum(num_frames)
 
     if debug: # Debug: only run few iterations for training
         max_iter = 500
@@ -192,6 +194,7 @@ def do_train(cfg, model, resume=False, debug=False, wandb_logger=None):
         data_timer = Timer()
         start_time = time.perf_counter()
         for data, iteration in zip(data_loader, range(start_iter, max_iter)):
+            approx_epoch = iteration * cfg.SOLVER.IMS_PER_BATCH * cfg.INPUT.VIDEO.TRAIN_LEN / total_frames
             data_time = data_timer.seconds()
             storage.put_scalars(data_time=data_time)
             step_timer.reset()
@@ -205,7 +208,7 @@ def do_train(cfg, model, resume=False, debug=False, wandb_logger=None):
             loss_dict_reduced = {k: v.item() for k, v in comm.reduce_dict(loss_dict).items()}
             losses_reduced = sum(loss for k, loss in loss_dict_reduced.items() if "loss" in k)
             if comm.is_main_process():
-                storage.put_scalars(total_loss=losses_reduced, **loss_dict_reduced, cls_acc=cls_acc)
+                storage.put_scalars(total_loss=losses_reduced, **loss_dict_reduced, cls_acc=cls_acc, approx_epoch=approx_epoch)
 
             optimizer.zero_grad()
             losses.backward()
