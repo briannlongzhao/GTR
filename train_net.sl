@@ -11,7 +11,7 @@
 #SBATCH --output=output.txt
 #SBATCH --error=error.txt
 #SBATCH --open-mode=truncate
-#SBATCH --gres=gpu:4
+#SBATCH --gres=gpu:8
 
 nvidia-smi
 conda init
