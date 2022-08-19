@@ -13,7 +13,7 @@ parameters:
     values: ["ADAMW", "SGD"]
 early_terminate:
   type: hyperband
-    min_iter: 5000
+  min_iter: 5000
 command:
   - ${env}
   - python
