@@ -2,8 +2,8 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --ntasks-per-node=1
-#SBATCH --cpus-per-task=8
-#SBATCH --partition=ALL
+#SBATCH --cpus-per-task=4
+#SBATCH --partition=large_gpu
 #SBATCH --account=rpixel
 #SBATCH --qos=premium_memory
 #SBATCH --mem=128GB
@@ -11,7 +11,7 @@
 #SBATCH --output=output.txt
 #SBATCH --error=error.txt
 #SBATCH --open-mode=truncate
-#SBATCH --gres=gpu:4
+#SBATCH --gres=gpu:8
 
 nvidia-smi
 conda init
