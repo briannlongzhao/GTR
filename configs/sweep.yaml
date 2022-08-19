@@ -7,13 +7,13 @@ metric:
 parameters:
   base_lr:
     distribution: log_uniform_values
-    min: 0.000001
+    min: 0.00001
     max: 0.01
   optimizer:
     values: ["ADAMW", "SGD"]
 early_terminate:
   type: hyperband
-  min_iter: 5000
+  min_iter: 2000
 command:
   - ${env}
   - python
