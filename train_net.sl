@@ -3,7 +3,7 @@
 #SBATCH --ntasks=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=8
-#SBATCH --partition=all
+#SBATCH --partition=ALL
 #SBATCH --account=rpixel
 #SBATCH --qos=premium_memory
 #SBATCH --mem=128GB
