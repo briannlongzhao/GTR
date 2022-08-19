@@ -2,11 +2,11 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --ntasks-per-node=1
-#SBATCH --cpus-per-task=2
+#SBATCH --cpus-per-task=1
 #SBATCH --partition=ALL
 #SBATCH --account=rpixel
 #SBATCH --qos=premium
-#SBATCH --mem=128GB
+#SBATCH --mem=64GB
 #SBATCH --time=5-00:00:00
 #SBATCH --output=output.txt
 #SBATCH --error=error.txt
