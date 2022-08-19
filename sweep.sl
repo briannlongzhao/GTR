@@ -38,6 +38,6 @@ fi
 wandb login --relogin da75e98d29ae627bc5e000d68b033fda0155fc79
 
 # Sweep
-wandb agent --count 1 briannlongzhao/GTR_sweep/y3m61ib3
+wandb agent --count 1 briannlongzhao/GTR_sweep/gdfd8ug7
 
 echo Done
