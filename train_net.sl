@@ -3,9 +3,9 @@
 #SBATCH --ntasks=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=2
-#SBATCH --partition=ALL
+#SBATCH --partition=large_gpu
 #SBATCH --account=rpixel
-#SBATCH --qos=limited
+#SBATCH --qos=premium_memory
 #SBATCH --mem=128GB
 #SBATCH --time=5-00:00:00
 #SBATCH --output=output.txt
