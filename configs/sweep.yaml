@@ -1,3 +1,4 @@
+project: GTR_sweep
 program: train_net.py
 method: bayes
 metric:
