@@ -5,7 +5,7 @@
 #SBATCH --cpus-per-task=2
 #SBATCH --partition=large_gpu
 #SBATCH --account=rpixel
-#SBATCH --qos=premium_memory
+#SBATCH --qos=premium
 #SBATCH --mem=128GB
 #SBATCH --time=5-00:00:00
 #SBATCH --output=output.txt
