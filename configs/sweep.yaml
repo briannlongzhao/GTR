@@ -4,11 +4,15 @@ metric:
   name: total_loss
   goal: minimize
 parameters:
-  lr:
-    min: 0.00001
-    max: 0.05
+  base_lr:
+    distribution: log_uniform_values
+    min: 0.000001
+    max: 0.01
   optimizer:
     values: ["ADAMW", "SGD"]
+early_terminate:
+  type: hyperband
+    min_iter: 5000
 command:
   - ${env}
   - python

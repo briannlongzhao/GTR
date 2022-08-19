@@ -170,7 +170,7 @@ def do_train(cfg, model, resume=False, debug=False, wandb_logger=None):
         JSONWriter(os.path.join(cfg.OUTPUT_DIR, "metrics.json")),
         TensorboardXWriter(cfg.OUTPUT_DIR),
     ] if comm.is_main_process() else []
-    if wandb_logger is not None:
+    if wandb_logger:
         writers.append(wandb_logger)
 
     #if comm.is_main_process():
@@ -248,10 +248,13 @@ def setup(args):
     cfg.merge_from_list(args.opts)
     if args.num_gpus:
         cfg.SOLVER.IMS_PER_BATCH = args.num_gpus
-    if args.lr:
-        cfg.SOLVER.BASE_LR = float(args.lr)
+    if args.base_lr:
+        cfg.SOLVER.BASE_LR = float(args.base_lr)
     if args.optimizer:
         cfg.SOLVER.OPTIMIZER = args.optimizer
+        cfg.SOLVER.USE_CUSTOM_SOLVER = False if args.optimizer == "SGD" else True
+        cfg.SOLVER.CLIP_GRADIENTS.CLIP_TYPE = "full_model" if args.optimizer != "SGD" else "value"
+        cfg.SOLVER.BACKBONE_MULTIPLIER = 1.0 if args.optimizer == "SGD" else 0.1
     if "TMPDIR" in os.environ.keys():
         cfg.OUTPUT_DIR = (cfg.OUTPUT_DIR).replace('.', os.path.join(os.environ["TMPDIR"], "GTR"))
         cfg.MODEL.WEIGHTS = os.path.join(os.environ["TMPDIR"], "GTR" ,cfg.MODEL.WEIGHTS)
@@ -295,7 +298,7 @@ if __name__ == "__main__":
     parser.add_argument("--visualize", action="store_true")
     parser.add_argument("--debug", action="store_true")
     parser.add_argument("--wandb", default=True, action=argparse.BooleanOptionalAction)
-    parser.add_argument("--lr")
+    parser.add_argument("--base_lr")
     parser.add_argument("--optimizer")
     args = parser.parse_args()
     args.dist_url = "tcp://127.0.0.1:{}".format(
