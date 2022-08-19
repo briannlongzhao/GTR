@@ -3,15 +3,15 @@
 #SBATCH --ntasks=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=1
-#SBATCH --partition=ALL
+#SBATCH --partition=large_gpu
 #SBATCH --account=rpixel
-#SBATCH --qos=premium
-#SBATCH --mem=64GB
+#SBATCH --qos=premium_memory
+#SBATCH --mem=128GB
 #SBATCH --time=5-00:00:00
 #SBATCH --output=output.txt
 #SBATCH --error=error.txt
 #SBATCH --open-mode=truncate
-#SBATCH --gres=gpu:8
+#SBATCH --gres=gpu:4
 
 nvidia-smi
 conda init
@@ -38,7 +38,7 @@ fi
 wandb login --relogin da75e98d29ae627bc5e000d68b033fda0155fc79
 
 # Train
-python train_net.py --num-gpus 8 --config-file configs/GTR_BDD_DR2101_C2.yaml --visualize
+python train_net.py --num-gpus 4 --config-file configs/GTR_BDD_DR2101_C2.yaml --visualize
 
 # Evaluate only
 #python train_net.py --config-file configs/GTR_BDD_DR2102_C2.yaml --eval-only --visualize MODEL.WEIGHTS models/GTR_MOT_FPN.pth
