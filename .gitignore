@@ -18,6 +18,7 @@ wandb/
 visualization/
 output*txt
 error*txt
+sweep*txt
 
 *.png
 # *.json
