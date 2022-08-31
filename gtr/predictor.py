@@ -50,7 +50,7 @@ class TrackingVisualizer(VideoVisualizer):
         colors = self._assign_colors_by_track_id(predictions)
         labels = _create_text_labels(
             classes, scores, self.metadata.get("thing_classes", None))
-        labels = ['({}){}'.format(x, y[:y.rfind(' ')]) \
+        labels = ['({}){}'.format(x, y) \
             for x, y in zip(track_ids, labels)]
 
         frame_visualizer.overlay_instances(

@@ -186,7 +186,7 @@ def do_train(cfg, model, resume=False, debug=False, wandb_logger=None):
     total_frames = sum(num_frames)
 
     if debug: # Debug: only run few iterations for training
-        max_iter = 500
+        max_iter = 100
 
     logger.info("Starting training from iteration {}".format(start_iter))
     with EventStorage(start_iter) as storage:
@@ -288,7 +288,7 @@ def main(args):
 
     do_train(cfg, model, resume=args.resume, debug=args.debug, wandb_logger=wandb_logger)
     do_test(cfg, model, visualize=args.visualize, debug=args.debug, wandb_logger=wandb_logger)
-    if comm.is_main_process():
+    if comm.is_main_process() and wandb_logger is not None:
         wandb_logger.close()
     return
 

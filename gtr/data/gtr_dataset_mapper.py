@@ -144,8 +144,7 @@ class GTRDatasetMapper(DatasetMapper):
         else:
             num_frames = len(video_dict['images'])
         st = np.random.randint(len(video_dict['images']) - num_frames + 1)
-        gen_image_motion = self.gen_image_motion and self.is_train and \
-            len(video_dict['images']) == 1
+        gen_image_motion = self.gen_image_motion and self.is_train and len(video_dict['images']) == 1
 
         if self.dynamic_scale and self.is_train and not gen_image_motion:
             image = utils.read_image(

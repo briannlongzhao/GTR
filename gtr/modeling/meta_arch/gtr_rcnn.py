@@ -1,5 +1,9 @@
+import os.path
+
 import cv2
 import torch
+import copy
+import numpy as np
 from scipy.optimize import linear_sum_assignment
 import torch.nn.functional as F
 
@@ -7,8 +11,12 @@ from detectron2.config import configurable
 from detectron2.structures import Boxes, pairwise_iou, Instances
 
 from detectron2.modeling.meta_arch.build import META_ARCH_REGISTRY
+from detectron2.data import MetadataCatalog
 from .custom_rcnn import CustomRCNN
 from ..roi_heads.custom_fast_rcnn import custom_fast_rcnn_inference, fast_rcnn_inference_single_image
+from ...predictor import TrackingVisualizer
+
+from vis_image import visualize_batch, show
 
 @META_ARCH_REGISTRY.register()
 class GTRRCNN(CustomRCNN):
@@ -27,6 +35,7 @@ class GTRRCNN(CustomRCNN):
         self.local_no_iou = kwargs.pop('local_no_iou')
         self.local_iou_only = kwargs.pop('local_iou_only')
         self.not_mult_thresh = kwargs.pop('not_mult_thresh')
+        self.vis_batch = False  # Only first batch is saved
         super().__init__(**kwargs)
 
 
@@ -63,6 +72,13 @@ class GTRRCNN(CustomRCNN):
         images = self.preprocess_image(batched_inputs)
         features = self.backbone(images.tensor)
         gt_instances = [x["instances"].to(self.device) for x in batched_inputs]
+        if self.vis_batch:
+            visualize_batch(
+                images.tensor.detach().clone().cpu(),
+                gt_instances,
+                file_name=os.path.basename(batched_inputs[0]["file_name"])
+            )
+            self.vis_batch = False  # Only first batch is saved
         proposals, proposal_losses = self.proposal_generator(images, features, gt_instances)  # Detection loss
         _, detector_losses = self.roi_heads(images, features, proposals, gt_instances)  # Tracking association loss
         losses = {}
