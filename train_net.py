@@ -61,6 +61,7 @@ from gtr.modeling.freeze_layers import check_if_freeze_model
 from gtr.predictor import VisualizationDemo
 
 logger = logging.getLogger("detectron2")
+accum_iter = 2
 
 def get_total_grad_norm(parameters, norm_type=2):
     parameters = list(filter(lambda p: p.grad is not None, parameters))
@@ -158,7 +159,8 @@ def do_train(cfg, model, resume=False, debug=False, wandb_logger=None):
 
     checkpointer = DetectionCheckpointer(model, cfg.OUTPUT_DIR, optimizer=optimizer, scheduler=scheduler)
 
-    start_iter = (checkpointer.resume_or_load(cfg.MODEL.WEIGHTS, resume=resume,).get("iteration", -1) + 1)
+    if cfg.MODEL.WEIGHTS is not None:
+        start_iter = (checkpointer.resume_or_load(cfg.MODEL.WEIGHTS, resume=resume,).get("iteration", -1) + 1)
     if not resume:
         start_iter = 0
     max_iter = cfg.SOLVER.MAX_ITER if cfg.SOLVER.TRAIN_ITER < 0 else cfg.SOLVER.TRAIN_ITER
@@ -210,9 +212,10 @@ def do_train(cfg, model, resume=False, debug=False, wandb_logger=None):
             if comm.is_main_process():
                 storage.put_scalars(total_loss=losses_reduced, **loss_dict_reduced, cls_acc=cls_acc, approx_epoch=approx_epoch)
 
-            optimizer.zero_grad()
             losses.backward()
-            optimizer.step()
+            if (iteration+1) % accum_iter == 0 or iteration+1 == max_iter:
+                optimizer.zero_grad()
+                optimizer.step()
             
             storage.put_scalar("lr", optimizer.param_groups[0]["lr"], smoothing_hint=False)
             step_time = step_timer.seconds()
@@ -221,9 +224,9 @@ def do_train(cfg, model, resume=False, debug=False, wandb_logger=None):
             scheduler.step()
 
             if (
-                cfg.TEST.EVAL_PERIOD > 0
-                and iteration % cfg.TEST.EVAL_PERIOD == 0
-                and iteration != max_iter
+                cfg.TEST.EVAL_PERIOD > 0 and
+                iteration % cfg.TEST.EVAL_PERIOD == 0 and
+                iteration != max_iter
             ):
                 do_test(cfg, model)
                 comm.synchronize()
@@ -257,7 +260,8 @@ def setup(args):
         cfg.SOLVER.BACKBONE_MULTIPLIER = 1.0 if args.optimizer == "SGD" else 0.1
     if "TMPDIR" in os.environ.keys():
         cfg.OUTPUT_DIR = (cfg.OUTPUT_DIR).replace('.', os.path.join(os.environ["TMPDIR"], "GTR"))
-        cfg.MODEL.WEIGHTS = os.path.join(os.environ["TMPDIR"], "GTR" ,cfg.MODEL.WEIGHTS)
+        if cfg.MODEL.WEIGHTS is not None:
+            cfg.MODEL.WEIGHTS = os.path.join(os.environ["TMPDIR"], "GTR" ,cfg.MODEL.WEIGHTS)
     if "/auto" in cfg.OUTPUT_DIR:
         file_name = os.path.basename(args.config_file)[:-5]
         cfg.OUTPUT_DIR = cfg.OUTPUT_DIR.replace("/auto", "/{}".format(file_name))
