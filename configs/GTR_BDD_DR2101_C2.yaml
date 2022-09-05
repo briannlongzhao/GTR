@@ -4,7 +4,7 @@ MODEL:
   META_ARCHITECTURE: "GTRRCNN"
   BACKBONE:
     NAME: "build_p67_res2net_fpn_backbone"
-  WEIGHTS:
+  WEIGHTS: "models/GTR_TAO_DR2101.pth"
   RESNETS:
     DEPTH: 101
     WIDTH_PER_GROUP: 26
