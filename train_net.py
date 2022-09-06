@@ -195,6 +195,7 @@ def do_train(cfg, model, resume=False, debug=False, wandb_logger=None):
         step_timer = Timer()
         data_timer = Timer()
         start_time = time.perf_counter()
+        model.zero_grad()
         for data, iteration in zip(data_loader, range(start_iter, max_iter)):
             approx_epoch = iteration * cfg.SOLVER.IMS_PER_BATCH * cfg.INPUT.VIDEO.TRAIN_LEN / total_frames
             data_time = data_timer.seconds()
@@ -212,10 +213,10 @@ def do_train(cfg, model, resume=False, debug=False, wandb_logger=None):
             if comm.is_main_process():
                 storage.put_scalars(total_loss=losses_reduced, **loss_dict_reduced, cls_acc=cls_acc, approx_epoch=approx_epoch)
 
-            losses.backward()
+            (losses / accum_iter).backward()
             if (iteration+1) % accum_iter == 0 or iteration+1 == max_iter:
-                optimizer.zero_grad()
                 optimizer.step()
+                optimizer.zero_grad(set_to_none=True)
             
             storage.put_scalar("lr", optimizer.param_groups[0]["lr"], smoothing_hint=False)
             step_time = step_timer.seconds()
