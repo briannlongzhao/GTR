@@ -62,5 +62,5 @@ DATASETS:
 DATALOADER:
   SAMPLER_TRAIN: "TrainingSampler"
   NUM_WORKERS: 8
-OUTPUT_DIR: "./output/GTR-BDD/auto"
+OUTPUT_DIR: "./output/GTR_BDD/auto"
 FIND_UNUSED_PARAM: True
