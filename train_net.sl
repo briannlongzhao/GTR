@@ -48,6 +48,9 @@ if [[ -v TMPDIR ]]; then
     echo Copy output from TMPDIR=$TMPDIR to home
     if ! [[ -d output/ ]]; then
         mkdir output/
+        if ! [[ -d output/baseline ]]; then
+            mkdir output/baseline
+        fi
     fi
     cp -r $TMPDIR/GTR/output/* output/baseline
 fi
