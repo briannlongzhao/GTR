@@ -49,6 +49,6 @@ if [[ -v TMPDIR ]]; then
     if ! [[ -d output/ ]]; then
         mkdir output/
     fi
-    cp -r $TMPDIR/GTR/output/* output/
+    cp -r $TMPDIR/GTR/output/* output/baseline
 fi
 echo Done
