@@ -165,7 +165,11 @@ def do_train(cfg, model, resume=False, debug=False, wandb_logger=None):
         start_iter = 0
     max_iter = cfg.SOLVER.MAX_ITER if cfg.SOLVER.TRAIN_ITER < 0 else cfg.SOLVER.TRAIN_ITER
 
-    periodic_checkpointer = PeriodicCheckpointer(checkpointer, cfg.SOLVER.CHECKPOINT_PERIOD, max_iter=max_iter)
+    periodic_checkpointer = PeriodicCheckpointer(
+        checkpointer,
+        cfg.SOLVER.CHECKPOINT_PERIOD,
+        max_iter=max_iter,
+        file_prefix=os.path.join(cfg.OUTPUT,"ckptr"))
 
     writers = [
         CommonMetricPrinter(max_iter),

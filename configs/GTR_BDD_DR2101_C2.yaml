@@ -4,7 +4,7 @@ MODEL:
   META_ARCHITECTURE: "GTRRCNN"
   BACKBONE:
     NAME: "build_p67_res2net_fpn_backbone"
-  WEIGHTS: "models/GTR_TAO_DR2101.pth"
+  WEIGHTS:
   RESNETS:
     DEPTH: 101
     WIDTH_PER_GROUP: 26
@@ -44,7 +44,7 @@ SOLVER:
     CLIP_TYPE: "full_model"
     CLIP_VALUE: 0.1
     NORM_TYPE: 2.0
-  CHECKPOINT_PERIOD: 10000
+  CHECKPOINT_PERIOD: 50000
 INPUT:
   FORMAT: RGB
   CUSTOM_AUG: EfficientDetResizeCrop
