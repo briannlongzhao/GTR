@@ -169,7 +169,7 @@ def do_train(cfg, model, resume=False, debug=False, wandb_logger=None):
         checkpointer,
         cfg.SOLVER.CHECKPOINT_PERIOD,
         max_iter=max_iter,
-        file_prefix=os.path.join(cfg.OUTPUT,"ckptr"))
+        file_prefix=os.path.join(cfg.OUTPUT_DIR,"ckptr"))
 
     writers = [
         CommonMetricPrinter(max_iter),
