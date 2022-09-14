@@ -25,6 +25,7 @@ def build_custom_optimizer(cfg: CfgNode, model: torch.nn.Module) -> torch.optim.
     memo: Set[torch.nn.parameter.Parameter] = set()
     custom_multiplier_name = cfg.SOLVER.CUSTOM_MULTIPLIER_NAME
     optimizer_type = cfg.SOLVER.OPTIMIZER
+
     for key, value in model.named_parameters(recurse=True):
         if not value.requires_grad:
             continue

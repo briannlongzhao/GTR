@@ -132,6 +132,17 @@ def _freeze_except_cascade_cls_reg(model):
 
     return model
 
+def _freeze_tracking(model):
+    for v in model.parameters():
+        v.requires_grad = True
+
+    tracking_comp = ["asso_head", "asso_predictor", "transformer", "backbone.bottom_up"]
+    for name, v in model.named_parameters(recurse=True):
+        if any(comp in name for comp in tracking_comp):
+            v.requires_grad = False
+
+    return model
+
 def check_if_freeze_model(model, cfg):
     if cfg.MODEL.FREEZE_TYPE == 'ExceptROIheads':
         print('Freezing  except ROI heads!')
@@ -163,6 +174,9 @@ def check_if_freeze_model(model, cfg):
     elif cfg.MODEL.FREEZE_TYPE == 'Backbone':
         print('Freezing Backbone')
         model = _freeze_backbone(model)
+    elif cfg.MODEL.FREEZE_TYPE == 'Tracking':
+        print('Freezing Tracking')
+        model = _freeze_tracking(model)
     else:
         assert cfg.MODEL.FREEZE_TYPE == '', cfg.MODEL.FREEZE_TYPE
     return model
