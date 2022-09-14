@@ -136,7 +136,7 @@ def _freeze_tracking(model):
     for v in model.parameters():
         v.requires_grad = True
 
-    tracking_comp = ["asso_head", "asso_predictor", "transformer", "backbone.bottom_up"]
+    tracking_comp = ["asso_head", "asso_predictor", "transformer"]
     for name, v in model.named_parameters(recurse=True):
         if any(comp in name for comp in tracking_comp):
             v.requires_grad = False
