@@ -61,7 +61,7 @@ from gtr.modeling.freeze_layers import check_if_freeze_model
 from gtr.predictor import VisualizationDemo
 
 logger = logging.getLogger("detectron2")
-accum_iter = 2
+accum_iter = 6
 
 def get_total_grad_norm(parameters, norm_type=2):
     parameters = list(filter(lambda p: p.grad is not None, parameters))
