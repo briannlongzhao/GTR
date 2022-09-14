@@ -6,7 +6,7 @@
 #SBATCH --partition=large_gpu
 #SBATCH --account=rpixel
 #SBATCH --qos=premium_memory
-#SBATCH --mem=256GB
+#SBATCH --mem=128GB
 #SBATCH --time=5-00:00:00
 #SBATCH --output=output.txt
 #SBATCH --error=error.txt
