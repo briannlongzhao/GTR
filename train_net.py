@@ -169,7 +169,7 @@ def do_train(cfg, model, resume=False, debug=False, wandb_logger=None):
         checkpointer,
         cfg.SOLVER.CHECKPOINT_PERIOD,
         max_iter=max_iter,
-        file_prefix=os.path.join(cfg.OUTPUT_DIR,"ckptr"))
+        file_prefix="ckptr")
 
     writers = [
         CommonMetricPrinter(max_iter),
@@ -228,6 +228,8 @@ def do_train(cfg, model, resume=False, debug=False, wandb_logger=None):
             data_timer.reset()
             scheduler.step()
 
+            periodic_checkpointer.step(iteration)
+
             if (
                 cfg.TEST.EVAL_PERIOD > 0 and
                 iteration % cfg.TEST.EVAL_PERIOD == 0 and
@@ -239,7 +241,7 @@ def do_train(cfg, model, resume=False, debug=False, wandb_logger=None):
             if iteration - start_iter > 5 and (iteration % 50 == 0 or iteration == max_iter):
                 for writer in writers:
                     writer.write(step=iteration) if type(writer) is WandbWriter else writer.write()
-            periodic_checkpointer.step(iteration)
+
 
         total_time = time.perf_counter() - start_time
         logger.info("Total training time: {}".format(str(datetime.timedelta(seconds=int(total_time)))))
@@ -264,7 +266,7 @@ def setup(args):
         cfg.SOLVER.CLIP_GRADIENTS.CLIP_TYPE = "full_model" if args.optimizer != "SGD" else "value"
         cfg.SOLVER.BACKBONE_MULTIPLIER = 1.0 if args.optimizer == "SGD" else 0.1
     if "TMPDIR" in os.environ.keys():
-        cfg.OUTPUT_DIR = (cfg.OUTPUT_DIR).replace('.', os.path.join(os.environ["TMPDIR"], "GTR"))
+        # cfg.OUTPUT_DIR = (cfg.OUTPUT_DIR).replace('.', os.path.join(os.environ["TMPDIR"], "GTR"))
         if cfg.MODEL.WEIGHTS is not None:
             cfg.MODEL.WEIGHTS = os.path.join(os.environ["TMPDIR"], "GTR" ,cfg.MODEL.WEIGHTS)
     if "/auto" in cfg.OUTPUT_DIR:
