@@ -235,7 +235,7 @@ def do_train(cfg, model, resume=False, debug=False, wandb_logger=None):
                 iteration % cfg.TEST.EVAL_PERIOD == 0 and
                 iteration != max_iter
             ):
-                do_test(cfg, model, wandb_logger=wandb_logger)
+                do_test(cfg, model, debug=debug, wandb_logger=wandb_logger)
                 comm.synchronize()
 
             if iteration - start_iter > 5 and (iteration % 50 == 0 or iteration == max_iter):
