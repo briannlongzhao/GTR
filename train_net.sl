@@ -38,10 +38,10 @@ fi
 wandb login --relogin da75e98d29ae627bc5e000d68b033fda0155fc79
 
 # Train
-python train_net.py --num-gpus 4 --config-file configs/GTR_BDD_DR2101_C2.yaml --visualize OUTPUT_DIR "./output/${SLURM_JOBID}/GTR_BDD/auto"
+#python train_net.py --num-gpus 4 --config-file configs/GTR_BDD_DR2101_C2.yaml --visualize OUTPUT_DIR "./output/${SLURM_JOBID}/GTR_BDD/auto"
 
 # Evaluate only
-#python train_net.py --config-file configs/GTR_BDD_DR2102_C2.yaml --eval-only --visualize MODEL.WEIGHTS models/GTR_MOT_FPN.pth
+python train_net.py --config-file configs/GTR_BDD_DR2102_C2.yaml --eval-only --visualize MODEL.WEIGHTS models/best.pth
 
 # Copy output from $TMPDIR back to home directory
 #if [[ -v TMPDIR ]]; then

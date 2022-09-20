@@ -35,7 +35,7 @@ class GTRRCNN(CustomRCNN):
         self.local_no_iou = kwargs.pop('local_no_iou')
         self.local_iou_only = kwargs.pop('local_iou_only')
         self.not_mult_thresh = kwargs.pop('not_mult_thresh')
-        self.vis_batch = False  # Only first batch is saved
+        self.vis_batch = False
         super().__init__(**kwargs)
 
 
