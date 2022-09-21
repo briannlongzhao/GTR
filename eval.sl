@@ -6,7 +6,7 @@
 #SBATCH --partition=ALL
 #SBATCH --account=rpixel
 #SBATCH --qos=premium_memory
-#SBATCH --mem=128GB
+#SBATCH --mem=32GB
 #SBATCH --time=5:00:00
 #SBATCH --output=output.txt
 #SBATCH --error=error.txt
