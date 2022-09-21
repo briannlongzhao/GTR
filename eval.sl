@@ -6,8 +6,8 @@
 #SBATCH --partition=ALL
 #SBATCH --account=rpixel
 #SBATCH --qos=limited
-#SBATCH --mem=32GB
-#SBATCH --time=5-00:00:00
+#SBATCH --mem=16GB
+#SBATCH --time=5:00:00
 #SBATCH --output=output.txt
 #SBATCH --error=error.txt
 #SBATCH --open-mode=truncate
