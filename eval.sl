@@ -4,7 +4,7 @@
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=2
 #SBATCH --partition=ALL
-#SBATCH --account=rpixel
+#SBATCH --account=other
 #SBATCH --qos=limited
 #SBATCH --mem=16GB
 #SBATCH --time=5:00:00
