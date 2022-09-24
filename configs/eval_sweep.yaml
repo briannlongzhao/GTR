@@ -27,4 +27,5 @@ command:
   - ${program}
   - "--config"
   - "configs/GTR_BDD_DR2101_C2.yaml"
+  - "--eval-only"
   - ${args}
