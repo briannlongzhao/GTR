@@ -265,6 +265,12 @@ def setup(args):
         cfg.SOLVER.USE_CUSTOM_SOLVER = False if args.optimizer == "SGD" else True
         cfg.SOLVER.CLIP_GRADIENTS.CLIP_TYPE = "full_model" if args.optimizer != "SGD" else "value"
         cfg.SOLVER.BACKBONE_MULTIPLIER = 1.0 if args.optimizer == "SGD" else 0.1
+    if args.test_nms_th:
+        cfg.MODEL.CENTERNET.NMS_TH_TEST = float(args.test_nms_th)
+    if args.test_asso_th:
+        cfg.MODEL.ASSO_HEAD.ASSO_THRESH_TEST = float(args.test_asso_th)
+    if args.test_len:
+        cfg.INPUT.VIDEO.TEST_LEN = int(args.test_len)
     if "TMPDIR" in os.environ.keys():
         # cfg.OUTPUT_DIR = (cfg.OUTPUT_DIR).replace('.', os.path.join(os.environ["TMPDIR"], "GTR"))
         if cfg.MODEL.WEIGHTS is not None:
@@ -311,6 +317,9 @@ if __name__ == "__main__":
     parser.add_argument("--wandb", default=True, action=argparse.BooleanOptionalAction)
     parser.add_argument("--base_lr")
     parser.add_argument("--optimizer")
+    parser.add_argument("--test_nms_th")
+    parser.add_argument("--test_asso_th")
+    parser.add_argument("--test_len")
     args = parser.parse_args()
     args.dist_url = "tcp://127.0.0.1:{}".format(
         torch.randint(11111, 60000, (1,))[0].item())

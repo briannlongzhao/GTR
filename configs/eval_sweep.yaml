@@ -1,0 +1,30 @@
+project: GTR_eval
+program: train_net.py
+method: grid
+parameters:
+  test_asso_th:
+    values:
+      - 0.5
+      - 0.6
+      - 0.7
+      - 0.8
+      - 0.9
+  test_nms_th:
+    values:
+      - 0.5
+      - 0.6
+      - 0.7
+      - 0.8
+      - 0.9
+  test_len:
+    values:
+      - 8
+      - 16
+      - 24
+command:
+  - ${env}
+  - python
+  - ${program}
+  - "--config"
+  - "configs/GTR_BDD_DR2101_C2.yaml"
+  - ${args}
