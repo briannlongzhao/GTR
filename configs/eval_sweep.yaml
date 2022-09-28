@@ -4,11 +4,9 @@ method: grid
 parameters:
   test_asso_th:
     values:
-      - 0.5
-      - 0.6
-      - 0.7
-      - 0.8
-      - 0.9
+      - 0.4
+      - 0.3
+      - 0.2
   test_nms_th:
     values:
       - 0.5
