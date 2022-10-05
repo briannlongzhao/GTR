@@ -8,6 +8,7 @@ GTR_models_TAO
 slurm-*.out
 slurm-output
 .DS_Store
+qdtrack/
 
 # output dir
 output/
