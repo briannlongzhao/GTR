@@ -82,7 +82,7 @@ class GTRRCNN(CustomRCNN):
         proposals, proposal_losses = self.proposal_generator(images, features, gt_instances)  # Detection loss
         _, detector_losses = self.roi_heads(images, features, proposals, gt_instances)  # Tracking association loss
         losses = {}
-        #losses.update(detector_losses)
+        losses.update(detector_losses)
         losses.update(proposal_losses)
         cls_acc = self.eval_cls_acc(batched_inputs)
         return losses, cls_acc

@@ -532,7 +532,7 @@ class GTRROIHeads(CascadeROIHeads):
             else:
                 losses = self._forward_box(features, proposals, targets)
             losses.update(self._forward_mask(features, proposals))
-            losses.update(self._forward_asso(features, proposals, targets))
+            #losses.update(self._forward_asso(features, proposals, targets))
             return proposals, losses
         else:
             # During testing, forward association head first to filter out
