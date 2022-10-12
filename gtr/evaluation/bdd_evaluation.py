@@ -21,6 +21,7 @@ from gtr.predictor import VisualizationDemo
 from scalabel.label import from_coco
 from wandb_writer import WandbWriter
 from bdd100k.eval import run as bdd_eval
+from .custom_bdd_evaluation import eval_track_custom
 
 tmp_dir = ''
 hostname = platform.node()
@@ -32,7 +33,7 @@ if "TMPDIR" in os.environ.keys():
     tmp_dir = os.path.join(os.environ["TMPDIR"], "GTR/", '')
 
 
-def eval_track(out_dir, dataset_name):
+def eval_track(out_dir, dataset_name, custom=False):
     freeze_support()
     default_eval_config = trackeval.Evaluator.get_default_eval_config()
     default_eval_config['DISPLAY_LESS_PROGRESS'] = True
@@ -60,13 +61,16 @@ def eval_track(out_dir, dataset_name):
     # args.result = config["TRACKERS_FOLDER"]
     # args.out_file = config["OUTPUT_FOLDER"]
     # args.nproc = 4
-    args = [
-        "--task", "box_track",
-        "--gt", config["GT_FOLDER"],
-        "--result", config["TRACKERS_FOLDER"],
-        "--out-file", config["OUTPUT_FOLDER"]
-    ]
-    return bdd_eval.run(args)
+    if custom:
+        return eval_track_custom(config["TRACKERS_FOLDER"], config["GT_FOLDER"])
+    else:
+        args = [
+            "--task", "box_track",
+            "--gt", config["GT_FOLDER"],
+            "--result", config["TRACKERS_FOLDER"],
+            "--out-file", config["OUTPUT_FOLDER"]
+        ]
+        return bdd_eval.run(args)
 
 
 def save_cocojson(json_path, videos, images, categories, preds):
@@ -89,7 +93,7 @@ def convert_coco_to_bdd(coco_path, bdd_dir):
     from_coco.run(args)
 
 
-def track_and_eval_bdd(out_dir, data, preds, dataset_name):
+def track_and_eval_bdd(out_dir, data, preds, dataset_name, custom=False):
     videos = sorted(data['videos'], key=lambda x: x['id'])
     images = sorted(data['images'], key=lambda x: x['id'])
     categories = sorted(data['categories'], key=lambda x: x['id'])
@@ -118,7 +122,7 @@ def track_and_eval_bdd(out_dir, data, preds, dataset_name):
     bdd_json_dir = os.path.join(bdd_out_dir, "preds_bdd")
     save_cocojson(coco_json_path, videos, images, categories, preds)
     convert_coco_to_bdd(coco_json_path, bdd_json_dir)
-    return eval_track(out_dir, dataset_name)
+    return eval_track(out_dir, dataset_name, custom=True)
 
 
 def custom_instances_to_coco_json(instances, img_id):
