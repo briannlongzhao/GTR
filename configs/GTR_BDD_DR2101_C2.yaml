@@ -1,6 +1,6 @@
 _BASE_: "Base-CenterNet2.yaml"
 MODEL:
-  FREEZE_TYPE: Tracking
+  FREEZE_TYPE: BackboneBottomup
   META_ARCHITECTURE: "GTRRCNN"
   BACKBONE:
     NAME: "build_p67_res2net_fpn_backbone"
