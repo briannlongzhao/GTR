@@ -122,7 +122,7 @@ def track_and_eval_bdd(out_dir, data, preds, dataset_name, custom=False):
     bdd_json_dir = os.path.join(bdd_out_dir, "preds_bdd")
     save_cocojson(coco_json_path, videos, images, categories, preds)
     convert_coco_to_bdd(coco_json_path, bdd_json_dir)
-    return eval_track(out_dir, dataset_name, custom=True)
+    return eval_track(out_dir, dataset_name, custom=False)
 
 
 def custom_instances_to_coco_json(instances, img_id):
