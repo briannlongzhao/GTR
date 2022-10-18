@@ -6,6 +6,7 @@ from pathlib import Path
 import json
 from scipy.optimize import linear_sum_assignment
 from tqdm import tqdm
+import re
 
 iou_th = 0.5
 
