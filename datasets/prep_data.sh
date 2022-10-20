@@ -247,9 +247,6 @@ elif [[ $HOSTNAME =~ "discovery" || $HOSTNAME =~ "hpc" || $HOSTNAME =~ [a-z][0-9
     module load unzip
 elif [[ $HOSTNAME =~ "turing" || $HOSTNAME =~ "vista" ]]; then
     GTR_DIR=/nas/vista-ssd03/users/briannlz/GTR
-else
-    echo "Error: Unknown host: $HOSTNAME"
-    exit
 fi
 
 # Download to data directory specified by $TMPDIR if set
