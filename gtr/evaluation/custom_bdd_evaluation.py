@@ -161,13 +161,13 @@ def eval_video_clear(pred, gt) -> dict:
         match_count += len(new_gt2pred)
         gt2pred = new_gt2pred
     result = {}
-    result["MOTP"] = dist/match_count if match_count != 0 else 0
-    result["MOTA"] = 1-(fn+fp+idsw)/gt_count if gt_count != 0 else 0
+    result["MOTP"] = dist/match_count if match_count != 0 else np.nan
+    result["MOTA"] = 1-(fn+fp+idsw)/gt_count if gt_count != 0 else np.nan
     result["FP"] = fp
     result["FN"] = fn
     result["TP"] = match_count
     result["GT_DET"] = gt_count
-    result["F1"] = 2*match_count/(2*match_count+fn+fp)
+    result["F1"] = 2*match_count/(2*match_count+fn+fp) if (2*match_count+fn+fp) != 0 else np.nan
     result["IDSW"] = idsw
     result["FRAG"] = frag
     return result
@@ -268,9 +268,9 @@ def eval_video_id(pred, gt) -> dict:
     result["IDTP"] = idtp
     result["IDFN"] = idfn
     result["IDFP"] = idfp
-    result["IDF1"] = 2*idtp/(2*idtp+idfn+idfp)
-    result["IDP"] = idtp/(idtp+idfp)
-    result["IDR"] = idtp/(idtp+idfn)
+    result["IDF1"] = 2*idtp/(2*idtp+idfn+idfp) if (2*idtp+idfn+idfp) != 0 else np.nan
+    result["IDP"] = idtp/(idtp+idfp) if (idtp+idfp) != 0 else np.nan
+    result["IDR"] = idtp/(idtp+idfn) if (idtp+idfn) != 0 else np.nan
     return result
 
 def accumulate(result_all):
@@ -287,13 +287,12 @@ def accumulate(result_all):
     result["IDTP"] = sum([item["IDTP"] for item in result_list])
     result["IDFP"] = sum([item["IDFP"] for item in result_list])
     result["IDFN"] = sum([item["IDFN"] for item in result_list])
-    result["F1"] = 2*result["TP"]/(2*result["TP"]+result["FP"]+result["FN"])
-    result["MOTA"] = 1-(result["FP"]+result["FN"]+result["IDSW"])/result["TP"]
-    result["IDP"] = result["IDTP"]/(result["IDTP"]+result["IDFP"])
-    result["IDR"] = result["IDTP"] / (result["IDTP"] + result["IDFN"])
-    result["IDF1"] = 2*result["IDTP"]/(2*result["IDTP"]+result["IDFP"]+result["IDFN"])
+    result["F1"] = 2*result["TP"]/(2*result["TP"]+result["FP"]+result["FN"]) if (2*result["TP"]+result["FP"]+result["FN"]) != 0 else np.nan
+    result["MOTA"] = 1-(result["FP"]+result["FN"]+result["IDSW"])/result["GT_DET"] if result["GT_DET"] != 0 else np.nan
+    result["IDP"] = result["IDTP"]/(result["IDTP"]+result["IDFP"]) if (result["IDTP"]+result["IDFP"]) != 0 else np.nan
+    result["IDR"] = result["IDTP"]/(result["IDTP"]+result["IDFN"]) if (result["IDTP"]+result["IDFN"]) != 0 else np.nan
+    result["IDF1"] = 2*result["IDTP"]/(2*result["IDTP"]+result["IDFP"]+result["IDFN"]) if (2*result["IDTP"]+result["IDFP"]+result["IDFN"]) != 0 else np.nan
     return result
-
 
 def filter_by_class(frames, class_name):
     filtered_frames = []
@@ -310,20 +309,26 @@ def eval_track_custom(out_dir, gt_dir, filter_class=None):
     gt_dir = Path(gt_dir)
     result = {}
     for video in tqdm(os.listdir(out_dir)):
+        if video == "b1d9e136-6c94ea3f.json": #debug
+            pass
         # pred and gt are list of frames
         pred = parse_json(out_dir/video)
         gt = parse_json(gt_dir/video)
+        for frame in gt: #debug
+            for det in frame:
+                if det["category"] == "train":
+                    pass
         if filter_class is not None:
             pred = filter_by_class(pred, filter_class)
             gt = filter_by_class(gt, filter_class)
-        if isvalid(pred):
-            result[video] = eval_video_clear(pred, gt)
-            result[video].update(eval_video_id(pred, gt))
-        else:
-            result[video] = "no prediction"
-    print(result)
+        # if isvalid(pred):
+        result[video] = eval_video_clear(pred, gt)
+        result[video].update(eval_video_id(pred, gt))
+        # else:
+        #     result[video] = "no prediction"
+    #print(result)
     result = accumulate(result)
-    print("OVERALL:\n", result)
+    print("OVERALL:\n", json.dumps(result, indent=2))
     # print_result_per_video(result)
     # print_result_mean(result)
     # print_result_overall(result)
@@ -331,7 +336,7 @@ def eval_track_custom(out_dir, gt_dir, filter_class=None):
 def main(args):
     out_dir = args.out_dir
     gt_dir = args.gt_dir
-    eval_track_custom(out_dir, gt_dir, filter_class=None)
+    eval_track_custom(out_dir, gt_dir, filter_class=args.filter_class)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
