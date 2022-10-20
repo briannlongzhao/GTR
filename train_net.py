@@ -290,6 +290,19 @@ def main(args):
     model = build_model(cfg)
     logger.info("Model:\n{}".format(model))
     wandb_logger = WandbWriter(project="GTR", config=cfg) if (comm.is_main_process() and args.wandb) else None
+    if args.vis_only:
+        dataset_name = cfg.DATASETS.TEST[0]
+        if cfg.INPUT.TEST_INPUT_TYPE == "default":
+            mapper = GTRDatasetMapper(cfg, False)
+        else:
+            mapper = GTRDatasetMapper(cfg, False, augmentations=build_custom_augmentation(cfg, False))
+        DetectionCheckpointer(model, save_dir=cfg.OUTPUT_DIR).resume_or_load(
+            cfg.MODEL.WEIGHTS, resume=args.resume
+        )
+        data_loader = build_gtr_test_loader(cfg, dataset_name, mapper)
+        if args.debug:  # Debug: load only one sequence
+            data_loader = [next(iter(data_loader))]
+        return do_visualize(cfg, model, data_loader, dataset_name, wandb_logger)
     if args.eval_only:
         DetectionCheckpointer(model, save_dir=cfg.OUTPUT_DIR).resume_or_load(
             cfg.MODEL.WEIGHTS, resume=args.resume
@@ -313,6 +326,7 @@ def main(args):
 if __name__ == "__main__":
     parser = default_argument_parser()
     parser.add_argument("--visualize", action="store_true")
+    parser.add_argument("--vis-only", action="store_true")
     parser.add_argument("--debug", action="store_true")
     parser.add_argument("--wandb", default=True, action=argparse.BooleanOptionalAction)
     parser.add_argument("--base_lr")
