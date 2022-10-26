@@ -7,6 +7,7 @@ import pathlib
 
 import mmcv
 import torch
+from torch import nn
 from mmcv import Config, DictAction
 from mmcv.runner import init_dist
 from mmdet.apis import set_random_seed
@@ -14,6 +15,75 @@ from mmdet.datasets import build_dataset
 
 from qdtrack import __version__
 from qdtrack.utils import collect_env, get_root_logger
+
+from prettytable import PrettyTable
+
+
+def count_parameters(model):
+    table = PrettyTable(["Modules", "Parameters"])
+    table_cat = PrettyTable(["Category", "Parameters"])
+    total_params = 0
+    cat_dict = {}
+    for name, parameter in model.named_parameters():
+        category = name.split('.')[-1]
+        if not parameter.requires_grad: continue
+        params = parameter.numel()
+        table.add_row([name, params])
+        if category in cat_dict.keys():
+            cat_dict[category] += params
+        else:
+            cat_dict[category] = params
+        total_params += params
+    print(table)
+    for k,v in cat_dict.items():
+        table_cat.add_row([k,v])
+    print(table_cat)
+    print(f"Total Trainable Params: {total_params}")
+    return total_params
+
+def compute_neuron_count(model):
+    neuron = []
+    h_in = 224
+    w_in = 224
+    named_parameters = dict(model.named_parameters())
+    print(named_parameters.keys())
+    for name, l in model.named_modules():
+        try:
+            parameter = named_parameters[name+".weight"]
+        except:
+            print(name)
+            continue
+        if not parameter.requires_grad: continue
+        if isinstance(l, nn.Conv2d):
+            c_in = l.in_channels
+            k = l.kernel_size[0]
+            h_out = int((h_in-k+2*l.padding[0])/(l.stride[0])) + 1
+            w_out = int((w_in-k+2*l.padding[0])/(l.stride[0])) + 1
+            c_out = l.out_channels
+            neuron_count = h_out*w_out*c_out
+            neuron.append(neuron_count)
+            h_in = h_out
+            w_in = w_out
+            print('{}, neuron count:{}'.format(name, neuron_count))
+        elif isinstance(l, nn.Linear):
+            neuron_count = l.out_features
+            neuron.append(neuron_count)
+            print('{}, neuron count:{}'.format(name, neuron_count))
+        elif isinstance(l, nn.AvgPool2d):
+            h_in = h_in//l.kernel_size
+            w_in = w_in//l.kernel_size
+        elif isinstance(l, nn.modules.batchnorm.BatchNorm2d):
+            #neuron_count = l.num_features
+            neuron.append(neuron_count)
+            print('{}, neuron count:{}'.format(name, neuron_count))
+        elif isinstance(l, nn.modules.normalization.GroupNorm):
+            #neuron_count = l.num_channels
+            neuron.append(neuron_count)
+            print('{}, neuron count:{}'.format(name, neuron_count))
+        else:
+            print(type(l))
+    print('{:e}'.format(sum(neuron)))
+
 
 
 def parse_args():
@@ -80,7 +150,7 @@ def main():
                 fh.write(f"{line.strip()}\n")
         time.sleep(2)
 
-    cfg = Config.fromfile(tmp_config)
+    cfg = Config.fromfile(args.config)
 
     if args.cfg_options is not None:
         cfg.merge_from_dict(args.cfg_options)
@@ -161,6 +231,10 @@ def main():
         train_cfg=cfg.get('train_cfg'),
         test_cfg=cfg.get('test_cfg'))
     model.init_weights()
+
+
+    compute_neuron_count(model)
+    count_parameters(model)
 
     datasets = [build_dataset(cfg.data.train)]
     if len(cfg.workflow) == 2:

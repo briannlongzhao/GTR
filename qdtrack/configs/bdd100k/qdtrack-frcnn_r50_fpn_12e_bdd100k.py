@@ -71,7 +71,7 @@ data = dict(
         dict(
             type=dataset_type,
             ann_file=data_root +
-            'labels/box_track_20/box_track_train_cocofmt_remapped.json',
+            'labels/box_track_20/box_track_train_cocofmt.json',
             img_prefix=data_root + 'images/track/train/',
             key_img_sampler=dict(interval=1),
             ref_img_sampler=dict(num_ref_imgs=1, scope=3, method='uniform'),

@@ -65,6 +65,7 @@ def parse_args():
         choices=['none', 'pytorch', 'slurm', 'mpi'],
         default='none',
         help='job launcher')
+    parser.add_argument("--debug", action="store_true")
     parser.add_argument('--local_rank', type=int, default=0)
     args = parser.parse_args()
     if 'LOCAL_RANK' not in os.environ:
@@ -157,7 +158,7 @@ def main():
     if not distributed:
         model = MMDataParallel(model, device_ids=[0])
         outputs = single_gpu_test(model, data_loader, args.show, args.show_dir,
-                                  args.show_score_thr)
+                                  args.show_score_thr, args.debug)
     else:
         model = MMDistributedDataParallel(
             model.cuda(),
