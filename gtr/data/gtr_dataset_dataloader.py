@@ -1,3 +1,4 @@
+import os
 import copy
 import logging
 import torch
@@ -87,6 +88,22 @@ def build_gtr_test_loader(cfg, dataset_name, mapper):
     )
     return data_loader
 
+def build_gtr_vis_loader(cfg, video_dir, mapper):
+    dataset = get_vis_video_dict(video_dir)
+    dataset = DatasetFromList(dataset, copy=False)
+    dataset = MapDataset(dataset, mapper)
+
+    assert comm.is_main_process()
+    sampler = SingleGPUInferenceSampler(len(dataset))
+
+    batch_sampler = torch.utils.data.sampler.BatchSampler(sampler, 1, drop_last=False)
+    data_loader = torch.utils.data.DataLoader(
+        dataset,
+        num_workers=0,
+        batch_sampler=batch_sampler,
+        collate_fn=single_batch_collator,
+    )
+    return data_loader
 
 def get_video_dataset_dicts(dataset_names, gen_inst_id=False, ):
     assert len(dataset_names)
@@ -127,6 +144,21 @@ def get_video_dataset_dicts(dataset_names, gen_inst_id=False, ):
         video_datasets.append([v for v in videos.values()])
     video_datasets = list(itertools.chain.from_iterable(video_datasets))
     return video_datasets
+
+def get_vis_video_dict(video_dir):
+    videos = []
+    for video_id, video in enumerate(os.listdir(video_dir)):
+        video_dict = {}
+        video_dict["video_id"] = video_id+1
+        images = [
+            {"file_name":os.path.join(video_dir,video,image),
+             "image_id":image_id,
+             "video_id":video_id+1}
+            for image_id, image in enumerate(sorted(os.listdir(os.path.join(video_dir,video))))
+        ]
+        video_dict["images"] = images
+        videos.append(video_dict)
+    return videos
 
 
 class SingleGPUInferenceSampler(Sampler):

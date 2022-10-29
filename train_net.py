@@ -10,7 +10,7 @@ import re
 import platform
 import argparse
 import numpy as np
-
+import cv2
 import json
 
 from fvcore.common.timer import Timer
@@ -44,7 +44,6 @@ from detectron2.utils.logger import setup_logger
 sys.path.insert(0, "third_party/CenterNet2/")
 sys.path.insert(0, "tools/")
 from centernet.config import add_centernet_config
-from wandb_writer import WandbWriter
 
 from gtr.config import add_gtr_config
 from gtr.data.custom_build_augmentation import build_custom_augmentation
@@ -52,6 +51,7 @@ from gtr.data.custom_dataset_dataloader import  build_custom_train_loader
 from gtr.data.custom_dataset_mapper import CustomDatasetMapper
 from gtr.data.gtr_dataset_dataloader import build_gtr_train_loader
 from gtr.data.gtr_dataset_dataloader import build_gtr_test_loader
+from gtr.data.gtr_dataset_dataloader import build_gtr_vis_loader
 from gtr.data.gtr_dataset_mapper import GTRDatasetMapper
 from gtr.costom_solver import build_custom_optimizer
 from gtr.evaluation.custom_lvis_evaluation import CustomLVISEvaluator
@@ -73,7 +73,7 @@ def get_total_grad_norm(parameters, norm_type=2):
     return total_norm
 
 
-def do_visualize(cfg, model, dataloader, dataset_name, wandb_logger=None):
+def do_visualize(cfg, model, dataloader, dataset_name, wandb_logger=None, vis_output=None):
     demo = VisualizationDemo(cfg, model)
     anno = json.load(open(MetadataCatalog.get(dataset_name).json_file))
     if "bdd" in dataset_name:
@@ -92,6 +92,14 @@ def do_visualize(cfg, model, dataloader, dataset_name, wandb_logger=None):
         frames = [read_image(item["file_name"]) for item in video]
         vis_video = np.array(list(demo.run_on_images(frames)))
         vis_video = np.einsum("ijkl->iljk", vis_video)
+        if vis_output:
+            if not os.path.exists(vis_output):
+                os.makedirs(vis_output)
+            frame_size = (vis_video.shape[3], vis_video.shape[2])
+            out = cv2.VideoWriter(os.path.join(vis_output,video_name+".mp4"), cv2.VideoWriter_fourcc(*'mp4v'), 10.0, frameSize=frame_size, isColor=True)
+            for img in vis_video:
+                out.write(np.einsum("ijk->jki",img))
+            out.release()
         if wandb_logger:
             wandb_logger.log_video(vis_video, video_name)
 
@@ -289,7 +297,13 @@ def main(args):
     cfg = setup(args)
     model = build_model(cfg)
     logger.info("Model:\n{}".format(model))
-    wandb_logger = WandbWriter(project="GTR", config=cfg) if (comm.is_main_process() and args.wandb) else None
+
+    if comm.is_main_process() and args.wandb:
+        from wandb_writer import WandbWriter
+        wandb_logger = WandbWriter(project="GTR", config=cfg)
+    else:
+        wandb_logger = None
+
     if args.vis_only:
         dataset_name = cfg.DATASETS.TEST[0]
         if cfg.INPUT.TEST_INPUT_TYPE == "default":
@@ -299,10 +313,13 @@ def main(args):
         DetectionCheckpointer(model, save_dir=cfg.OUTPUT_DIR).resume_or_load(
             cfg.MODEL.WEIGHTS, resume=args.resume
         )
-        data_loader = build_gtr_test_loader(cfg, dataset_name, mapper)
+        if args.vis_input:
+            data_loader = build_gtr_vis_loader(cfg, args.vis_input, mapper)
+        else:
+            data_loader = build_gtr_test_loader(cfg, dataset_name, mapper)
         if args.debug:  # Debug: load only one sequence
             data_loader = [next(iter(data_loader))]
-        return do_visualize(cfg, model, data_loader, dataset_name, wandb_logger)
+        return do_visualize(cfg, model, data_loader, dataset_name, wandb_logger, args.vis_output)
     if args.eval_only:
         DetectionCheckpointer(model, save_dir=cfg.OUTPUT_DIR).resume_or_load(
             cfg.MODEL.WEIGHTS, resume=args.resume
@@ -327,6 +344,8 @@ if __name__ == "__main__":
     parser = default_argument_parser()
     parser.add_argument("--visualize", action="store_true")
     parser.add_argument("--vis-only", action="store_true")
+    parser.add_argument("--vis-input")
+    parser.add_argument("--vis-output")
     parser.add_argument("--debug", action="store_true")
     parser.add_argument("--wandb", default=True, action=argparse.BooleanOptionalAction)
     parser.add_argument("--base_lr")
