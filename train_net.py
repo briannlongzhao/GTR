@@ -96,7 +96,7 @@ def do_visualize(cfg, model, dataloader, dataset_name, wandb_logger=None, vis_ou
             if not os.path.exists(vis_output):
                 os.makedirs(vis_output)
             frame_size = (vis_video.shape[3], vis_video.shape[2])
-            out = cv2.VideoWriter(os.path.join(vis_output,video_name+".mp4"), cv2.VideoWriter_fourcc(*'mp4v'), 10.0, frameSize=frame_size, isColor=True)
+            out = cv2.VideoWriter(os.path.join(vis_output,video_name+".mp4"), cv2.VideoWriter_fourcc(*'mp4v'), fps=5.0, frameSize=frame_size, isColor=True)
             for img in vis_video:
                 out.write(np.einsum("ijk->jki",img))
             out.release()
