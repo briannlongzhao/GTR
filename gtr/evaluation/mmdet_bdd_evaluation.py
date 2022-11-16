@@ -62,6 +62,7 @@ def parse_annos_frame(dets):
     bboxes = np.zeros((len(dets),4), dtype=float)
     labels = np.zeros((len(dets),),dtype=int)
     instance_ids = np.zeros((len(dets),), dtype=int)
+    count = 0
     for i, det in enumerate(dets):
         if det["category"] not in label2id.keys():
             count += 1
@@ -70,6 +71,8 @@ def parse_annos_frame(dets):
         bboxes[i] = [x1,y1,x2,y2]
         labels[i] = label2id[det["category"]]-1
         instance_ids[i] = det["id"]
+    print("ignoring", count, "detections")
+    count = 0
     det_result["bboxes"] = bboxes
     det_result["labels"] = labels
     det_result["instance_ids"] = instance_ids
@@ -107,19 +110,3 @@ def parse_results_and_annos(out_dir, gt_dir):
 def eval_track_mmdet(outdir, gt_dir, debug=False):
     results, annotations = parse_results_and_annos(outdir, gt_dir)
     eval_results = eval_mot(results=results, annotations=annotations, classes=list(label2id.keys()))
-    print(eval_results)
-
-
-def main(args):
-    out_dir = args.out_dir
-    gt_dir = args.gt_dir
-    eval_track_mmdet(out_dir, gt_dir, debug=args.debug)
-
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--wandb", default=True, action=argparse.BooleanOptionalAction)
-    parser.add_argument("--gt_dir", default=os.path.join(tmp_dir, "datasets/bdd/BDD100K/labels/box_track_20/val"))
-    parser.add_argument("--out_dir", default="./output/GTR_BDD/GTR_BDD_DR2101_C2/inference_bdd100k_val/bddeval/val/pred/data/preds_bdd")
-    parser.add_argument("--debug", default=False, action=argparse.BooleanOptionalAction)
-    args = parser.parse_args()
-    main(args)

@@ -4,25 +4,22 @@ import numpy as np
 import os
 import platform
 import re
-import sys
 import argparse
-import wandb
+from pathlib import Path
 from collections import defaultdict
 from multiprocessing import freeze_support
-from pathlib import Path
 import pycocotools.mask as mask_util
 from detectron2.structures import BoxMode
 from fvcore.common.file_io import PathManager
 from detectron2.evaluation.coco_evaluation import COCOEvaluator, _evaluate_predictions_on_coco
-from detectron2.utils import comm
+import detectron2.utils.comm as comm
 from ..tracking.naive_tracker import track
 from ..tracking import trackeval
 from gtr.predictor import VisualizationDemo
-from scalabel.label import from_coco
+import wandb
 from wandb_writer import WandbWriter
-from bdd100k.eval import run as bdd_eval
-from .custom_bdd_evaluation import eval_track_custom
-from .mmdet_bdd_evaluation import eval_track_mmdet
+from scalabel.label import from_coco
+
 
 tmp_dir = ''
 hostname = platform.node()
@@ -34,46 +31,61 @@ if "TMPDIR" in os.environ.keys():
     tmp_dir = os.path.join(os.environ["TMPDIR"], "GTR/", '')
 
 
-def eval_track(out_dir, dataset_name, method=None):
+def eval_track(out_dir, dataset_name):
     freeze_support()
     default_eval_config = trackeval.Evaluator.get_default_eval_config()
     default_eval_config['DISPLAY_LESS_PROGRESS'] = True
     default_dataset_config = trackeval.datasets.BDD100K.get_default_dataset_config()
     default_metrics_config = {'METRICS': ['HOTA', 'CLEAR', 'Identity']}
     config = {**default_eval_config, **default_dataset_config, **default_metrics_config}  # Merge default configs
-    config['SPLIT_TO_EVAL'] = "val" if "val" in dataset_name else "train"
-    config['GT_FOLDER'] = os.path.join(tmp_dir, 'datasets/bdd/BDD100K/labels/box_track_20', config['SPLIT_TO_EVAL'])
-    config['TRACKERS_FOLDER'] = os.path.join(out_dir,"bddeval",config["SPLIT_TO_EVAL"],"pred/data/preds_bdd")
-    config["OUTPUT_FOLDER"] = os.path.join(out_dir,"bddeval",config['SPLIT_TO_EVAL'],"eval_results.json")
-    if method == "custom":
-        return eval_track_custom(config["TRACKERS_FOLDER"], config["GT_FOLDER"])
-    elif method == "mmdet":
-        return eval_track_mmdet(config["TRACKERS_FOLDER"], config["GT_FOLDER"])
-    elif method == "scalabel":
-        args = [
-            "--task", "box_track",
-            "--gt", config["GT_FOLDER"],
-            "--result", config["TRACKERS_FOLDER"],
-            "--out-file", config["OUTPUT_FOLDER"]
-        ]
-        return bdd_eval.run(args)
-    elif method == "gtr_custom":
-        pass
-    else:
-        raise NotImplementedError
+    config['GT_FOLDER'] = os.path.join(tmp_dir, 'datasets/bdd/BDD100K/labels/box_track_20/', config["SPLIT_TO_EVAL"])
+    config['SPLIT_TO_EVAL'] = 'val'
+    #config['SPLIT_TO_EVAL'] = "test" if "test" in dataset_name else "half_val"
+    config['TRACKERS_FOLDER'] = out_dir
+    config['TRACKER_SUB_FOLDER'] = 'pred/data'
+    eval_config = {k: v for k, v in config.items() if k in default_eval_config.keys()}
+    dataset_config = {k: v for k, v in config.items() if k in default_dataset_config.keys()}
+    metrics_config = {k: v for k, v in config.items() if k in default_metrics_config.keys()}
+    print('config', config)
+    # Run code
+    evaluator = trackeval.Evaluator(eval_config)
+    dataset_list = [trackeval.datasets.BDD100K(dataset_config)]
+    metrics_list = []
+    for metric in [trackeval.metrics.HOTA, trackeval.metrics.CLEAR, trackeval.metrics.Identity, trackeval.metrics.VACE]:
+        if metric.get_name() in metrics_config['METRICS']:
+            metrics_list.append(metric())
+    return evaluator.evaluate(dataset_list, metrics_list)
 
 
-def save_cocojson(json_path, videos, images, categories, preds):
-    coco_json = {}
-    coco_json["videos"] = videos
-    coco_json["images"] = images
-    coco_json["categories"] = categories
-    annotations = [{**item, **{"instance_id": item["track_id"]}} for item in preds]
-    coco_json["annotations"] = annotations
-    Path(json_path).parent.mkdir(exist_ok=True, parents=True)
-    with open(json_path, 'w') as f:
-        json.dump(coco_json, f)
-
+def save_cocojson_as_mottxt(out_dir, videos, video2images, per_image_preds):
+    if os.path.exists(out_dir):
+        print('removing', out_dir)
+        os.system('rm -rf {}'.format(out_dir))
+    os.makedirs(out_dir, exist_ok=True)
+    for video in videos:
+        video_id = video['id']
+        file_name = video['name']
+        out_path = out_dir + '/{}.txt'.format(file_name)
+        f = open(out_path, 'w')
+        images = video2images[video_id]
+        tracks = defaultdict(list)
+        for image_info in images:
+            result = per_image_preds[image_info['id']]
+            frame_id = image_info['frame_id']
+            for item in result:
+                if not ('track_id' in item):
+                    assert 0, 'No track ID!!'
+                tracking_id = item['track_id']
+                bbox = item['bbox']
+                bbox = [bbox[0], bbox[1], bbox[2], bbox[3]]
+                tracks[tracking_id].append([frame_id] + bbox)
+        rename_track_id = 0
+        for track_id in sorted(tracks):
+            rename_track_id += 1
+            for t in tracks[track_id]:
+                f.write('{},{},{:.2f},{:.2f},{:.2f},{:.2f},-1,-1,-1,-1\n'.format(
+                    t[0], rename_track_id, t[1], t[2], t[3], t[4])) # 
+        f.close()
 
 def convert_coco_to_bdd(coco_path, bdd_dir):
     args = argparse.Namespace()
@@ -82,8 +94,21 @@ def convert_coco_to_bdd(coco_path, bdd_dir):
     args.nproc = 4
     from_coco.run(args)
 
+def save_cocojson(pred_path, videos, images, categories, preds):
+    coco_json = {}
+    coco_json["videos"] = videos
+    coco_json["images"] = images
+    coco_json["categories"] = categories
+    annotations = [{**item, **{"instance_id": item["track_id"]}} for item in preds]
+    coco_json["annotations"] = annotations
+    #Path(pred_path).parent.mkdir(exist_ok=True, parents=True)
+    tmp_coco_path = os.path.join(pred_path,"tmp.json")
+    with open(tmp_coco_path, 'w') as f:
+        json.dump(coco_json, f)
+    convert_coco_to_bdd(tmp_coco_path, pred_path)
+    os.remove(tmp_coco_path)
 
-def track_and_eval_bdd(out_dir, data, preds, dataset_name, method="scalabel"):
+def track_and_eval_mot(out_dir, data, preds, dataset_name):
     videos = sorted(data['videos'], key=lambda x: x['id'])
     images = sorted(data['images'], key=lambda x: x['id'])
     categories = sorted(data['categories'], key=lambda x: x['id'])
@@ -91,28 +116,26 @@ def track_and_eval_bdd(out_dir, data, preds, dataset_name, method="scalabel"):
     for image in images:
         video2images[image['video_id']].append(image)
     for video in video2images:
-        video2images[video] = sorted(video2images[video], key=lambda x: x['frame_id'])
+        video2images[video] = sorted(
+            video2images[video], key=lambda x: x['frame_id'])
     per_image_preds = defaultdict(list)
     for x in preds:
         if x['score'] > 0.4:
             per_image_preds[x['image_id']].append(x)
     has_track_id = len(preds) > 0 and 'track_id' in preds[0]
-    split = "val"
-    bdd_out_dir = out_dir + '/bddeval/{}/pred/data/'.format(split)
+    #del preds
+    mot_out_dir = out_dir + '/moteval/val/pred/data/'
     if not has_track_id:
         print('Runing naive tracker')
-        bdd_out_dir = out_dir + '/bddeval/{}/naive/data/'.format(split)
+        mot_out_dir = out_dir + '/moteval/{}/naive/data/'.format(split)
         for video in videos:
             images = video2images[video['id']]
-            file_name = video['name'] if "bdd" in dataset_name else video['file_name']
-            print('Runing tracking ...', file_name, len(images))
+            print('Runing tracking ...', video['file_name'], len(images))
             preds = [per_image_preds[x['id']] for x in images]
             preds = track(preds)
-    coco_json_path = os.path.join(bdd_out_dir,"preds_coco.json")
-    bdd_json_dir = os.path.join(bdd_out_dir, "preds_bdd")
-    save_cocojson(coco_json_path, videos, images, categories, preds)
-    convert_coco_to_bdd(coco_json_path, bdd_json_dir)
-    return eval_track(out_dir, dataset_name, method=method)
+    #save_cocojson_as_mottxt(mot_out_dir, videos, video2images, per_image_preds)
+    save_cocojson(mot_out_dir, videos, images, categories, preds)
+    return eval_track(out_dir + '/moteval', dataset_name)
 
 
 def custom_instances_to_coco_json(instances, img_id):
@@ -165,12 +188,12 @@ def custom_instances_to_coco_json(instances, img_id):
     
     return results
 
-class BDDEvaluator(COCOEvaluator):
-    def __init__(self, dataset_name, cfg, distributed, output_dir=None, *, use_fast_impl=True, method=None, wandb_logger=None):
+
+class BDDMOTEvaluator(COCOEvaluator):
+    def __init__(self, dataset_name, cfg, distributed, output_dir=None, *, use_fast_impl=True, wandb_logger=None):
         super().__init__(dataset_name, cfg, distributed, output_dir=output_dir, use_fast_impl=use_fast_impl)
         self.dataset_name = dataset_name
         self.wandb_logger = wandb_logger if comm.is_main_process() else None
-        self.method = method
 
     def process(self, inputs, outputs):
         """
@@ -199,7 +222,6 @@ class BDDEvaluator(COCOEvaluator):
             reverse_id_mapping = {
                 v: k for k, v in self._metadata.thing_dataset_id_to_contiguous_id.items()
             }
-            # TODO: add new reverse_id_mapping from lvis 0-idxed bdd 1-idxed
             for result in coco_results:
                 category_id = result["category_id"]
                 assert (
@@ -241,15 +263,12 @@ class BDDEvaluator(COCOEvaluator):
             )
             self._results[task] = res
 
-        track_res = track_and_eval_bdd(
+        track_res, track_msg = track_and_eval_mot(
             self._output_dir,
-            self._coco_api.dataset,  # gt json coco format
+            self._coco_api.dataset,
             coco_results,
-            dataset_name=self.dataset_name,
-            method=self.method
+            dataset_name=self.dataset_name
         )
-        track_res_dict = track_res.summary()
-        track_res_full = track_res.dict()
-        self._results.update({"BDD100K": track_res_full})
-        if self.wandb_logger is not None:
+        self._results.update(track_res)
+        if self.wandb_logger:
             self.wandb_logger.log_results(self._results)

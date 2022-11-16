@@ -72,6 +72,9 @@ def pred_matched(pred_id, gt2pred):
 def gt_matched(gt_id, gt2pred):
     return gt_id in gt2pred.keys()
 
+"""
+box is dict with keys "x1", "x2", "y1", "y2"
+"""
 def iou(boxa, boxb):
     ax1, ax2, ay1, ay2 = boxa["x1"], boxa["x2"], boxa["y1"], boxa["y2"]
     bx1, bx2, by1, by2 = boxb["x1"], boxb["x2"], boxb["y1"], boxb["y2"]
@@ -84,7 +87,7 @@ def iou(boxa, boxb):
         return 0.0
     i = (ix2-ix1)*(iy2-iy1)
     u = (ax2-ax1)*(ay2-ay1)+(bx2-bx1)*(by2-by1)-i
-    assert 0 < i/u < 1
+    assert 0 < i/u <= 1, i/u
     return i/u
 
 def iou_cost_matrix(gt_ids, pred_ids, gt, pred):
@@ -294,6 +297,30 @@ def accumulate(result_all):
     result["IDF1"] = 2*result["IDTP"]/(2*result["IDTP"]+result["IDFP"]+result["IDFN"]) if (2*result["IDTP"]+result["IDFP"]+result["IDFN"]) != 0 else np.nan
     return result
 
+
+def process(pred, nms_th=0.9):
+    count = 0
+    prev_frame = []
+    updated_pred = []
+    for frame in pred:
+        updated_frame = []
+        for det in frame:
+            bbox = det["box2d"]
+            overlapped = False
+            for added_det in updated_frame:
+                added_bbox = added_det["box2d"]
+                if iou(added_bbox, bbox) > nms_th:
+                    overlapped = True
+                    if det["score"] > added_det["score"]:
+                        updated_frame.remove(added_det)
+                        updated_frame.append(det)
+                        break
+            if not overlapped:
+                updated_frame.append(det)
+        updated_pred.append(updated_frame)
+    return updated_pred
+
+
 def filter_by_class(frames, class_name):
     filtered_frames = []
     for frame in frames:
@@ -307,6 +334,9 @@ def filter_by_class(frames, class_name):
 def eval_track_custom(out_dir, gt_dir, filter_class=None):
     out_dir = Path(out_dir)
     gt_dir = Path(gt_dir)
+    updated_out_dir = Path(out_dir.parent) / ("updated_" + out_dir.name)
+    if not updated_out_dir.exists():
+        updated_out_dir.mkdir()
     result = {}
     for video in tqdm(os.listdir(out_dir)):
         if video == "b1d9e136-6c94ea3f.json": #debug
@@ -314,16 +344,25 @@ def eval_track_custom(out_dir, gt_dir, filter_class=None):
         # pred and gt are list of frames
         pred = parse_json(out_dir/video)
         gt = parse_json(gt_dir/video)
+        pred_updated = process(pred)
+
+        # Save processed pred dict
+        with open(updated_out_dir/video, 'w') as f:
+            pred_dict = json.load(open(out_dir/video))
+            for frame_id, item in enumerate(pred_dict["frames"]):
+                item["labels"] = pred_updated[frame_id]
+            json.dump(pred_dict, f)
+
         for frame in gt: #debug
             for det in frame:
                 if det["category"] == "train":
                     pass
         if filter_class is not None:
-            pred = filter_by_class(pred, filter_class)
+            pred_updated = filter_by_class(pred_updated, filter_class)
             gt = filter_by_class(gt, filter_class)
-        # if isvalid(pred):
-        result[video] = eval_video_clear(pred, gt)
-        result[video].update(eval_video_id(pred, gt))
+        # if isvalid(pred_updated):
+        result[video] = eval_video_clear(pred_updated, gt)
+        result[video].update(eval_video_id(pred_updated, gt))
         # else:
         #     result[video] = "no prediction"
     #print(result)
@@ -340,7 +379,7 @@ def main(args):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--wandb", default=True, action=argparse.BooleanOptionalAction)
+    parser.add_argument("--wandb", default=False, action=argparse.BooleanOptionalAction)
     parser.add_argument("--gt_dir", default=os.path.join(tmp_dir, "datasets/bdd/BDD100K/labels/box_track_20/val"))
     parser.add_argument("--out_dir", default="./output/GTR_BDD/GTR_BDD_DR2101_C2/inference_bdd100k_val/bddeval/val/pred/data/preds_bdd")
     parser.add_argument("--debug", default=False, action=argparse.BooleanOptionalAction)
