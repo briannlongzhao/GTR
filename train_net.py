@@ -57,6 +57,7 @@ from gtr.costom_solver import build_custom_optimizer
 from gtr.evaluation.custom_lvis_evaluation import CustomLVISEvaluator
 from gtr.evaluation.mot_evaluation import MOTEvaluator
 from gtr.evaluation.bdd_evaluation import BDDEvaluator
+from gtr.evaluation.bddmot_evaluation import BDDMOTEvaluator
 from gtr.modeling.freeze_layers import check_if_freeze_model
 from gtr.predictor import VisualizationDemo
 
@@ -96,7 +97,7 @@ def do_visualize(cfg, model, dataloader, dataset_name, wandb_logger=None, vis_ou
             if not os.path.exists(vis_output):
                 os.makedirs(vis_output)
             frame_size = (vis_video.shape[3], vis_video.shape[2])
-            out = cv2.VideoWriter(os.path.join(vis_output,video_name+".mp4"), cv2.VideoWriter_fourcc(*'mp4v'), fps=5.0, frameSize=frame_size, isColor=True)
+            out = cv2.VideoWriter(os.path.join(vis_output,video_name+"_annotated.mp4"), cv2.VideoWriter_fourcc(*'mp4v'), fps=5.0, frameSize=frame_size, isColor=True)
             for img in vis_video:
                 out.write(np.einsum("ijk->jki",img))
             out.release()
@@ -104,7 +105,7 @@ def do_visualize(cfg, model, dataloader, dataset_name, wandb_logger=None, vis_ou
             wandb_logger.log_video(vis_video, video_name)
 
 
-def do_test(cfg, model, visualize=False, debug=False, wandb_logger=None):
+def do_test(cfg, model, visualize=False, debug=False, method=None, wandb_logger=None):
     results = OrderedDict()
     for dataset_name in cfg.DATASETS.TEST:
         output_folder = os.path.join(cfg.OUTPUT_DIR, "inference_{}".format(dataset_name))
@@ -118,7 +119,12 @@ def do_test(cfg, model, visualize=False, debug=False, wandb_logger=None):
         elif evaluator_type == "mot":
             evaluator = MOTEvaluator(dataset_name, cfg, False, output_folder, wandb_logger=wandb_logger)
         elif evaluator_type == "bdd":
-            evaluator = BDDEvaluator(dataset_name, cfg, False, output_folder, wandb_logger=wandb_logger)
+            if method == "scalabel":
+                evaluator = BDDEvaluator(dataset_name, cfg, False, output_folder, method=method, wandb_logger=wandb_logger)
+            elif method == "gtr_custom":
+                evaluator = BDDMOTEvaluator(dataset_name, cfg, False, output_folder, wandb_logger=wandb_logger)
+            else:
+                raise NotImplementedError
         else:
             raise NotImplementedError(evaluator_type)
 
@@ -153,7 +159,7 @@ def do_test(cfg, model, visualize=False, debug=False, wandb_logger=None):
     return results
 
 
-def do_train(cfg, model, resume=False, debug=False, wandb_logger=None):
+def do_train(cfg, model, resume=False, debug=False, method="scalabel", wandb_logger=None):
     model = check_if_freeze_model(model, cfg)
     model.train()
     if cfg.SOLVER.USE_CUSTOM_SOLVER:
@@ -243,12 +249,12 @@ def do_train(cfg, model, resume=False, debug=False, wandb_logger=None):
                 iteration % cfg.TEST.EVAL_PERIOD == 0 and
                 iteration != max_iter
             ):
-                do_test(cfg, model, debug=debug, wandb_logger=wandb_logger)
+                do_test(cfg, model, debug=debug, method=method, wandb_logger=wandb_logger)
                 comm.synchronize()
 
             if iteration - start_iter > 5 and (iteration % 50 == 0 or iteration == max_iter):
                 for writer in writers:
-                    writer.write(step=iteration) if type(writer) is WandbWriter else writer.write()
+                    writer.write(step=iteration) if wandb_logger and type(writer) is WandbWriter else writer.write()
 
 
         total_time = time.perf_counter() - start_time
@@ -324,7 +330,7 @@ def main(args):
         DetectionCheckpointer(model, save_dir=cfg.OUTPUT_DIR).resume_or_load(
             cfg.MODEL.WEIGHTS, resume=args.resume
         )
-        return do_test(cfg, model, visualize=args.visualize, debug=args.debug, wandb_logger=wandb_logger)
+        return do_test(cfg, model, visualize=args.visualize, debug=args.debug, method=args.eval_method, wandb_logger=wandb_logger)
 
     distributed = comm.get_world_size() > 1
     if distributed:
@@ -333,8 +339,8 @@ def main(args):
             find_unused_parameters=cfg.FIND_UNUSED_PARAM
         )
 
-    do_train(cfg, model, resume=args.resume, debug=args.debug, wandb_logger=wandb_logger)
-    do_test(cfg, model, visualize=args.visualize, debug=args.debug, wandb_logger=wandb_logger)
+    do_train(cfg, model, resume=args.resume, debug=args.debug, method=args.eval_method, wandb_logger=wandb_logger)
+    do_test(cfg, model, visualize=args.visualize, debug=args.debug, method=args.eval_method, wandb_logger=wandb_logger)
     if comm.is_main_process() and wandb_logger is not None:
         wandb_logger.close()
     return
@@ -342,6 +348,7 @@ def main(args):
 
 if __name__ == "__main__":
     parser = default_argument_parser()
+    parser.add_argument("--eval_method", choices=["scalabel","mmdet","gtr_custom","custom"], default="scalabel")
     parser.add_argument("--visualize", action="store_true")
     parser.add_argument("--vis-only", action="store_true")
     parser.add_argument("--vis-input")
