@@ -199,6 +199,8 @@ def fast_rcnn_inference_single_image(
     # 1. Filter results based on detection scores. It can make NMS more efficient
     #    by filtering out low-confidence detections.
     filter_mask = scores > score_thresh  # R x K
+    if scores.numel():
+        filter_mask = torch.logical_and(filter_mask, F.one_hot(torch.max(scores, dim=1).indices, num_classes=scores.shape[1]).bool())
     # R' x 2. First column contains indices of the R predictions;
     # Second column contains indices of classes.
     filter_inds = filter_mask.nonzero()
