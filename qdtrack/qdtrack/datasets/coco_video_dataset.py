@@ -265,7 +265,7 @@ class CocoVideoDataset(CocoDataset):
 
         eval_results = dict()
         if 'track' in metrics:
-            assert len(self.data_infos) == len(results['track_results'])
+            #assert len(self.data_infos) == len(results['track_results'])
             inds = [
                 i for i, _ in enumerate(self.data_infos) if _['frame_id'] == 0
             ]
