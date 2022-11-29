@@ -19,6 +19,9 @@ def single_gpu_test(model,
     model.eval()
     results = defaultdict(list)
     dataset = data_loader.dataset
+    if debug:
+        dataset = [next(iter(dataset))]
+        data_loader = [next(iter(data_loader))]
     prog_bar = mmcv.ProgressBar(len(dataset))
     for i, data in enumerate(data_loader):
         with torch.no_grad():
