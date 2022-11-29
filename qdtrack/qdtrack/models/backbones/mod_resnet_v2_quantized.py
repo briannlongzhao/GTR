@@ -1,5 +1,6 @@
 import warnings
 import torch
+import pickle
 import torch.nn as nn
 import torch.utils.checkpoint as cp
 from mmcv.cnn import build_conv_layer, build_norm_layer, build_plugin_layer
@@ -9,6 +10,8 @@ from collections import namedtuple
 
 from mmdet.models.builder import BACKBONES
 from mmdet.models.utils import ResLayer
+
+from detectron2.modeling.backbone import Backbone
 
 
 QTensor = namedtuple('QTensor', ['tensor', 'scale', 'zero_point'])
@@ -434,7 +437,7 @@ class Bottleneck(BaseModule):
 
 
 @BACKBONES.register_module()
-class ModResNetV2Quant(BaseModule):
+class ModResNetV2Quant(Backbone):
     """ResNet backbone.
 
     Args:
@@ -497,6 +500,8 @@ class ModResNetV2Quant(BaseModule):
         152: (Bottleneck, (3, 8, 36, 3))
     }
 
+    frame_count = 0
+
     def __init__(self,
                  depth,
                  in_channels=3,
@@ -522,7 +527,7 @@ class ModResNetV2Quant(BaseModule):
                  zero_init_residual=True,
                  pretrained=None,
                  init_cfg=None):
-        super(ModResNetV2Quant, self).__init__(init_cfg)
+        super(ModResNetV2Quant, self).__init__()
         self.zero_init_residual = zero_init_residual
         if depth not in self.arch_settings:
             raise KeyError(f'invalid depth {depth} for resnet')
@@ -624,6 +629,7 @@ class ModResNetV2Quant(BaseModule):
         self._freeze_stages()
         self.feat_dim = self.block.expansion * base_channels * 2**(
             len(self.stage_blocks) - 1)
+
 
     def make_stage_plugins(self, plugins, stage_idx):
         """Make plugins for ResNet ``stage_idx`` th stage.
@@ -740,10 +746,24 @@ class ModResNetV2Quant(BaseModule):
             self.fake_quantize = FakeQuantOp.apply
         self.maxpool = nn.MaxPool2d(kernel_size=3, stride=2, padding=0)
 
+    def save_pickle(self, x, path):
+        try:
+            with open(path, "rb") as f:
+                pkl = pickle.load(f)
+            pkl = torch.cat((pkl,x.cpu()), dim=0)
+        except Exception as e:
+            print(e)
+            pkl = x.cpu()
+        finally:
+            print("saving", path)
+            with open(path, "wb") as f:
+                pickle.dump(pkl, f)
+
     def forward(self, x):
         """Forward function."""
         height_image = x.shape[2]
         width_image = x.shape[3]
+        self.save_pickle(x, path="output/pre_stem_"+str(self.frame_count)+".pkl")
         if self.deep_stem:
             x = self.stem(x)
         else:
@@ -751,6 +771,8 @@ class ModResNetV2Quant(BaseModule):
             x = self.norm1(x)
             x = self.relu(x)
             x = self.fake_quantize(x, 8)
+        self.save_pickle(x, path="output/post_stem_"+str(self.frame_count)+".pkl")
+        self.frame_count += 1
         
         m = nn.AdaptiveAvgPool2d((height_image//4, width_image//4))
         x = m(x).contiguous()

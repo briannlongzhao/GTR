@@ -1,4 +1,4 @@
-data_root = '/lfs_ssd/slurm_tmp/jmathai/69596/data/bdd'
+data_root = '/lab/tmpig8e/u/brian-data/GTR/datasets/bdd/BDD100K'
 dataset_type = 'BDDVideoDataset'
 model = dict(
     type='QDTrack',
