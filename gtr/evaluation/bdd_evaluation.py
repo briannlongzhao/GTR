@@ -22,7 +22,7 @@ from scalabel.label import from_coco
 from wandb_writer import WandbWriter
 from bdd100k.eval import run as bdd_eval
 from .custom_bdd_evaluation import eval_track_custom
-from .mmdet_bdd_evaluation import eval_track_mmdet
+#from .mmdet_bdd_evaluation import eval_track_mmdet
 
 tmp_dir = ''
 hostname = platform.node()
@@ -47,8 +47,8 @@ def eval_track(out_dir, dataset_name, method=None):
     config["OUTPUT_FOLDER"] = os.path.join(out_dir,"bddeval",config['SPLIT_TO_EVAL'],"eval_results.json")
     if method == "custom":
         return eval_track_custom(config["TRACKERS_FOLDER"], config["GT_FOLDER"])
-    elif method == "mmdet":
-        return eval_track_mmdet(config["TRACKERS_FOLDER"], config["GT_FOLDER"])
+    # elif method == "mmdet":
+    #     return eval_track_mmdet(config["TRACKERS_FOLDER"], config["GT_FOLDER"])
     elif method == "scalabel":
         args = [
             "--task", "box_track",
