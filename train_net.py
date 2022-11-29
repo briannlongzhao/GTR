@@ -61,6 +61,8 @@ from gtr.evaluation.bddmot_evaluation import BDDMOTEvaluator
 from gtr.modeling.freeze_layers import check_if_freeze_model
 from gtr.predictor import VisualizationDemo
 
+from wandb_writer import WandbWriter
+
 logger = logging.getLogger("detectron2")
 accum_iter = 4
 
@@ -305,7 +307,6 @@ def main(args):
     logger.info("Model:\n{}".format(model))
 
     if comm.is_main_process() and args.wandb:
-        from wandb_writer import WandbWriter
         wandb_logger = WandbWriter(project="GTR", config=cfg)
     else:
         wandb_logger = None
