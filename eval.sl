@@ -38,7 +38,7 @@ fi
 wandb login --relogin da75e98d29ae627bc5e000d68b033fda0155fc79
 
 # Evaluate only
-python train_net.py --config-file configs/GTR_BDD_DR2101_C2.yaml --eval-only --visualize OUTPUT_DIR "./output/${SLURM_JOBID}/GTR_BDD/auto" MODEL.WEIGHTS "output/289031/GTR_BDD/GTR_BDD_DR2101_C2/ckptr_0039999.pth" MODEL.ASSO_HEAD.ASSO_THRESH_TEST 0.4
+python train_net.py --config-file configs/GTR_BDD_DR2101_C2.yaml --eval-only --visualize OUTPUT_DIR "./output/${SLURM_JOBID}/GTR_BDD/auto" MODEL.WEIGHTS "models/ckptr_0039999.pth" MODEL.ASSO_HEAD.ASSO_THRESH_TEST 0.4
 
 # Copy output from $TMPDIR back to home directory
 #if [[ -v TMPDIR ]]; then
