@@ -38,7 +38,7 @@ fi
 wandb login --relogin da75e98d29ae627bc5e000d68b033fda0155fc79
 
 # Train
-python train_net.py --num-gpus 4 --config-file configs/GTR_BDD_DR2101_C2.yaml --visualize OUTPUT_DIR "./output/${SLURM_JOBID}/GTR_BDD/auto"
+python train_net.py --num-gpus 4 --config-file configs/GTR_BDD_R50_C2.yaml --visualize OUTPUT_DIR "./output/${SLURM_JOBID}/GTR_BDD/auto"
 
 # Copy output from $TMPDIR back to home directory
 #if [[ -v TMPDIR ]]; then
