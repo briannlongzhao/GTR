@@ -4,7 +4,7 @@ MODEL:
   META_ARCHITECTURE: "GTRRCNN"
   BACKBONE:
     NAME: "build_p67_resnet_fpn_backbone"
-  WEIGHTS: models/CenterNet2_R50_1x.pth.pth
+  WEIGHTS: models/CenterNet2_R50_1x.pth
   RESNETS:
     DEPTH: 50
   PIXEL_MEAN: [123.675, 116.280, 103.530]
