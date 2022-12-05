@@ -64,7 +64,7 @@ from gtr.predictor import VisualizationDemo
 from wandb_writer import WandbWriter
 
 logger = logging.getLogger("detectron2")
-accum_iter = 4
+accum_iter = 1
 
 def get_total_grad_norm(parameters, norm_type=2):
     parameters = list(filter(lambda p: p.grad is not None, parameters))
