@@ -24,6 +24,9 @@ See [installation instructions](docs/INSTALL.md).
 ~~~
 python train_net.py --config-file configs/GTR_BDD_DR2101_C2.yaml --vis-only --vis-input data_dir --vis-output out_dir --no-wandb --noise-level 0.1 MODEL.WEIGHTS models/weights.pth
 ~~~
+`--vis-input`: directory containing videos (image frames in subfolders) to visualize
+`--vis-output`: visualization result output directory
+`--noise-level`: noise added in ResNet backbone
 
 ## Demo
 
