@@ -287,6 +287,8 @@ def setup(args):
         cfg.MODEL.ASSO_HEAD.ASSO_THRESH_TEST = float(args.test_asso_th)
     if args.test_len:
         cfg.INPUT.VIDEO.TEST_LEN = int(args.test_len)
+    if args.noise_level:
+        cfg.MODEL.RESNETS.NOISE_LEVEL = float(args.noise_level)
     if "TMPDIR" in os.environ.keys():
         # cfg.OUTPUT_DIR = (cfg.OUTPUT_DIR).replace('.', os.path.join(os.environ["TMPDIR"], "GTR"))
         if cfg.MODEL.WEIGHTS is not None:
@@ -354,6 +356,7 @@ if __name__ == "__main__":
     parser.add_argument("--vis-only", action="store_true")
     parser.add_argument("--vis-input")
     parser.add_argument("--vis-output")
+    parser.add_argument("--noise-level")
     parser.add_argument("--debug", action="store_true")
     parser.add_argument("--wandb", default=True, action=argparse.BooleanOptionalAction)
     parser.add_argument("--base_lr")

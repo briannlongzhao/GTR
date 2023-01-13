@@ -50,6 +50,11 @@ Please first [prepare datasets](datasets/README.md), then check our [MODEL ZOO](
 |-------------|--------|
 | 20.1        |   11.2 |
 
+## Command Line Example for Visualization
+
+~~~
+python train_net.py --config-file configs/GTR_BDD_DR2101_C2.yaml --vis-only --vis-input data_dir --vis-output out_dir --no-wandb --noise-level 0.1 MODEL.WEIGHTS models/weights.pth
+~~~
 
 ## License
 

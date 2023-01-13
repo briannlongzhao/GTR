@@ -3,6 +3,8 @@ from detectron2.config import CfgNode as CN
 def add_gtr_config(cfg):
     _C = cfg
 
+    _C.MODEL.RESNETS.NOISE_LEVEL = 0
+
     _C.MODEL.ROI_HEADS.NO_BOX_HEAD = False # One or two stage detector
     _C.MODEL.ROI_BOX_HEAD.USE_SIGMOID_CE = False # classification loss
     _C.MODEL.ROI_BOX_HEAD.PRIOR_PROB = 0.01
